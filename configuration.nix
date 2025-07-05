@@ -8,6 +8,13 @@
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
   ];
+
+  # Select Linux Kernel
+  boot.kernelPackages = pkgs.linuxPackages;
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    rtl8852au
+  ];
+
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   time.timeZone = "Asia/Tokyo";
