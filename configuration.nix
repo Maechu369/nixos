@@ -31,7 +31,10 @@
       isNormalUser = true;
       home = "/home/hiroki";
       extraGroups = ["wheel" "networkmanager"];
+      hashedPassword = "$6$M9DGs5GwCYaszWg1$n7JI9toYZksC31uUrQe/muyLgmp/EYjKDL92OIX9cnS1WkzEfd7/DM.wdp8caZvEKgGUpLJhzVEESznCuU4Qg/";
+      openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGo2UZSbmkdNzJO+0znvrMMsp5LcWAF0h+c8e9Rw92jS hiroki@DESKTOP-QKM8RGF"];
   };
+  users.mutableUsers = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
