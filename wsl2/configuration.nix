@@ -32,15 +32,7 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
-  environment.systemPackages = with pkgs;[
-    home-manager
-    nixos-generators
-    neovim
-    git
-    openssl
-    tmux
-    wget
-  ];
+  environment.systemPackages = with pkgs;[];
 
   services.openssh.enable = true;
 }
