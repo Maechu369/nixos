@@ -1,6 +1,7 @@
 {lib, ...}:
 {
   enable = true;
+  defaultKeymap = "emacs";
   dotDir = ".config/zsh";
   autocd = true;
   autosuggestion.enable = true;
@@ -20,9 +21,10 @@
     EZA_ICON_SPACING = 1;
   };
   initContent = let
-  	mkBefore = lib.mkOrder 500 (builtins.readFile ./mkBefore.zsh);
+  	zshMkBefore = lib.mkOrder 500 (builtins.readFile ./mkBefore.zsh);
+	zshDefault = lib.mkOrder 1000 (builtins.readFile ./default.zsh);
 	in
-	lib.mkMerge [mkBefore];
+	lib.mkMerge [zshMkBefore zshDefault];
   shellAliases = {
     "..." = "cd ../..";
     "...." = "cd ../../..";
