@@ -1,3 +1,4 @@
+{lib, ...}:
 {
   home-manager.enable = true;
   git = {
@@ -16,6 +17,7 @@
   };
   zsh = {
     enable = true;
+    dotDir = ".config/zsh";
     autocd = true;
     autosuggestion.enable = true;
     cdpath = ["~" ".."];
