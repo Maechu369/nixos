@@ -1,4 +1,5 @@
 {
+  home-manager.enable = true;
   git = {
     enable = true;
     userName = "Maechu369";
