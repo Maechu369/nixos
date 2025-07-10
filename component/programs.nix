@@ -1,4 +1,4 @@
-{lib, ...}:
+args @ {lib, ...}:
 {
   home-manager.enable = true;
   git = {
@@ -15,7 +15,7 @@
       enable = true;
     };
   };
-  zsh = import zsh/zsh.nix;
+  zsh = import zsh/zsh.nix args;
   eza = {
     enable = true;
     git = true;

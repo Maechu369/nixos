@@ -1,3 +1,4 @@
+{lib, ...}:
 {
   enable = true;
   dotDir = ".config/zsh";
@@ -18,7 +19,10 @@
     EDITOR = "nvim";
     EZA_ICON_SPACING = 1;
   };
-  initContent = "";
+  initContent = let
+  	mkBefore = lib.mkOrder 500 (builtins.readFile ./mkBefore.zsh);
+	in
+	lib.mkMerge [mkBefore];
   shellAliases = {
     "..." = "cd ../..";
     "...." = "cd ../../..";
