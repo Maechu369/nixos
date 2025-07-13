@@ -21,7 +21,6 @@
     shell = pkgs.zsh;
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
     ];
   };
   users.mutableUsers = false;
