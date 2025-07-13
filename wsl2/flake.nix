@@ -16,7 +16,7 @@
 
   outputs = { self, nixpkgs, home-manager, nixos-wsl, sops-nix, ... }@inputs:
   {
-    nixosConfigurations.nixos= nixpkgs.lib.nixosSystem {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
 	nixos-wsl.nixosModules.default {
@@ -26,7 +26,7 @@
         home-manager.nixosModules.home-manager{
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.nixos = import ./home.nix;
+          home-manager.users.hiroki = import ./home.nix;
         }
 	sops-nix.nixosModules.sops
 	./config.nix
