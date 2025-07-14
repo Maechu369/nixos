@@ -2,4 +2,5 @@
   neovim
   tmux
   procs
+  fd
 ]

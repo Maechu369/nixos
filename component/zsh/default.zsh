@@ -44,3 +44,34 @@ git() {
   fi
 }
 
+vf() {
+  local file
+  file=$(fzf --prompt='vim > ' --preview='fzf-preview.sh {}')
+  [[ $file == '' ]] && return
+  vim $file
+}
+
+fd() {
+  local dir
+  dir=$(command fd --type d --strip-cwd-prefix | fzf --prompt='cd > ' --preview='eza --git --icons -1F {}')
+  [[ $dir == '' ]] && return
+  cd $dir
+}
+
+fkill() {
+  local process
+  local pid
+  process=$(procs --tree | fzf --prompt='kill > ')
+  [[ $process == '' ]] && return
+  pid=$(echo $process | grep -oE '[0-9]+' | head -n 1)
+  kill $pid
+  echo 'kill '$pid >&w
+}
+
+sys() {
+  local unit
+  unit=$(systemctl list-units | tail -n +2 | awk '{print $1}' | fzf --prompt='system unit > ' --preview='systemctl status -- {}')
+  [[ $unit == '' ]] && return
+  systemctl status -- $unit >&2
+  echo $unit
+}
