@@ -24,10 +24,26 @@ args @ {lib, ...}:
   fzf = {
     enable = true;
     enableZshIntegration = true;
+    defaultOptions = [
+      "--height 40%"
+      "--layout reverse"
+      "--border top"
+    ];
+    tmux = {
+      enableShellIntegration = true;
+      shellIntegrationOptions = [
+        "--bottom,40%"
+      ];
+    };
   };
   starship = {
     enable = true;
     enableZshIntegration = true;
     settings = builtins.fromTOML (builtins.readFile ./starship.toml);
+  };
+  tmux = {
+    enable = true;
+    keyMode = "emacs";
+    extraConfig = "";
   };
 }
