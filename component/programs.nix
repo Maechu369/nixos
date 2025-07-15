@@ -1,4 +1,4 @@
-args @ {lib, ...}:
+args @ {lib, pkgs, ...}:
 {
   home-manager.enable = true;
   git = {
@@ -44,6 +44,13 @@ args @ {lib, ...}:
   tmux = {
     enable = true;
     keyMode = "emacs";
+    prefix = "C-q";
     extraConfig = "";
+    plugins = with pkgs; [
+      tmuxPlugins.sensible
+      tmuxPlugins.resurrect
+      tmuxPlugins.continuum
+    ];
+    terminal = "tmux-256color";
   };
 }
