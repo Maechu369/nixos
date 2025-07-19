@@ -101,6 +101,15 @@
     variant = "";
   };
 
+  environment.etc."skel/.config/kxkbrc".text = ''
+    [Layout]
+    DisplayNames=
+    LayoutList=jp
+    Model=jp106
+    Use=true
+    VariantList=
+  '';
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -147,6 +156,10 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   ];
+
+  environment.variables = {
+    XKB_CONFIG_ROOT = "${pkgs.xkeyboard_config}/share/X11/xkb";
+  };
 
   programs.zsh.enable = true;
 
