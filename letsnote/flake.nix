@@ -14,9 +14,12 @@
     };
   };
 
-  outputs = {self, nixpkgs, home-manager, sops-nix, ...}@inputs: {
+  outputs = {self, nixpkgs, home-manager, sops-nix, nixos-hardware, ...}: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = {
+        inherit nixos-hardware;
+      };
       modules = [
         ./config.nix
         home-manager.nixosModules.home-manager {

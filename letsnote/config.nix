@@ -2,13 +2,19 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, nixos-hardware, ... }:
 
 {
   imports = [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-  ];
+  ]
+  ++ (with nixos-hardware.nixosModules; [
+    common-cpu-intel
+    common-pc-laptop
+    common-pc-ssd
+  ]);
+  
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Bootloader.
