@@ -43,9 +43,9 @@ args @ {lib, pkgs, ...}:
   };
   tmux = {
     enable = true;
-    keyMode = "emacs";
+    keyMode = "vi";
     prefix = "C-q";
-    extraConfig = "";
+    extraConfig = builtins.readFile ./tmux.conf;
     plugins = with pkgs; [
       tmuxPlugins.sensible
       tmuxPlugins.resurrect
