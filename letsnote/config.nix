@@ -2,13 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
+  imports = [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
-    ];
+  ];
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Bootloader.
@@ -41,6 +41,14 @@
     LC_PAPER = "ja_JP.UTF-8";
     LC_TELEPHONE = "ja_JP.UTF-8";
     LC_TIME = "ja_JP.UTF-8";
+  };
+
+  sops = {
+    age.keyFile = "/var/lib/sops-nix/keys.txt";
+    age.generateKey = true;
+    defaultSopsFile = ../secrets/secret.yaml;
+    defaultSopsFormat = "yaml";
+    secrets.hashedPassword.neededForUsers = true;
   };
 
   # Enable the X11 windowing system.
@@ -106,6 +114,8 @@
     curl
     wget
   ];
+
+  programs.zsh.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
