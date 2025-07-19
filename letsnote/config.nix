@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, nixos-hardware, ... }:
+{ config, lib, pkgs, nixos-hardware, xremap, ... }:
 
 {
   imports = [
@@ -13,7 +13,10 @@
     common-cpu-intel
     common-pc-laptop
     common-pc-ssd
-  ]);
+  ])
+  ++ [
+    xremap.nixosModules.default
+  ];
   
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
@@ -163,6 +166,20 @@
       enable = true;
       settings = {
         PasswordAuthentication = false;
+      };
+    };
+    xremap = {
+      userName = "hiroki";
+      serviceMode = "system";
+      config = {
+        modmap = [
+	  {
+	    name = "CL to Ctrl";
+	    remap = {
+	      CapsLock = "Ctrl_L";
+	    };
+	  }
+	];
       };
     };
   };

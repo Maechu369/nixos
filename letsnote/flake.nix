@@ -4,6 +4,7 @@
     # nixpkgs.url = "github:nixos/nixpkgs?ref=release-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/29e290002bfff26af1db6f64d070698019460302";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    xremap.url = "github:xremap/nix-flake";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,11 +15,12 @@
     };
   };
 
-  outputs = {self, nixpkgs, home-manager, sops-nix, nixos-hardware, ...}: {
+  outputs = {self, nixpkgs, home-manager, sops-nix, nixos-hardware, xremap, ...}: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {
         inherit nixos-hardware;
+        inherit xremap;
       };
       modules = [
         ./config.nix
