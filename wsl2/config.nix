@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+let
+  ageKeyFile = "/var/lib/sops-nix/keys.txt";
+in
+{
   imports = [
   ];
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -9,7 +13,7 @@
   time.timeZone = "Asia/Tokyo";
 
   sops = {
-    age.keyFile = "/var/lib/sops-nix/keys.txt";
+    age.keyFile = ageKeyFile;
     age.generateKey = true;
     defaultSopsFile = ../secrets/secret.yaml;
     defaultSopsFormat = "yaml";
@@ -39,6 +43,9 @@
   system.stateVersion = "24.11"; # Did you read the comment?
   environment.systemPackages = with pkgs;[
   ];
+  environment.variables = {
+    SOPS_AGE_KEY_FILE = ageKeyFile;
+  };
   programs.zsh.enable = true;
 
   services.openssh.enable = true;
