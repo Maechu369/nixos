@@ -90,12 +90,12 @@
   users.users.hiroki = {
     isNormalUser = true;
     description = "hiroki";
-    hashedPassword = "$6$i2rCjc.WYLu4Cn8/$WoI36Fn3t/qnzWYrckb7n56Jo/Fm9D1jbCzw3Lg7pNrkEWNQYpeV1uAoZU9BJHnYizg5vubGhgKlHka8baSMW1";
+    hashedPasswordFile = config.sops.secrets.hashedPassword.path;
     extraGroups = [ "networkmanager" "wheel" ];
     openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILv9JtMAq/KexNVaWmvyh7ouppoA0aDPO8qxlnYUQDtq hiroki@nixos" ];
+    shell = pkgs.zsh;
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
     ];
   };
   users.mutableUsers = false;
@@ -110,9 +110,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim
-    curl
-    wget
   ];
 
   programs.zsh.enable = true;
