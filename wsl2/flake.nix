@@ -2,7 +2,7 @@
   description = "flake";
   inputs = {
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    nixpkgs.url = "github:NixOS/nixpkgs/release-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/29e290002bfff26af1db6f64d070698019460302";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
