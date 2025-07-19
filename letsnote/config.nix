@@ -174,9 +174,23 @@
       config = {
         modmap = [
 	  {
+	    name = "Left Ctrl to F13";
+	    remap = {
+	      F13 = "LEFTCTRL";
+	    };
+	  }
+	  {
 	    name = "CL to Ctrl";
 	    remap = {
-	      CapsLock = "Ctrl_L";
+	      CAPSLOCK = "LEFTCTRL";
+	    };
+	  }
+	];
+	keymap = [
+	  {
+	    name = "<C-h> to <BS>";
+	    remap = {
+	      C-h = "Backspace";
 	    };
 	  }
 	];
