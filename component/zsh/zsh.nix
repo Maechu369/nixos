@@ -5,7 +5,7 @@
   dotDir = ".config/zsh";
   autocd = true;
   autosuggestion.enable = true;
-  cdpath = ["~" ".."];
+  cdpath = ["~"];
   dirHashes = {
     c = "/mnt/c";
     wh = "/mnt/c/Users/hiroki";
@@ -17,7 +17,6 @@
   profileExtra = "test -f $HOME/.profile && . $HOME/.profile";
   sessionVariables = {
     TERM = "xterm-256color";
-    EDITOR = "nvim";
     EZA_ICON_SPACING = 1;
   };
   initContent = let
@@ -32,7 +31,6 @@
     q = "exit";
     c = "cd";
     v = "vim";
-    vim = "nvim";
     python = "python3";
     py = "python";
     l = "ls";
