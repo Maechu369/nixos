@@ -3,7 +3,9 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, lib, pkgs, nixos-hardware, xremap, ... }:
-
+let
+  ageKeyFile = "/var/lib/sops-nix/keys.txt";
+in
 {
   imports = [
       # Include the results of the hardware scan.
@@ -80,7 +82,7 @@
   };
 
   sops = {
-    age.keyFile = "/var/lib/sops-nix/keys.txt";
+    age.keyFile = ageKeyFile;
     age.generateKey = true;
     defaultSopsFile = ../secrets/secret.yaml;
     defaultSopsFormat = "yaml";
@@ -158,6 +160,7 @@
   ];
 
   environment.variables = {
+    SOPS_AGE_KEY_FILE = ageKeyFile;
     XKB_CONFIG_ROOT = "${pkgs.xkeyboard_config}/share/X11/xkb";
   };
 

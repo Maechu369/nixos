@@ -13,5 +13,5 @@
     nil  # nix lsp
   ];
   plugins = with pkgs.vimPlugins; [lazy-nvim];
-  extraLuaConfig = "";
+  extraLuaConfig = builtins.readFile ./init.lua;
 }
