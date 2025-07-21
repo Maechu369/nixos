@@ -12,9 +12,13 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-wsl, sops-nix, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nixos-wsl, sops-nix, nixvim, ... }@inputs:
   {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -23,10 +27,15 @@
 	    system.stateVersion = "24.11";
 	    wsl.enable = true;
 	}
-        home-manager.nixosModules.home-manager{
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.hiroki = import ./home.nix;
+        home-manager.nixosModules.home-manager {
+	  home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+	    sharedModules = [
+	      nixvim.homeModules.nixvim
+	    ];
+            users.hiroki = import ./home.nix;
+	  };
         }
 	sops-nix.nixosModules.sops
 	./config.nix
