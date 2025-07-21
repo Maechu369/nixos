@@ -54,5 +54,5 @@ args @ {lib, pkgs, ...}:
     terminal = "tmux-256color";
   };
   # neovim = import neovim/neovim.nix args;
-  nixvim = import neovim/nixvim.nix;
+  nixvim = import nixvim/nixvim.nix;
 }
