@@ -181,7 +181,6 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
 
 
 -- NVIM Plugins {{{1
---
 
 
 -- lualine {{{2

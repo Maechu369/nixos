@@ -1,3 +1,4 @@
+{lib, ...}:
 {
   enable = true;
   defaultEditor = true;
@@ -33,6 +34,8 @@
       tab = "<->";
       trail = "-";
     };
+    shiftwidth = 2;
+    tabstop = 2;
 
     number = true;
     relativenumber = true;
@@ -72,7 +75,20 @@
       {key = "gt"; lspBufAction = "type_definition";}
       {key = "gn"; lspBufAction = "rename";}
       {key = "ga"; lspBufAction = "code_action";}
+      {key = "ge"; lspBufAction = "";}
     ];
+    luaConfig.post = ''
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {virtual_text = false}
+      )
+      vim.keymap.set("n", "ge", "<Cmd>lua vim.diagnostic.open_float()<CR>")
+      vim.keymap.set("n", "g]", "<Cmd>lua vim.diagnostic.goto_next()<CR>")
+      vim.keymap.set("n", "g[", "<Cmd>lua vim.diagnostic.goto_prev()<CR>")
+    '';
+    servers = {
+      lua_ls.enable = true;
+      nil.enable = true;
+    };
   };
 
   # extraConfigLuaPre = builtins.readFile ./pre.lua;
