@@ -61,6 +61,19 @@
       enable = true;
     };
   };
+  lsp = {
+    keymaps = [
+      {key = "K"; lspBufAction = "hover";}
+      {key = "gf"; lspBufAction = "format";}
+      {key = "gr"; lspBufAction = "references";}
+      {key = "gd"; lspBufAction = "definition";}
+      {key = "gD"; lspBufAction = "declaration";}
+      {key = "gi"; lspBufAction = "implementation";}
+      {key = "gt"; lspBufAction = "type_definition";}
+      {key = "gn"; lspBufAction = "rename";}
+      {key = "ga"; lspBufAction = "code_action";}
+    ];
+  };
 
   # extraConfigLuaPre = builtins.readFile ./pre.lua;
   extraConfigLuaPost = builtins.readFile ./init.lua;

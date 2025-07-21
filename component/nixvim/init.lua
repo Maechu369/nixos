@@ -181,12 +181,71 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
 
 
 -- NVIM Plugins {{{1
+--
 
+
+-- lualine {{{2
+
+
+local absolutepath = { "%<%f" }
+local modified = {
+  "%{%&modified||!&modifiable?'%m':'%r'%}",
+  cond = function() return vim.o.modified or not vim.o.modifiable or vim.o.readonly; end
+}
+local charvaluehex = { "%B" }
+local chars = {
+  '%{get(wordcount(), "visual_chars", "")} 文字',
+  cond = function() return vim.fn.wordcount().visual_chars ~= nil; end
+}
+local words = {
+  '%{get(wordcount(), "visual_words", "")} word(s)',
+  cond = function() return vim.fn.wordcount().visual_words ~= nil; end
+}
+local lsp = {
+  function()
+    local msg = ''
+    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+    local clients = vim.lsp.get_active_clients()
+    if next(clients) == nil then
+      return msg
+    end
+    for _, client in ipairs(clients) do
+      local filetypes = client.config.filetypes
+      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+        return client.name
+      end
+    end
+    return msg
+  end,
+  icon = ' ',
+  cond = function() return next(vim.lsp.get_active_clients()) ~= nil; end
+}
+local fileformat = { '%{&fenc!=#""?&fenc:&enc}[%{&ff}]' }
+local lineinfo = { "%3l/%3L:%-2v" }
 
 require("lualine").setup({
   options = {
-    theme = "powerline"
+    theme = "powerline",
+    component_separators = { left = "|", right = "|" },
+    section_separators = { left = "", right = "" }
+  },
+  sections = {
+    lualine_a = { "mode" },
+    lualine_b = { absolutepath, modified, 'branch' },
+    lualine_c = { charvaluehex },
+    lualine_x = { chars, words },
+    lualine_y = { lsp, "filetype", fileformat },
+    lualine_z = { "percent", lineinfo }
+  },
+  inactive_sections = {
+    lualine_a = { "filename" },
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = { "percent", lineinfo }
   }
 })
+
 -- modeline {{{1
 -- vim: fdm=marker:fdc=2:fdl=1:et:sw=2:ts=2

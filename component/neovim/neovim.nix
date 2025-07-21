@@ -1,3 +1,4 @@
+{pkgs, ...}:
 {
   enable = true;
   defaultEditor = true;
@@ -12,7 +13,5 @@
     nil  # nix lsp
   ];
   plugins = with pkgs.vimPlugins; [lazy-nvim];
-  extraLuaConfig = builtins.readFile neovim/init.lua;
-
-  nixpkgs.useGlobalPackages = true;
+  extraLuaConfig = builtins.readFile ./init.lua;
 }
