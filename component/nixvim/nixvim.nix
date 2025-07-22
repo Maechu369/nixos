@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ pkgs, lib, ... }: {
   enable = true;
   defaultEditor = true;
   viAlias = true;
@@ -70,7 +70,11 @@
       };
     };
     lualine = { enable = true; };
+    sandwich = { enable = true; };
   };
+  extraPlugins = with pkgs.vimPlugins; [
+    nvim-autopairs
+  ];
   lsp = {
     keymaps = [
       {
@@ -119,7 +123,7 @@
       vim.keymap.set("n", "g[", "<Cmd>lua vim.diagnostic.goto_prev()<CR>")
 
       -- Variable highlight
-      -- 
+      -- ref: https://zenn.dev/botamotch/scraps/62eda54e7fba90
       vim.opt.updatetime = 500
       local fg = "#a0ff00"
       local bg = "#208080"
