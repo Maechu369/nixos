@@ -3,24 +3,18 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, lib, pkgs, nixos-hardware, xremap, ... }:
-let
-  ageKeyFile = "/var/lib/sops-nix/keys.txt";
-in
-{
+let ageKeyFile = "/var/lib/sops-nix/keys.txt";
+in {
   imports = [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-  ]
-  ++ (with nixos-hardware.nixosModules; [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ] ++ (with nixos-hardware.nixosModules; [
     common-cpu-intel
     common-pc-laptop
     common-pc-ssd
-  ])
-  ++ [
-    xremap.nixosModules.default
-  ];
-  
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  ]) ++ [ xremap.nixosModules.default ];
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -56,10 +50,7 @@ in
     inputMethod = {
       enable = true;
       type = "fcitx5";
-      fcitx5.addons = with pkgs; [
-        fcitx5-mozc
-        fcitx5-skk
-      ];
+      fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-skk ];
     };
   };
 
@@ -73,10 +64,10 @@ in
     fontDir.enable = true;
     fontconfig = {
       defaultFonts = {
-        serif = ["Noto Serif CJK JP" "Noto Color Emoji"];
-        sansSerif = ["Noto Sans CJK JP" "Noto Color Emoji"];
-        monospace = ["PlemolJP Console NF"];
-        emoji = ["Noto Color Emoji"];
+        serif = [ "Noto Serif CJK JP" "Noto Color Emoji" ];
+        sansSerif = [ "Noto Sans CJK JP" "Noto Color Emoji" ];
+        monospace = [ "PlemolJP Console NF" ];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };
@@ -139,11 +130,11 @@ in
     description = "hiroki";
     hashedPasswordFile = config.sops.secrets.hashedPassword.path;
     extraGroups = [ "networkmanager" "wheel" ];
-    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILv9JtMAq/KexNVaWmvyh7ouppoA0aDPO8qxlnYUQDtq hiroki@nixos" ];
-    shell = pkgs.zsh;
-    packages = with pkgs; [
-      kdePackages.kate
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILv9JtMAq/KexNVaWmvyh7ouppoA0aDPO8qxlnYUQDtq hiroki@nixos"
     ];
+    shell = pkgs.zsh;
+    packages = with pkgs; [ kdePackages.kate ];
   };
   users.mutableUsers = false;
   security.sudo.wheelNeedsPassword = false;
@@ -156,8 +147,7 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  ];
+  environment.systemPackages = with pkgs; [ ];
 
   environment.variables = {
     SOPS_AGE_KEY_FILE = ageKeyFile;
@@ -180,36 +170,26 @@ in
   services = {
     openssh = {
       enable = true;
-      settings = {
-        PasswordAuthentication = false;
-      };
+      settings = { PasswordAuthentication = false; };
     };
     xremap = {
       userName = "hiroki";
       serviceMode = "system";
       config = {
         modmap = [
-	  {
-	    name = "Left Ctrl to F13";
-	    remap = {
-	      F13 = "LEFTCTRL";
-	    };
-	  }
-	  {
-	    name = "CL to Ctrl";
-	    remap = {
-	      CAPSLOCK = "LEFTCTRL";
-	    };
-	  }
-	];
-	keymap = [
-	  {
-	    name = "<C-h> to <BS>";
-	    remap = {
-	      C-h = "Backspace";
-	    };
-	  }
-	];
+          {
+            name = "Left Ctrl to F13";
+            remap = { F13 = "LEFTCTRL"; };
+          }
+          {
+            name = "CL to Ctrl";
+            remap = { CAPSLOCK = "LEFTCTRL"; };
+          }
+        ];
+        keymap = [{
+          name = "<C-h> to <BS>";
+          remap = { C-h = "Backspace"; };
+        }];
       };
     };
   };

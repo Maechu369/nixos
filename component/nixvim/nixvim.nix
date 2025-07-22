@@ -125,7 +125,15 @@
         settings = {
           cmd = [ "nil" ];
           filetypes = [ "nix" ];
-          settings = { "nil".formatting.command = [ "nixfmt" ]; };
+          settings = {
+            nil = {
+              formatting.command = [ "nixfmt" ];
+              nix.flake = {
+                autoArchive = false;
+                autoEvalInputs = true;
+              };
+            };
+          };
         };
       };
     };

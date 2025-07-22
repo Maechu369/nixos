@@ -5,17 +5,13 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [
-    (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
-  ];
+  imports = [ (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix") ];
 
   # Select Linux Kernel
   boot.kernelPackages = pkgs.linuxPackages;
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    rtl8852au
-  ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8852au ];
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   time.timeZone = "Asia/Tokyo";
   networking.hostName = "nixos";
@@ -26,12 +22,13 @@
   networking.networkmanager.enable = true;
   # ENDPICK
 
-
   users.users.hiroki = {
-      isNormalUser = true;
-      home = "/home/hiroki";
-      extraGroups = ["wheel" "networkmanager"];
-      openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGo2UZSbmkdNzJO+0znvrMMsp5LcWAF0h+c8e9Rw92jS hiroki@DESKTOP-QKM8RGF"];
+    isNormalUser = true;
+    home = "/home/hiroki";
+    extraGroups = [ "wheel" "networkmanager" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGo2UZSbmkdNzJO+0znvrMMsp5LcWAF0h+c8e9Rw92jS hiroki@DESKTOP-QKM8RGF"
+    ];
   };
   users.mutableUsers = false;
   security.sudo.wheelNeedsPassword = false;
@@ -43,10 +40,7 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
-  environment.systemPackages = with pkgs;[
-    git
-    networkmanager
-  ];
+  environment.systemPackages = with pkgs; [ git networkmanager ];
 
   services.openssh.enable = true;
 }

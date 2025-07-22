@@ -1,11 +1,8 @@
 { config, lib, pkgs, ... }:
-let
-  ageKeyFile = "/var/lib/sops-nix/keys.txt";
-in
-{
-  imports = [
-  ];
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+let ageKeyFile = "/var/lib/sops-nix/keys.txt";
+in {
+  imports = [ ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   wsl.enable = true;
   wsl.defaultUser = "hiroki";
@@ -25,11 +22,11 @@ in
     description = "hiroki";
     hashedPasswordFile = config.sops.secrets.hashedPassword.path;
     extraGroups = [ "networkmanager" "wheel" ];
-    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILv9JtMAq/KexNVaWmvyh7ouppoA0aDPO8qxlnYUQDtq hiroki@nixos" ];
-    shell = pkgs.zsh;
-    packages = with pkgs; [
-      kdePackages.kate
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILv9JtMAq/KexNVaWmvyh7ouppoA0aDPO8qxlnYUQDtq hiroki@nixos"
     ];
+    shell = pkgs.zsh;
+    packages = with pkgs; [ kdePackages.kate ];
   };
   users.mutableUsers = false;
   security.sudo.wheelNeedsPassword = false;
@@ -41,11 +38,8 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
-  environment.systemPackages = with pkgs;[
-  ];
-  environment.variables = {
-    SOPS_AGE_KEY_FILE = ageKeyFile;
-  };
+  environment.systemPackages = with pkgs; [ ];
+  environment.variables = { SOPS_AGE_KEY_FILE = ageKeyFile; };
   programs.zsh.enable = true;
 
   services.openssh.enable = true;

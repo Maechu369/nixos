@@ -1,19 +1,14 @@
-args @ {lib, pkgs, ...}:
-{
+args@{ lib, pkgs, ... }: {
   home-manager.enable = true;
   git = {
     enable = true;
     userName = "Maechu369";
     userEmail = "90904222+Maechu369@users.noreply.github.com";
     extraConfig = {
-      core = {
-        quotepath = false;
-      };
+      core = { quotepath = false; };
       merge.conflictStyle = "zdiff3";
     };
-    delta = {
-      enable = true;
-    };
+    delta = { enable = true; };
   };
   zsh = import zsh/zsh.nix args;
   eza = {
@@ -24,16 +19,10 @@ args @ {lib, pkgs, ...}:
   fzf = {
     enable = true;
     enableZshIntegration = true;
-    defaultOptions = [
-      "--height 40%"
-      "--layout reverse"
-      "--border top"
-    ];
+    defaultOptions = [ "--height 40%" "--layout reverse" "--border top" ];
     tmux = {
       enableShellIntegration = true;
-      shellIntegrationOptions = [
-        "--bottom,40%"
-      ];
+      shellIntegrationOptions = [ "--bottom,40%" ];
     };
   };
   starship = {
@@ -55,7 +44,5 @@ args @ {lib, pkgs, ...}:
   };
   # neovim = import neovim/neovim.nix args;
   nixvim = import nixvim/nixvim.nix args;
-  ripgrep = {
-    enable = true;
-  };
+  ripgrep = { enable = true; };
 }

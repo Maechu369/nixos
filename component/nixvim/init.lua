@@ -33,21 +33,21 @@ nmap("S", "")
 nmap("s", "")
 nmap("<C-Q>", "")
 nmap("U", "")
-map({"n", "i"}, "<C-S>", "")
+map({ "n", "i" }, "<C-S>", "")
 
 
 -- Terminal {{{2
 
 
-nmap("<C-S>", "<C-W>", {remap=true})
-nmap("s", "<C-W>", {remap = true})
+nmap("<C-S>", "<C-W>", { remap = true })
+nmap("s", "<C-W>", { remap = true })
 nmap("SS", "<C-W>W")
 nmap("<C-W><C-S>", "<C-W>w")
 nmap("<C-W>s", "<C-W>w")
 nmap("<C-W><C-N>", "")
-nmap("<C-S>", "<C-\\><C-N><C-W>", {remap= true})
+nmap("<C-S>", "<C-\\><C-N><C-W>", { remap = true })
 nmap("<C-S><C-N>", "<C-\\><C-N>")
-nmap("<C-R>", function() return '<C-\\><C-N>"'..vim.fn.nr2char(vim.fn.getchar()).."pi" end, {expr=true})
+nmap("<C-R>", function() return '<C-\\><C-N>"' .. vim.fn.nr2char(vim.fn.getchar()) .. "pi" end, { expr = true })
 
 
 -- Macro {{{2
@@ -166,7 +166,7 @@ vim.api.nvim_create_autocmd("VimResized", {
 
 -- ファイルを開いたとき、カーソル位置を復元 {{{2
 -- :h restore-cursor
-vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   group = "init",
   callback = function()
     if vim.fn.line("'\"") <= vim.fn.line("$") then
