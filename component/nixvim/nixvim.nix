@@ -117,6 +117,27 @@
       vim.keymap.set("n", "ge", "<Cmd>lua vim.diagnostic.open_float()<CR>")
       vim.keymap.set("n", "g]", "<Cmd>lua vim.diagnostic.goto_next()<CR>")
       vim.keymap.set("n", "g[", "<Cmd>lua vim.diagnostic.goto_prev()<CR>")
+
+      -- Variable highlight
+      -- 
+      vim.opt.updatetime = 500
+      local fg = "#a0ff00"
+      local bg = "#208080"
+      vim.api.nvim_set_hl(0, "LspReferenceText",
+        {cterm = {underline = true}, ctermfg = 1, ctermbg = 8, underline = true, fg=fg, bg=bg})
+      vim.api.nvim_set_hl(0, "LspReferenceRead",
+        {cterm = {underline = true}, ctermfg = 1, ctermbg = 8, underline = true, fg=fg, bg=bg})
+      vim.api.nvim_set_hl(0, "LspReferenceWrite",
+        {cterm = {underline = true}, ctermfg = 1, ctermbg = 8, underline = true, fg=fg, bg=bg})
+      vim.api.nvim_create_augroup("lsp_document_highlight", {})
+      vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
+        group="lsp_document_highlight",
+        callback=vim.lsp.buf.document_highlight
+      })
+      vim.api.nvim_create_autocmd({"CursorMoved", "CursorMovedI"}, {
+        group="lsp_document_highlight",
+        callback=vim.lsp.buf.clear_references
+      })
     '';
     servers = {
       lua_ls.enable = true;
