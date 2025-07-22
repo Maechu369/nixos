@@ -60,9 +60,7 @@
   nixpkgs.useGlobalPackages = true;
   colorscheme = "torte";
   plugins = {
-    lspconfig = {
-      enable = true;
-    };
+    lspconfig = { enable = true; };
     treesitter = {
       enable = true;
       settings = {
@@ -124,7 +122,11 @@
       lua_ls.enable = true;
       nil_ls = {
         enable = true;
-        # settings = {cmd = ["nil"]; filetypes = [ "nix" ]; settings = {"nil".formatting.command="nixfmt";};};
+        settings = {
+          cmd = [ "nil" ];
+          filetypes = [ "nix" ];
+          settings = { "nil".formatting.command = [ "nixfmt" ]; };
+        };
       };
     };
   };
