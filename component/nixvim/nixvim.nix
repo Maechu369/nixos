@@ -1,5 +1,4 @@
-{lib, ...}:
-{
+{ lib, ... }: {
   enable = true;
   defaultEditor = true;
   viAlias = true;
@@ -43,9 +42,20 @@
     nrformats = "bin,hex,alpha,unsigned";
   };
 
-  autoGroups = {
-    init.clear = true;
-  };
+  autoGroups = { init.clear = true; };
+
+  autoCmd = [
+    {
+      event = "FileType";
+      pattern = "nix";
+      command = "setl sw=2 ts=2 et";
+    }
+    {
+      event = "FileType";
+      pattern = "lua";
+      command = "setl sw=2 ts=2 et";
+    }
+  ];
 
   nixpkgs.useGlobalPackages = true;
   colorscheme = "torte";
@@ -54,28 +64,54 @@
       enable = true;
       settings = {
         # auto_install = true;
-        highlight = {
-          enable = true;
-        };
-      indent.enable = true;
+        highlight = { enable = true; };
+        indent.enable = true;
       };
     };
-    lualine = {
-      enable = true;
-    };
+    lualine = { enable = true; };
   };
   lsp = {
     keymaps = [
-      {key = "K"; lspBufAction = "hover";}
-      {key = "gf"; lspBufAction = "format";}
-      {key = "gr"; lspBufAction = "references";}
-      {key = "gd"; lspBufAction = "definition";}
-      {key = "gD"; lspBufAction = "declaration";}
-      {key = "gi"; lspBufAction = "implementation";}
-      {key = "gt"; lspBufAction = "type_definition";}
-      {key = "gn"; lspBufAction = "rename";}
-      {key = "ga"; lspBufAction = "code_action";}
-      {key = "ge"; lspBufAction = "";}
+      {
+        key = "K";
+        lspBufAction = "hover";
+      }
+      {
+        key = "gf";
+        lspBufAction = "format";
+      }
+      {
+        key = "gr";
+        lspBufAction = "references";
+      }
+      {
+        key = "gd";
+        lspBufAction = "definition";
+      }
+      {
+        key = "gD";
+        lspBufAction = "declaration";
+      }
+      {
+        key = "gi";
+        lspBufAction = "implementation";
+      }
+      {
+        key = "gt";
+        lspBufAction = "type_definition";
+      }
+      {
+        key = "gn";
+        lspBufAction = "rename";
+      }
+      {
+        key = "ga";
+        lspBufAction = "code_action";
+      }
+      {
+        key = "ge";
+        lspBufAction = "";
+      }
     ];
     luaConfig.post = ''
       vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -87,7 +123,10 @@
     '';
     servers = {
       lua_ls.enable = true;
-      nil.enable = true;
+      nil_ls = {
+        enable = true;
+        # settings = {cmd = ["nil"]; filetypes = [ "nix" ]; settings = {"nil".formatting.command="nixfmt";};};
+      };
     };
   };
 

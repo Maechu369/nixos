@@ -2,4 +2,6 @@
   procs
   fd
   libgcc
+  nil
+	nixfmt
 ]

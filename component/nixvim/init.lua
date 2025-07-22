@@ -204,7 +204,7 @@ local lsp = {
   function()
     local msg = ''
     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    local clients = vim.lsp.get_active_clients()
+    local clients = vim.lsp.get_clients()
     if next(clients) == nil then
       return msg
     end
@@ -217,7 +217,7 @@ local lsp = {
     return msg
   end,
   icon = ' ',
-  cond = function() return next(vim.lsp.get_active_clients()) ~= nil; end
+  cond = function() return next(vim.lsp.get_clients()) ~= nil; end
 }
 local fileformat = { '%{&fenc!=#""?&fenc:&enc}[%{&ff}]' }
 local lineinfo = { "%3l/%3L:%-2v" }
