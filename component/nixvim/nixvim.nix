@@ -60,6 +60,9 @@
   nixpkgs.useGlobalPackages = true;
   colorscheme = "torte";
   plugins = {
+    lspconfig = {
+      enable = true;
+    };
     treesitter = {
       enable = true;
       settings = {
@@ -107,10 +110,6 @@
       {
         key = "ga";
         lspBufAction = "code_action";
-      }
-      {
-        key = "ge";
-        lspBufAction = "";
       }
     ];
     luaConfig.post = ''
