@@ -69,12 +69,78 @@
         indent.enable = true;
       };
     };
+    cmp-nvim-lsp.enable = true;
+    cmp-buffer.enable = true;
+    cmp-path.enable = true;
+    cmp-cmdline.enable = true;
+    cmp_luasnip.enable = true;
+    cmp = {
+      enable = true;
+      settings = {
+        experimental = { ghost_text = true; };
+        snippet.expand = ''
+          function(args)
+            require("luasnip").lsp_expand(args.body)
+          end
+        '';
+        sources = [
+          { name = "nvim_lsp"; }
+          { name = "buffer"; }
+          { name = "path"; }
+          { name = "cmdline"; }
+          {
+            name = "luasnip";
+            option.show_autosnippets = true;
+          }
+        ];
+        mapping = {
+          "<C-P>" = "cmp.mapping.select_prev_item()";
+          "<C-N>" = "cmp.mapping.select_next_item()";
+          "<C-L>" = "cmp.mapping.complete()";
+          "<C-E>" = "cmp.mapping.abort()";
+          "<CR>" = ''
+            cmp.mapping(function(fallback)
+              local luasnip = require("luasnip")
+              if cmp.visible() then
+                if luasnip.expandable() then
+                  luasnip.expand()
+                else
+                  cmp.confirm({select=true})
+                end
+              else
+                fallback()
+              end
+            end)'';
+          "<Tab>" = ''
+            cmp.mapping(function(fallback)
+              local luasnip = require("luasnip")
+              if cmp.visible() then
+                cmp.select_next_item()
+              elseif luasnip.locally_jumpable(1) then
+                luasnip.jump(1)
+              else
+                fallback()
+              end
+            end, {"i", "s"})'';
+          "<S-Tab>" = ''
+            cmp.mapping(function(fallback)
+              local luasnip = require("luasnip")
+              if cmp.visible() then
+                cmp.select_next_item()
+              elseif luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+              else
+                fallback()
+              end
+            end, {"i", "s"})'';
+        };
+      };
+    };
+    luasnip = { enable = true; };
     lualine = { enable = true; };
     sandwich = { enable = true; };
   };
-  extraPlugins = with pkgs.vimPlugins; [
-    nvim-autopairs
-  ];
+  extraPlugins = with pkgs.vimPlugins; [ nvim-autopairs ];
   lsp = {
     keymaps = [
       {
