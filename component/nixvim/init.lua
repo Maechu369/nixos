@@ -183,6 +183,45 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 -- NVIM Plugins {{{1
 
 
+-- treesitter {{{2
+
+
+nmap("<Space>s",
+  function()
+    local node = vim.treesitter.get_node()
+    if node == nil then
+      return
+    end
+    print(node:type())
+  end
+)
+nmap("<Space>S",
+  function()
+    local node = vim.treesitter.get_node()
+    if node == nil then
+      return
+    end
+    local node_list = { node:type() }
+    while true do
+      node = node:parent()
+      if node == nil then
+        break
+      end
+      node_list[#node_list + 1] = node:type()
+    end
+    local ret = node_list[#node_list]
+    if #node_list == 1 then
+      print(ret)
+      return
+    end
+    for index = #node_list - 1, 1, -1 do
+      ret = ret .. ", " .. node_list[index]
+    end
+    print(ret)
+  end
+)
+
+
 -- lualine {{{2
 
 

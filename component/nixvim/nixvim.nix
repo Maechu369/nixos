@@ -69,6 +69,12 @@
         indent.enable = true;
       };
     };
+    web-devicons = {
+      enable = true;
+    };
+    telescope = {
+      enable = true;
+    };
     cmp-nvim-lsp.enable = true;
     cmp-buffer.enable = true;
     cmp-path.enable = true;
