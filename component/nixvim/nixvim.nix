@@ -69,11 +69,32 @@
         indent.enable = true;
       };
     };
-    web-devicons = {
+    aerial = {
       enable = true;
+      luaConfig.post = ''
+        require("aerial").setup({
+          on_attach = function(bufnr)
+            vim.keymap.set("n", "{", "<Cmd>AerialPrev<CR>", {buffer = bufnr})
+            vim.keymap.set("n", "}", "<Cmd>AerialPrev<CR>", {buffer = bufnr})
+          end
+        })
+        nmap("<leader>a", "<Cmd>AerialToggle!<CR>")
+      '';
     };
+    web-devicons.enable = true;
     telescope = {
       enable = true;
+      keymaps = {
+        "<leader>ff" = { action = "find_files"; };
+        "<leader>fg" = { action = "live_grep"; };
+        "<leader>fb" = { action = "buffers"; };
+        "<leader>fh" = { action = "help_tags"; };
+        "<leader>sk" = { action = "keymaps"; };
+      };
+    };
+    nvim-autopairs = {
+      enable = true;
+      settings = { };
     };
     cmp-nvim-lsp.enable = true;
     cmp-buffer.enable = true;
@@ -92,8 +113,11 @@
         sources = [
           { name = "nvim_lsp"; }
           { name = "buffer"; }
-          { name = "path"; }
-          { name = "cmdline"; }
+          {
+            name = "path";
+          }
+          # When enable source 'cmdline', make some erros in code with wrong bracket info by parser bugs.
+          # { name = "cmdline"; }
           {
             name = "luasnip";
             option.show_autosnippets = true;
@@ -146,7 +170,6 @@
     lualine = { enable = true; };
     sandwich = { enable = true; };
   };
-  extraPlugins = with pkgs.vimPlugins; [ nvim-autopairs ];
   lsp = {
     keymaps = [
       {
@@ -236,7 +259,7 @@
     };
   };
 
-  # extraConfigLuaPre = builtins.readFile ./pre.lua;
+  extraConfigLuaPre = builtins.readFile ./pre.lua;
   extraConfigLuaPost = builtins.readFile ./init.lua;
 }
 # vim: fdm=marker:fdc=2:fdl=1:et:sw=2:ts=2
