@@ -56,6 +56,16 @@
       command = "setl sw=2 ts=2 et";
     }
   ];
+  highlight = {
+    "IndentBlanklineIndent1" = {
+      bg = "#400000";
+      nocombine = true;
+    };
+    "IndentBlanklineIndent2" = {
+      bg = "#003000";
+      nocombine = true;
+    };
+  };
 
   nixpkgs.useGlobalPackages = true;
   colorscheme = "torte";
@@ -199,11 +209,68 @@
         numhl = true;
       };
     };
-    sandwich = { enable = true; };
+    dial = {
+      enable = true;
+      luaConfig.post = ''
+        local dial = require("dial.map")
+        nmap("<C-A>", function () dial.manipulate("increment", "normal") end)
+        nmap("<C-X>", function () dial.manipulate("decrement", "normal") end)
+        nmap("g<C-A>", function () dial.manipulate("increment", "gnormal") end)
+        nmap("g<C-X>", function () dial.manipulate("decrement", "gnormal") end)
+        map("v", "<C-A>", function () dial.manipulate("increment", "visual") end)
+        map("v", "<C-X>", function () dial.manipulate("decrement", "visual") end)
+        map("v", "g<C-A>", function () dial.manipulate("increment", "gvisual") end)
+        map("v", "g<C-X>", function () dial.manipulate("decrement", "gvisual") end)
+        local augend = require("dial.augend")
+        require("dial.config").augends:register_group({
+          default = {
+            augend.constant.new{
+              elements = {"True", "False"},
+              word = true,
+              cycle = true,
+            },
+            augend.integer.alias.decimal,
+            augend.integer.alias.hex,
+            augend.date.alias["%Y/%m/%d"],
+            augend.constant.alias.bool,
+            augend.constant.alias.alpha,
+            augend.constant.alias.Alpha,
+            augend.hexcolor.new { case = "lower" }
+          }
+        })
+      '';
+    };
+    repeat.enable = true;
+    sandwich.enable = true;
+    indent-blankline = {
+      enable = false;
+      luaConfig.pre = '''';
+      luaConfig.post = ''
+        vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", {
+          bg = "#400000", nocombine = true
+        })
+        vim.api.nvim_set_hl(0, "IndentBlanklineIndent2", {
+          bg = "#003000", nocombine = true
+        })
+      '';
+      settings = {
+        indent = {
+          highlight = ["IndentBlanklineIndent1" "IndentBlanklineIndent2"];
+          char = "";
+        };
+        whitespace = {
+          highlight = ["IndentBlanklineIndent1" "IndentBlanklineIndent2"];
+          remove_blankline_trail = false;
+        };
+        scope.enabled = false;
+      };
+    };
+    highlight-colors.enable = true;
   };
   extraPlugins = with pkgs.vimPlugins; [
     quick-scope
     clever-f-vim
+    nvim-hlslens
   ];
   lsp = {
     keymaps = [

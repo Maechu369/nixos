@@ -262,5 +262,11 @@ require("lualine").setup({
 })
 
 
+-- hlslens {{{2
+
+
+require("hlslens").setup()
+
+
 -- modeline {{{1
 -- vim: fdm=marker:fdc=2:fdl=1:et:sw=2:ts=2
