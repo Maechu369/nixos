@@ -4,13 +4,6 @@
   viAlias = true;
   vimAlias = true;
   vimdiffAlias = true;
-  # extraPackages = with pkgs; [
-  #   lua-language-server
-  #   vim-language-server
-  #   bash-language-server
-  #   yaml-language-server
-  #   nil  # nix lsp
-  # ];
 
   clipboard = {
     register = "unnamedplus";
@@ -56,16 +49,6 @@
       command = "setl sw=2 ts=2 et";
     }
   ];
-  highlight = {
-    "IndentBlanklineIndent1" = {
-      bg = "#400000";
-      nocombine = true;
-    };
-    "IndentBlanklineIndent2" = {
-      bg = "#003000";
-      nocombine = true;
-    };
-  };
 
   nixpkgs.useGlobalPackages = true;
   colorscheme = "torte";
@@ -243,8 +226,7 @@
     repeat.enable = true;
     sandwich.enable = true;
     indent-blankline = {
-      enable = false;
-      luaConfig.pre = '''';
+      enable = true;
       luaConfig.post = ''
         vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", {
           bg = "#400000", nocombine = true
@@ -252,18 +234,24 @@
         vim.api.nvim_set_hl(0, "IndentBlanklineIndent2", {
           bg = "#003000", nocombine = true
         })
+        local highlight = {"IndentBlanklineIndent1", "IndentBlanklineIndent2"}
+        require("ibl").setup({
+          indent = {
+            highlight = highlight,
+            char = ""
+          },
+          whitespace = {
+            highlight = highlight,
+            remove_blankline_trail = false
+          },
+          scope = {enabled = false}
+        })
+        vim.api.nvim_create_augroup("indent_blankline", {})
+        vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
+          group = "indent_blankline",
+          callback = vim.lsp.buf.document_highlight
+        })
       '';
-      settings = {
-        indent = {
-          highlight = ["IndentBlanklineIndent1" "IndentBlanklineIndent2"];
-          char = "";
-        };
-        whitespace = {
-          highlight = ["IndentBlanklineIndent1" "IndentBlanklineIndent2"];
-          remove_blankline_trail = false;
-        };
-        scope.enabled = false;
-      };
     };
     highlight-colors.enable = true;
   };
