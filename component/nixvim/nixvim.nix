@@ -100,6 +100,7 @@
         map_bs = true;
         map_ch = true;
         ts_config = { nix = [ "string_fragment" ]; };
+        fast_wrap = { map = "<C-F>"; };
       };
       luaConfig.post = ''
         local npairs = require("nvim-autopairs")
@@ -191,8 +192,19 @@
     };
     luasnip = { enable = true; };
     lualine = { enable = true; };
+    gitsigns = {
+      enable = true;
+      settings = {
+        signcolumn = true;
+        numhl = true;
+      };
+    };
     sandwich = { enable = true; };
   };
+  extraPlugins = with pkgs.vimPlugins; [
+    quick-scope
+    clever-f-vim
+  ];
   lsp = {
     keymaps = [
       {
