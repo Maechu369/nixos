@@ -262,27 +262,5 @@ require("lualine").setup({
 })
 
 
--- autopairs {{{2
-
---[[
-local npairs = require("nvim-autopairs")
-local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-local cmp = require("cmp")
-cmp.event:on(
-  "confirm_done",
-  cmp_autopairs.on_confirm_done()
-)
-npairs.setup({})
-
-local Rule = require("nvim-autopairs.rule")
-
-npairs.add_rules(
-  {
-    Rule("$", "$", { "tex", "latex", "markdown" })
-  }
-)
---]]
-
-
 -- modeline {{{1
 -- vim: fdm=marker:fdc=2:fdl=1:et:sw=2:ts=2

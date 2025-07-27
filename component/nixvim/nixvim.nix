@@ -94,7 +94,30 @@
     };
     nvim-autopairs = {
       enable = true;
-      settings = { };
+      settings = {
+        check_ts = true;
+        disable_in_macro = true;
+        map_bs = true;
+        map_ch = true;
+        ts_config = { nix = [ "string_fragment" ]; };
+      };
+      luaConfig.post = ''
+        local npairs = require("nvim-autopairs")
+        local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+        local cmp = require("cmp")
+        cmp.event:on(
+          "confirm_done",
+          cmp_autopairs.on_confirm_done()
+        )
+
+        local Rule = require("nvim-autopairs.rule")
+
+        npairs.add_rules(
+          {
+            Rule("$", "$", { "tex", "latex", "markdown" })
+          }
+        )
+      '';
     };
     cmp-nvim-lsp.enable = true;
     cmp-buffer.enable = true;
