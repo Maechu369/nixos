@@ -53,6 +53,10 @@ in {
       fcitx5 = {
         addons = with pkgs; [ fcitx5-mozc fcitx5-skk ];
         waylandFrontend = true;
+        settings.inputMethod = {
+          Wayland."InputMethod[$e]" =
+            "/run/current-system/sw/share/applications/org.fcitx.Fcitx5.desktop";
+        };
       };
     };
   };
