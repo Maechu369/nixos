@@ -101,14 +101,7 @@ in {
     variant = "";
   };
 
-  # environment.etc."skel/.config/kxkbrc".text = ''
-  #   [Layout]
-  #   DisplayNames=
-  #   LayoutList=jp
-  #   Model=jp106
-  #   Use=true
-  #   VariantList=
-  # '';
+  # environment.etc."skel/.config/kxkbrc".text = builtins.readFile ./kxkbrc;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
