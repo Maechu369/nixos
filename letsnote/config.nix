@@ -50,7 +50,10 @@ in {
     inputMethod = {
       enable = true;
       type = "fcitx5";
-      fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-skk ];
+      fcitx5 = {
+        addons = with pkgs; [ fcitx5-mozc fcitx5-skk ];
+        waylandFrontend = true;
+      };
     };
   };
 
@@ -94,14 +97,14 @@ in {
     variant = "";
   };
 
-  environment.etc."skel/.config/kxkbrc".text = ''
-    [Layout]
-    DisplayNames=
-    LayoutList=jp
-    Model=jp106
-    Use=true
-    VariantList=
-  '';
+  # environment.etc."skel/.config/kxkbrc".text = ''
+  #   [Layout]
+  #   DisplayNames=
+  #   LayoutList=jp
+  #   Model=jp106
+  #   Use=true
+  #   VariantList=
+  # '';
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
