@@ -11,6 +11,11 @@ bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[3~" delete-char
 
+autoload -Uz select-word-style
+select-word-style default
+zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
+zstyle ':zle:*' word-style unspecified
+
 git() {
   if [[ $1 == 'diffs' ]]; then
     if [[ $(command -v delta) ]]; then
