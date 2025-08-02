@@ -1,4 +1,29 @@
-args@{ pkgs, ... }: {
+args@{ pkgs, plasma-manager, ... }: {
+  plasma = {
+    enable = true;
+    overrideConfig = true;
+    input = {
+      keyboard = {
+        layouts = [{ layout = "jp"; }];
+        model = "jp106";
+      };
+    };
+    kwin = {
+      effects = {
+        fps.enable = true;
+      };
+    };
+    configFile = {
+      kxkbrc = {
+        Layout.LayoutList.immutable = true;
+      };
+      kwinrc = {
+        Wayland.InputMethod.value = "/run/current-system/sw/share/applications/org.fcitx.Fcitx5.desktop";
+        Wayland.InputMethod.shellExpand = true;
+        Wayland.InputMethod.immutable = true;
+      };
+    };
+  };
   alacritty = {
     enable = true;
     settings = {

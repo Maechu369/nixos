@@ -13,6 +13,11 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     xremap.url = "github:xremap/nix-flake";
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -20,8 +25,8 @@
     };
   };
 
-  outputs =
-    { nixpkgs, nixos-hardware, home-manager, sops-nix, xremap, nixvim, ... }: {
+  outputs = { nixpkgs, nixos-hardware, home-manager, sops-nix, plasma-manager
+    , xremap, nixvim, ... }: {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
@@ -36,7 +41,10 @@
               backupFileExtension = "backup";
               useGlobalPkgs = true;
               useUserPackages = true;
-              sharedModules = [ nixvim.homeModules.nixvim ];
+              sharedModules = [
+                nixvim.homeModules.nixvim
+                plasma-manager.homeManagerModules.plasma-manager
+              ];
               users.hiroki = import ./home.nix;
             };
           }

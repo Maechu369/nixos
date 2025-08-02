@@ -1,0 +1,13 @@
+{
+    "include": [
+        "common",
+        "default/katakana"
+    ],
+    "define": {
+        "keymap": {
+            "@": "set-input-mode-katakana",
+            "q": null,
+            "Q": "start-preedit insert-kana-ン"
+        }
+    }
+}

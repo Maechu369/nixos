@@ -1,6 +1,6 @@
 [Layout]
 DisplayNames=
-LayoutList=jp
+LayoutList[$i]=jp
 Model=jp106
 Use=true
 VariantList=
