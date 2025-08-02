@@ -257,6 +257,7 @@
   };
   extraPlugins = with pkgs.vimPlugins; [
     quick-scope
+    camelcasemotion
     clever-f-vim
     nvim-hlslens
   ];
