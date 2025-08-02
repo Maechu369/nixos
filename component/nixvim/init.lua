@@ -268,5 +268,13 @@ require("lualine").setup({
 require("hlslens").setup()
 
 
+-- camelcasemotion {{{2
+
+
+map({"n", "o"}, "<leader>w", "<Plug>CamelCaseMotion_w")
+map({"n", "o"}, "<leader>b", "<Plug>CamelCaseMotion_b")
+map({"n", "o"}, "<leader>e", "<Plug>CamelCaseMotion_e")
+
+
 -- modeline {{{1
 -- vim: fdm=marker:fdc=2:fdl=1:et:sw=2:ts=2
