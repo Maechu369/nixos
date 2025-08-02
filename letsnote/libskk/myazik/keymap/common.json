@@ -1,7 +1,9 @@
 {
     "define": {
         "keymap": {
-            ":": "upper-;"
+          "C-j": "set-input-mode-hiragana",
+          "+": "upper-;",
+          "*": "upper-:"
         }
     }
 }
