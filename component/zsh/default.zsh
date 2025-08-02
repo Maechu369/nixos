@@ -16,6 +16,8 @@ select-word-style default
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':zle:*' word-style unspecified
 
+eval "$(gh completion -s zsh)"
+
 git() {
   if [[ $1 == 'diffs' ]]; then
     if [[ $(command -v delta) ]]; then
