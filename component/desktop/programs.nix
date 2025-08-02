@@ -1,4 +1,7 @@
-args@{ pkgs, ... }: {
+args@{ pkgs, plasma-manager, ... }: {
+  plasma = {
+    enable = true;
+  };
   alacritty = {
     enable = true;
     settings = {

@@ -1,4 +1,4 @@
-args@{ config, pkgs, nixvim, ... }:
+args@{ config, pkgs, plasma-manager, nixvim, ... }:
 
 {
   home.username = "hiroki";
