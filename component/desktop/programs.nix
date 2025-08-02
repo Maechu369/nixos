@@ -76,4 +76,7 @@ args@{ pkgs, plasma-manager, ... }: {
       ];
     };
   };
+  firefox = {
+    enable = true;
+  };
 }
