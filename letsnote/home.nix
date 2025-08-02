@@ -8,6 +8,8 @@ args@{ config, pkgs, plasma-manager, nixvim, ... }:
   xdg.configFile = {
     fcitx5.source = ./fcitx5;
     fcitx5.recursive = true;
+    "libskk/rules".source = ./libskk;
+    "libskk/rules".recursive = true;
     # "kxkbrc".text = builtins.readFile ./kxkbrc;
     # "kwinrc".text = builtins.readFile ./kwinrc;
   };
