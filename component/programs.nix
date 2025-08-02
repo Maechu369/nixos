@@ -10,6 +10,16 @@ args@{ lib, pkgs, ... }: {
     };
     delta = { enable = true; };
   };
+  gh = {
+    enable = true;
+    hosts = {
+      "github.com" = {
+        git_protocol = "ssh";
+        users."Maechu369" = "";
+        user = "Maechu369";
+      };
+    };
+  };
   zsh = import zsh/zsh.nix args;
   eza = {
     enable = true;
