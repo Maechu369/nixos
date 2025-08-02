@@ -22,7 +22,7 @@ ModifierOnlyKeyTimeout=250
 0=Zenkaku_Hankaku
 
 [Hotkey/AltTriggerKeys]
-0=Shift_L
+0=
 
 [Hotkey/PrevPage]
 0=Up
