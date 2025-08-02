@@ -60,6 +60,7 @@ in {
       };
     };
   };
+  services.dbus.packages = [ config.i18n.inputMethod.package ];
 
   fonts = {
     packages = with pkgs; [
