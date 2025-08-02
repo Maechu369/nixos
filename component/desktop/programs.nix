@@ -1,6 +1,18 @@
 args@{ pkgs, plasma-manager, ... }: {
   plasma = {
     enable = true;
+    overrideConfig = true;
+    input = {
+      keyboard = {
+        layouts = [{ layout = "jp"; }];
+        model = "jp106";
+      };
+    };
+    configFile = {
+      kxkbrc = {
+        Layout.LayoutList.immutable = true;
+      };
+    };
   };
   alacritty = {
     enable = true;

@@ -6,7 +6,7 @@ args@{ config, pkgs, plasma-manager, nixvim, ... }:
   home.stateVersion = "25.05";
   home.packages = (import ../component/packages.nix args);
   xdg.configFile = {
-    "kxkbrc".text = builtins.readFile ./kxkbrc;
+    # "kxkbrc".text = builtins.readFile ./kxkbrc;
     # "kwinrc".text = builtins.readFile ./kwinrc;
   };
   programs = (import ../component/programs.nix args)
