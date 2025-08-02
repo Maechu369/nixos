@@ -8,17 +8,12 @@ args@{ pkgs, plasma-manager, ... }: {
         model = "jp106";
       };
     };
-    kwin = {
-      effects = {
-        fps.enable = true;
-      };
-    };
+    kwin = { effects = { fps.enable = true; }; };
     configFile = {
-      kxkbrc = {
-        Layout.LayoutList.immutable = true;
-      };
+      kxkbrc = { Layout.LayoutList.immutable = true; };
       kwinrc = {
-        Wayland.InputMethod.value = "/run/current-system/sw/share/applications/org.fcitx.Fcitx5.desktop";
+        Wayland.InputMethod.value =
+          "/run/current-system/sw/share/applications/org.fcitx.Fcitx5.desktop";
         Wayland.InputMethod.shellExpand = true;
         Wayland.InputMethod.immutable = true;
       };
@@ -78,5 +73,27 @@ args@{ pkgs, plasma-manager, ... }: {
   };
   firefox = {
     enable = true;
+    languagePacks = [ "ja" ];
+    policies = {
+      DefaultDownloadDirectory = "/home/hiroki/Downloads";
+      DisableAppUpdate = true;
+      ExtensionSettings = {
+        "*" = {
+          installation_mode = "normal_installed";
+          allowed_types = "extension";
+          private_browsing = false;
+        };
+        "uBlock0@raymondhill.net" = {
+          install_url =
+            "https://addons.mozilla.org/firefox/downloads/latest/uBlock0@raymondhill.net/latest.xpi";
+          private_browsing = true;
+        };
+        "simple-translate@sienori" = {
+          install_url =
+            "https://addons.mozilla.org/firefox/downloads/latest/simple-translate@sienori/latest.xpi";
+          private_browsing = true;
+        };
+      };
+    };
   };
 }
