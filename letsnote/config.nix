@@ -61,6 +61,7 @@ in {
     };
   };
   services.dbus.packages = [ config.i18n.inputMethod.package ];
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   fonts = {
     packages = with pkgs; [
