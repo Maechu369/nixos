@@ -11,6 +11,7 @@ args@{ lib, pkgs, ... }: {
     delta = { enable = true; };
     aliases = {
       co = "checkout";
+      create = "branch";
     };
   };
   gh = {
