@@ -96,4 +96,8 @@ args@{ pkgs, plasma-manager, ... }: {
       };
     };
   };
+  thunderbird = {
+    enable = true;
+    profiles = { };
+  };
 }
