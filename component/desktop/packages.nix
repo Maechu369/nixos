@@ -1,1 +1,1 @@
-{ pkgs, ... }: with pkgs; [ obsidian ]
+{ pkgs, ... }: with pkgs; [ obsidian slack ]
