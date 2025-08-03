@@ -9,6 +9,9 @@ args@{ lib, pkgs, ... }: {
       merge.conflictStyle = "zdiff3";
     };
     delta = { enable = true; };
+    aliases = {
+      co = "checkout";
+    };
   };
   gh = {
     enable = true;

@@ -46,6 +46,9 @@ git() {
     else
       command git "$@"
     fi
+  elif [[ $1 == 'create' ]]; then
+    git branch $2
+    git checkout $2
   else
     command git "$@"
   fi
