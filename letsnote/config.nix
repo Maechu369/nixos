@@ -200,6 +200,10 @@ in {
             remap = { C-h = "Backspace"; };
           }
           {
+            name = "<C-m> to <CR>";
+            remap = { C-m = "KEY_ENTER"; };
+          }
+          {
             name = "無変換+J to AltTab";
             remap = { KEY_MUHENKAN-j = "ALT-TAB"; };
           }
