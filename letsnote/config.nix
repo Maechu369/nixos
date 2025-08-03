@@ -177,20 +177,41 @@ in {
       userName = "hiroki";
       serviceMode = "system";
       config = {
+        virtual_modifiers =
+          [ "KEY_KATAKANAHIRAGANA" "KEY_HENKAN" "KEY_MUHENKAN" ];
         modmap = [
-          {
-            name = "Left Ctrl to F13";
-            remap = { F13 = "LEFTCTRL"; };
-          }
           {
             name = "CL to Ctrl";
             remap = { CAPSLOCK = "LEFTCTRL"; };
           }
+          {
+            name = "無変換 to Esc";
+            remap = {
+              KEY_MUHENKAN = {
+                held = "KEY_MUHENKAN";
+                alone = "KEY_ESC";
+              };
+            };
+          }
         ];
-        keymap = [{
-          name = "<C-h> to <BS>";
-          remap = { C-h = "Backspace"; };
-        }];
+        keymap = [
+          {
+            name = "<C-h> to <BS>";
+            remap = { C-h = "Backspace"; };
+          }
+          {
+            name = "無変換+J to AltTab";
+            remap = { KEY_MUHENKAN-j = "ALT-TAB"; };
+          }
+          {
+            name = "無変換+G to Ctrl+Tab";
+            remap = { KEY_MUHENKAN-g = "C-TAB"; };
+          }
+          {
+            name = "無変換+T to Ctrl+Shift+Tab";
+            remap = { KEY_MUHENKAN-t = "C-SHIFT-TAB"; };
+          }
+        ];
       };
     };
   };
