@@ -93,6 +93,11 @@ args@{ pkgs, plasma-manager, ... }: {
             "https://addons.mozilla.org/firefox/downloads/latest/simple-translate@sienori/latest.xpi";
           private_browsing = true;
         };
+        "tridactyl.vim@cmcaine.co.uk" = {
+          install_url =
+            "https://addons.mozilla.org/firefox/downloads/latest/tridactyl.vim@cmcaine.co.uk/latest.xpi";
+          private_browsing = true;
+        };
       };
     };
   };
