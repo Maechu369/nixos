@@ -8,7 +8,6 @@ args@{ pkgs, plasma-manager, ... }: {
         model = "jp106";
       };
     };
-    kwin = { effects = { fps.enable = true; }; };
     configFile = {
       kxkbrc = { Layout.LayoutList.immutable = true; };
       kwinrc = {
