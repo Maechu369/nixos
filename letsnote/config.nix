@@ -200,11 +200,11 @@ in {
         keymap = [
           {
             name = "<C-h> to <BS>";
-            remap = { C-h = "Backspace"; };
+            remap = { Ctrl_L-h = "Backspace"; };
           }
           {
             name = "<C-m> to <CR>";
-            remap = { C-m = "KEY_ENTER"; };
+            remap = { Ctrl_L-m = "KEY_ENTER"; };
           }
           {
             name = "無変換+J to AltTab";
@@ -212,13 +212,13 @@ in {
           }
           {
             name = "無変換+G to Ctrl+Tab";
-            remap = { KEY_MUHENKAN-g = "C-TAB"; };
-          }
-          {
-            name = "無変換+T to Ctrl+Shift+Tab";
-            remap = { KEY_MUHENKAN-t = "C-SHIFT-TAB"; };
+            remap = {
+              KEY_MUHENKAN-g = "C-TAB";
+              KEY_MUHENKAN-t = "C-SHIFT-TAB";
+            };
           }
         ];
+        keypress_delay_ms = 1;
       };
     };
   };
