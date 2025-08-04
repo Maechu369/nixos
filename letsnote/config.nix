@@ -200,11 +200,11 @@ in {
         keymap = [
           {
             name = "<C-h> to <BS>";
-            remap = { C-h = "Backspace"; };
+            remap = { Ctrl_L-h = "Backspace"; };
           }
           {
             name = "<C-m> to <CR>";
-            remap = { C-m = "KEY_ENTER"; };
+            remap = { Ctrl_L-m = "KEY_ENTER"; };
           }
           {
             name = "無変換+J to AltTab";
@@ -218,6 +218,7 @@ in {
             };
           }
         ];
+        keypress_delay_ms = 1;
       };
     };
   };
