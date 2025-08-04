@@ -212,11 +212,10 @@ in {
           }
           {
             name = "無変換+G to Ctrl+Tab";
-            remap = { KEY_MUHENKAN-g = "C-TAB"; };
-          }
-          {
-            name = "無変換+T to Ctrl+Shift+Tab";
-            remap = { KEY_MUHENKAN-t = "C-SHIFT-TAB"; };
+            remap = {
+              KEY_MUHENKAN-g = "C-TAB";
+              KEY_MUHENKAN-t = "C-SHIFT-TAB";
+            };
           }
         ];
       };
