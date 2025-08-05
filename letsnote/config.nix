@@ -163,6 +163,7 @@ in {
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+    fontPackages = with pkgs; [ migu ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are
