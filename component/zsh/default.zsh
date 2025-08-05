@@ -31,27 +31,32 @@ git() {
       ;;
     'stash')
       if [[ $2 == 'list' ]]; then
-        if [[ $(command -v fzf) ]]; then
-          local stash
-          DELTA_FEATURES=+side-by-side
-          stash=$(command git stash list | awk -F'[: ]' '{print $1}' | fzf --prompt='git stash > ' --preview='command git stash list | grep {}; command git stash show -p {}')
-          if [[ $stash == '' ]]; then
-            DELTA_FEATURES=+
-            return
-          fi
-          git stash show -p "$stash" >&2
-          echo "$stash"
+        local stash
+        DELTA_FEATURES=+side-by-side
+        stash=$(command git stash list | awk -F'[: ]' '{print $1}' | fzf --prompt='git stash > ' --preview='command git stash list | grep {}; command git stash show -p {}')
+        if [[ $stash == '' ]]; then
           DELTA_FEATURES=+
-        else
-          command git "$@"
+          return
         fi
+        git stash show -p "$stash" >&2
+        echo "$stash"
+        DELTA_FEATURES=+
       else
         command git "$@"
       fi
       ;;
     'create' )
-      git branch $2
-      git checkout $2
+      command git branch $2
+      command git checkout $2
+      ;;
+    'branch' )
+      if [[ $# == 1 ]]; then
+        local branch
+        branch=$(command git branch | fzf --prompt='branch > ' --preview='git log --graph $(echo {} | cut -c3-)')
+        echo branch
+      else
+        command git "$@"
+      fi
       ;;
     *)
       command git "$@"
