@@ -52,8 +52,8 @@ git() {
     'branch' )
       if [[ $# == 1 ]]; then
         local branch
-        branch=$(command git branch | fzf --prompt='branch > ' --preview='git log --graph $(echo {} | cut -c3-)')
-        echo branch
+        branch=$(command git branch | fzf --prompt='branch > ' --preview='git log --graph --oneline --decorate $(echo {} | cut -c3-)')
+        command git checkout branch
       else
         command git "$@"
       fi
