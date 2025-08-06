@@ -30,11 +30,11 @@ git() {
       fi
       ;;
     'stash')
-      if [[ $2 == 'list' ]]; then
+      if [[ "$2" == 'list' ]]; then
         local stash
         DELTA_FEATURES=+side-by-side
-        stash=$(command git stash list | awk -F'[: ]' '{print $1}' | fzf --prompt='git stash > ' --preview='command git stash list | grep {}; command git stash show -p {}')
-        if [[ $stash == '' ]]; then
+        stash=$(command git stash list | awk -F'[: ]' '{print "$1"}' | fzf --prompt='git stash > ' --preview='command git stash list | grep {}; command git stash show -p {}')
+        if [[ "$stash" == '' ]]; then
           DELTA_FEATURES=+
           return
         fi
@@ -46,17 +46,24 @@ git() {
       fi
       ;;
     'create' )
-      command git branch $2
-      command git checkout $2
+      command git branch "$2"
+      command git checkout "$2"
       ;;
     'branch' )
-      if [[ $# == 1 ]]; then
+      if [[ "$#" == 1 ]]; then
         local branch
         branch=$(command git branch | fzf --prompt='branch > ' --preview='git log --graph --oneline --decorate $(echo {} | cut -c3-)')
-        command git checkout branch
+        [[ "$branch" == '' ]] && return
+        command git checkout "$branch"
       else
         command git "$@"
       fi
+      ;;
+    'history' )
+      local commit
+      commit=$(command git log --graph --oneline --decorate | fzf --prompt='commit > ' --preview='git log -n 1 -p --stat $(echo {} | grep -o -E \[0-9a-f\]+ | head -n 1)' | grep -o -E '[0-9a-f]+' | head -n 1)
+      [[ "$commit" == '' ]] && return
+      command git log -n 1 -p --stat "$commit"
       ;;
     *)
       command git "$@"
@@ -67,32 +74,32 @@ git() {
 vf() {
   local file
   file=$(fzf --prompt='vim > ' --preview='fzf-preview.sh {}')
-  [[ $file == '' ]] && return
-  vim $file
+  [[ "$file" == '' ]] && return
+  vim "$file"
 }
 
 fd() {
   local dir
   dir=$(command fd --type d --strip-cwd-prefix | fzf --prompt='cd > ' --preview='eza --git --icons -1F {}')
-  [[ $dir == '' ]] && return
-  cd $dir
+  [[ "$dir" == '' ]] && return
+  cd "$dir"
 }
 
 fkill() {
   local process
   local pid
   process=$(procs --tree | fzf --prompt='kill > ')
-  [[ $process == '' ]] && return
-  pid=$(echo $process | grep -oE '[0-9]+' | head -n 1)
-  kill $pid
-  echo 'kill '$pid >&w
+  [[ "$process" == '' ]] && return
+  pid=$(echo "$process" | grep -oE '[0-9]+' | head -n 1)
+  kill "$pid"
+  echo "kill $pid" >&w
 }
 
 sys() {
   local unit
-  unit=$(systemctl list-units | tail -n +2 | awk '{print $1}' | fzf --prompt='system unit > ' --preview='systemctl status -- {}')
-  [[ $unit == '' ]] && return
-  systemctl status -- $unit >&2
-  echo $unit
+  unit=$(systemctl list-units | tail -n +2 | awk '{print "$1"}' | fzf --prompt='system unit > ' --preview='systemctl status -- {}')
+  [[ "$unit" == '' ]] && return
+  systemctl status -- "$unit" >&2
+  echo "$unit"
 }
 # vim: et
