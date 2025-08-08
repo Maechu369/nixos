@@ -2,8 +2,8 @@
   description = "flake";
   inputs = {
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    nixpkgs.url =
-      "github:nixos/nixpkgs/29e290002bfff26af1db6f64d070698019460302";
+    nixpkgs-pin.url = "path:../pkgs";
+    nixpkgs.follows = "nixpkgs-pin/nixpkgs";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
