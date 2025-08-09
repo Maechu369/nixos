@@ -1,1 +1,1 @@
-{ pkgs, ... }: with pkgs; [ procs fd libgcc nil nixfmt-classic ripgrep ]
+{ pkgs, ... }: with pkgs; [ procs fd libgcc nil nixfmt-classic ripgrep nmon ]
