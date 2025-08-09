@@ -1,5 +1,4 @@
-args@{ config, pkgs, plasma-manager, nixvim, ... }:
-{
+args@{ config, pkgs, plasma-manager, nixvim, ... }: {
   home.username = "hiroki";
   home.homeDirectory = "/home/hiroki";
   home.stateVersion = "25.05";
