@@ -1,0 +1,52 @@
+
+add_newline = true
+format = """
+${env_var.TTY_SHELL}\
+([](fg:10 bg:197)$status[](fg:197 bg:14))\
+$directory\
+$git_branch\
+$git_commit\
+$git_status[](fg:21 bg:0)\
+$all\
+$character"""
+
+right_format = '$time'
+continuation_prompt = '[>](bold white) '
+
+[env_var.TTY_SHELL]
+format = '[( $env_value) ]($style)'
+variable = 'TTY_SHELL'
+style = 'fg:0 bg:10'
+
+[status]
+format = '[$status]($style)'
+style = 'fg:15 bg:197'
+disabled = false
+
+[directory]
+truncation_length = 10
+truncate_to_repo = false
+format = '[ $path ]($style)[$read_only]($read_only_style)[](fg:14 bg:21)'
+style = 'fg:0 bg:14'
+read_only = '[r]'
+read_only_style = 'fg:white bg:red'
+
+[git_branch]
+format = '[ $branch ]($style)'
+style = 'fg:bold white bg:21'
+
+[git_commit]
+tag_disabled = false
+style = 'fg:bold white bg:21'
+
+[git_status]
+format = '[($all_status )]($style)'
+style = 'fg:bold white bg:21'
+modified = '*'
+
+[character]
+format = '[%](bold white) '
+
+[time]
+format = '[\[$time\]]($style)'
+disabled = false
