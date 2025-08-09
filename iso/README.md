@@ -10,3 +10,7 @@
   4. `nmcli device wifi connect <SSID> --ask` インターネットが通ったらsshもできるように
 3. `nixos-install`
 4. `nixos-rebuild switch`
+
+## Notice
+
+25.11からplasmaは5から6にすること
