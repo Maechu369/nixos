@@ -1,6 +1,7 @@
+username:
 args@{ config, pkgs, plasma-manager, nixvim, ... }: {
-  home.username = "hiroki";
-  home.homeDirectory = "/home/hiroki";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
   home.stateVersion = "25.05";
   home.packages = (import ../component/packages.nix args)
     ++ (import ../component/desktop/packages.nix args);

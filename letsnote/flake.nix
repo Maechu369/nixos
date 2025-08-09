@@ -48,7 +48,7 @@
                 nixvim.homeModules.nixvim
                 plasma-manager.homeManagerModules.plasma-manager
               ];
-              users."${username}" = import ./home.nix;
+              users."${username}" = import ./home.nix username;
             };
           }
           sops-nix.nixosModules.sops
