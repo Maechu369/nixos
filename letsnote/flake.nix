@@ -32,6 +32,7 @@
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
+          inherit username;
           inherit nixos-hardware;
           inherit xremap;
         };
