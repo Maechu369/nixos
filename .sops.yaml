@@ -1,9 +1,11 @@
 keys:
   - &wsl2nixos age13f3xttf65cj2a697ujrlpwgmujd2zm098a48fx9awcfrjrcysffs4jmlfd
   - &letsnote age1j8t5hwvg29d98e4lneqkwaqxh22hq3fc5nvqft3j73ncrjcc0vgqvq70mn
+  - &mypc age1x822psmugq98fk0kspw7hqcgv50gp06r523fnfprpykaqjjfuyuqpkdv23
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
     - age:
       - *wsl2nixos
       - *letsnote
+      - *mypc
