@@ -26,10 +26,13 @@
   };
 
   outputs = { nixpkgs, nixos-hardware, home-manager, sops-nix, plasma-manager
-    , xremap, nixvim, ... }: {
+    , xremap, nixvim, ... }:
+    let username = "hiroki";
+    in {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
+          inherit username;
           inherit nixos-hardware;
           inherit xremap;
         };
@@ -45,7 +48,7 @@
                 nixvim.homeModules.nixvim
                 plasma-manager.homeManagerModules.plasma-manager
               ];
-              users.hiroki = import ./home.nix;
+              users."${username}" = import ./home.nix username;
             };
           }
           sops-nix.nixosModules.sops
