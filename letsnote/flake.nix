@@ -26,7 +26,9 @@
   };
 
   outputs = { nixpkgs, nixos-hardware, home-manager, sops-nix, plasma-manager
-    , xremap, nixvim, ... }: {
+    , xremap, nixvim, ... }:
+    let username = "hiroki";
+    in {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
