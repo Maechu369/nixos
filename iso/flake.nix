@@ -4,7 +4,7 @@
     nixpkgs-pin.url = "path:../pkgs";
     nixpkgs.follows = "nixpkgs-pin/nixpkgs";
   };
-  outputs = { self, nixpkgs }: {
+  outputs = { self, nixpkgs, ... }: {
     nixosConfigurations = {
       exampleIso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

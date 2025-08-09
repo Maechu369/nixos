@@ -5,7 +5,8 @@
 { config, lib, pkgs, modulesPath, ... }:
 let username = "hiroki";
 in {
-  imports = [ (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix") ];
+  imports = [ "${modulesPath}/installer/cd-dvd/installation-cd-graphical-plasma5.nix" ];
+  # imports = [ "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix" ];
 
   # Select Linux Kernel
   boot.kernelPackages = pkgs.linuxPackages;
@@ -43,4 +44,9 @@ in {
   environment.systemPackages = with pkgs; [ git networkmanager ];
 
   services.openssh.enable = true;
+
+  environment.etc.recommend-config = {
+    source = ./..;
+    mode = "0666";
+  };
 }
