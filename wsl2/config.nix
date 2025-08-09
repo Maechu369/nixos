@@ -1,11 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, username, ... }:
 let ageKeyFile = "/var/lib/sops-nix/keys.txt";
 in {
   imports = [ ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   wsl.enable = true;
-  wsl.defaultUser = "hiroki";
+  wsl.defaultUser = username;
 
   time.timeZone = "Asia/Tokyo";
 
@@ -17,13 +17,13 @@ in {
     secrets.hashedPassword.neededForUsers = true;
   };
 
-  users.users.hiroki = {
+  users.users."${username}" = {
     isNormalUser = true;
-    description = "hiroki";
+    description = username;
     hashedPasswordFile = config.sops.secrets.hashedPassword.path;
     extraGroups = [ "networkmanager" "wheel" ];
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILv9JtMAq/KexNVaWmvyh7ouppoA0aDPO8qxlnYUQDtq hiroki@nixos"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILv9JtMAq/KexNVaWmvyh7ouppoA0aDPO8qxlnYUQDtq ${username}@nixos"
     ];
     shell = pkgs.zsh;
     packages = with pkgs; [ kdePackages.kate ];

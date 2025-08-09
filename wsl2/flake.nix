@@ -20,10 +20,16 @@
   };
 
   outputs =
-    { self, nixpkgs, home-manager, nixos-wsl, sops-nix, nixvim, ... }@inputs: {
+    { self, nixpkgs, home-manager, nixos-wsl, sops-nix, nixvim, ... }:
+    let username = "hiroki";
+    in {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {
+          inherit username;
+        };
         modules = [
+          ./config.nix
           nixos-wsl.nixosModules.default
           {
             system.stateVersion = "24.11";
@@ -35,11 +41,10 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               sharedModules = [ nixvim.homeModules.nixvim ];
-              users.hiroki = import ./home.nix;
+              users."${username}" = import ./home.nix username;
             };
           }
           sops-nix.nixosModules.sops
-          ./config.nix
         ];
       };
     };
