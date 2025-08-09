@@ -14,16 +14,7 @@ args@{ lib, pkgs, ... }: {
       create = "branch";
     };
   };
-  gh = {
-    enable = true;
-    hosts = {
-      "github.com" = {
-        git_protocol = "ssh";
-        users."Maechu369" = "";
-        user = "Maechu369";
-      };
-    };
-  };
+  gh = { enable = true; };
   zsh = import zsh/zsh.nix args;
   eza = {
     enable = true;
