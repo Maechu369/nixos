@@ -6,7 +6,7 @@
   autosuggestion.enable = true;
   dirHashes = {
     c = "/mnt/c";
-    wh = "/mnt/c/Users/hiroki";
+    wh = "/mnt/c/Users/$USER";
   };
   history = {
     ignoreAllDups = true;

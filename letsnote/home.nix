@@ -1,5 +1,7 @@
 username:
-args@{ config, pkgs, plasma-manager, nixvim, ... }: {
+arg@{ config, pkgs, plasma-manager, nixvim, ... }:
+let args = arg // { inherit username; };
+in {
   home.username = username;
   home.homeDirectory = "/home/${username}";
   home.stateVersion = "25.05";

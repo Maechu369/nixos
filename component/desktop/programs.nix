@@ -1,4 +1,4 @@
-args@{ pkgs, plasma-manager, ... }: {
+args@{ pkgs, plasma-manager, username, ... }: {
   plasma = {
     enable = true;
     overrideConfig = true;
@@ -74,7 +74,7 @@ args@{ pkgs, plasma-manager, ... }: {
     enable = true;
     languagePacks = [ "ja" ];
     policies = {
-      DefaultDownloadDirectory = "/home/hiroki/Downloads";
+      DefaultDownloadDirectory = "/home/${username}/Downloads";
       DisableAppUpdate = true;
       ExtensionSettings = {
         "*" = {
