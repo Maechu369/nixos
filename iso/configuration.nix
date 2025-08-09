@@ -3,8 +3,8 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, lib, pkgs, modulesPath, ... }:
-
-{
+let username = "hiroki";
+in {
   imports = [ (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix") ];
 
   # Select Linux Kernel
@@ -22,12 +22,12 @@
   networking.networkmanager.enable = true;
   # ENDPICK
 
-  users.users.hiroki = {
+  users.users."${username}" = {
     isNormalUser = true;
-    home = "/home/hiroki";
+    home = "/home/${username}";
     extraGroups = [ "wheel" "networkmanager" ];
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGo2UZSbmkdNzJO+0znvrMMsp5LcWAF0h+c8e9Rw92jS hiroki@DESKTOP-QKM8RGF"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGo2UZSbmkdNzJO+0znvrMMsp5LcWAF0h+c8e9Rw92jS ${username}@DESKTOP-QKM8RGF"
     ];
   };
   users.mutableUsers = false;
