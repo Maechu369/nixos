@@ -50,4 +50,6 @@ args@{ lib, pkgs, ... }: {
   # neovim = import neovim/neovim.nix args;
   nixvim = import nixvim/nixvim.nix args;
   ripgrep = { enable = true; };
+  gpg = { enable = true; };
+  password-store = { enable = true; };
 }
