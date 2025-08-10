@@ -8,7 +8,8 @@ in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-  ] ++ [ xremap.nixosModules.default ];
+  ] ++ (with nixos-hardware.nixosModules; [ common-cpu-amd common-pc-ssd ])
+    ++ [ xremap.nixosModules.default ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -120,8 +121,8 @@ in {
     modesetting.enable = true;
     powerManagement.enable = false;
     powerManagement.finegrained = false;
-    # open MUST false WHEN older than RTX 20XX
-    open = false;
+    # open MUST false WHEN older than Turig (GTX16XX)
+    open = true;
     nvidiaSettings = true;
   };
 
