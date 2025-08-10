@@ -21,6 +21,13 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 32;
 
+  zramSwap = {
+    enable = true;
+    priority = 5;
+    algorithm = "zstd";
+    memoryPercent = 50;
+  };
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
