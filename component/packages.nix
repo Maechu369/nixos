@@ -3,6 +3,7 @@ with pkgs; [
   procs
   fd
   libgcc
+  pciutils
   nil
   nixfmt-classic
   ripgrep
