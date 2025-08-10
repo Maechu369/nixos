@@ -114,6 +114,17 @@ in {
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    # open MUST false WHEN older than RTX 20XX
+    open = false;
+    nvidiaSettings = true;
+  };
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
