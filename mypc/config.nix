@@ -17,6 +17,13 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 32;
 
+  zramSwap = {
+    enable = true;
+    priority = 5;
+    algorithm = "zstd";
+    memoryPercent = 25;
+  };
+
   boot.kernelPackages = pkgs.linuxPackages;
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8852au ];
   networking.hostName = "nixos"; # Define your hostname.
