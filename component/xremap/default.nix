@@ -2,8 +2,13 @@ username: {
   userName = username;
   serviceMode = "system";
   config = {
-    virtual_modifiers = [ "KEY_KATAKANAHIRAGANA" "KEY_HENKAN" "KEY_MUHENKAN" ];
+    virtual_modifiers =
+      [ "KEY_KATAKANAHIRAGANA" "KEY_HENKAN" "KEY_MUHENKAN" "F13" ];
     modmap = [
+      {
+        name = "LCTRL to F13";
+        remap = { LEFTCTRL = "F13"; };
+      }
       {
         name = "CL to Ctrl";
         remap = { CAPSLOCK = "LEFTCTRL"; };
@@ -36,6 +41,19 @@ username: {
         remap = {
           KEY_MUHENKAN-g = "C-TAB";
           KEY_MUHENKAN-t = "C-SHIFT-TAB";
+        };
+      }
+      {
+        name = "F13 to Fn";
+        remap = {
+          F13-j = "End";
+          F13-7 = "Home";
+          F13-l = "PageDown";
+          F13-9 = "PageUp";
+          F13-8 = "Up";
+          F13-k = "Down";
+          F13-u = "Left";
+          F13-o = "Right";
         };
       }
     ];
