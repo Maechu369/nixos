@@ -10,4 +10,5 @@ with pkgs; [
   nmon
   pinentry-qt
   unixtools.xxd
+  qrrs
 ]
