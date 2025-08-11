@@ -25,9 +25,6 @@ in {
     memoryPercent = 25;
   };
 
-  # boot.kernelParams =
-  #   [ "nvidia-drm.modeset=1" "nvidia.NVreg_PreserveVideoMomoryAllocations=1" ];
-
   boot.kernelPackages = pkgs.linuxPackages;
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8852au ];
   networking.hostName = "nixos"; # Define your hostname.
@@ -130,11 +127,6 @@ in {
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
-  # systemd.services.systemd-suspend.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIOS =
-  #   "false";
-  # boot.extraModprobeConfig = ''
-  #   options nvidia "NVreg_DynamicPowerManagement=0x02"
-  # '';
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
