@@ -11,4 +11,7 @@ with pkgs; [
   pinentry-qt
   unixtools.xxd
   qrrs
+  qrencode
+  python313Packages.qrcode
+  paperkey
 ]
