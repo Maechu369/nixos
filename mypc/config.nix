@@ -116,17 +116,17 @@ in {
   services.printing.enable = true;
 
   hardware.graphics.enable = true;
-  # services.xserver.videoDrivers = [ "nvidia" ];
-  # hardware.nvidia = {
-  #   modesetting.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia = {
+  # modesetting.enable = true;
   #   powerManagement.enable = false;
   #   powerManagement.finegrained = false;
   #   # prime.offload.enable = true;
-  #   # open MUST false WHEN older than Turig (GTX16XX)
-  #   open = true;
-  #   nvidiaSettings = true;
+    # open MUST false WHEN older than Turig (GTX16XX)
+    open = true;
+  # nvidiaSettings = true;
   #   package = config.boot.kernelPackages.nvidiaPackages.beta;
-  # };
+  };
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
