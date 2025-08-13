@@ -24,6 +24,7 @@ in {
     algorithm = "zstd";
     memoryPercent = 25;
   };
+  boot.tmp.useTmpfs = true;
 
   boot.kernelPackages = pkgs.linuxPackages;
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8852au ];
