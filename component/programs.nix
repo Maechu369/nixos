@@ -11,7 +11,7 @@ args@{ config, lib, pkgs, ... }: {
     };
     signing = {
       format = "openpgp";
-      key = "44A046BE9D985980";
+      key = "44A046BE9D985980!";
       signByDefault = true;
     };
     delta = { enable = true; };
