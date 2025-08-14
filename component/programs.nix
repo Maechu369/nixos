@@ -3,14 +3,15 @@ args@{ config, lib, pkgs, ... }: {
   git = {
     enable = true;
     userName = "Maechu369";
-    userEmail = "90904222+Maechu369@users.noreply.github.com";
+    userEmail = "m6a7e0d8a3@gmail.com";
     extraConfig = {
       core = { quotepath = false; };
       merge.conflictStyle = "zdiff3";
+      gpg.program = "gpg";
     };
     signing = {
       format = "openpgp";
-      key = "44A046BE9D985980";
+      key = "44A046BE9D985980!";
       signByDefault = true;
     };
     delta = { enable = true; };
