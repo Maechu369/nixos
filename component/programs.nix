@@ -7,6 +7,7 @@ args@{ config, lib, pkgs, ... }: {
     extraConfig = {
       core = { quotepath = false; };
       merge.conflictStyle = "zdiff3";
+      gpg.program = "gpg";
     };
     signing = {
       format = "openpgp";
