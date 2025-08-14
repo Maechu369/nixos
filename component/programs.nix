@@ -8,6 +8,11 @@ args@{ config, lib, pkgs, ... }: {
       core = { quotepath = false; };
       merge.conflictStyle = "zdiff3";
     };
+    signing = {
+      format = "openpgp";
+      key = "44A046BE9D985980";
+      signByDefault = true;
+    };
     delta = { enable = true; };
     aliases = {
       co = "checkout";
