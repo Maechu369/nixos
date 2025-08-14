@@ -1,4 +1,4 @@
-args@{ lib, pkgs, ... }: {
+args@{ config, lib, pkgs, ... }: {
   home-manager.enable = true;
   git = {
     enable = true;

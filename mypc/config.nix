@@ -24,6 +24,7 @@ in {
     algorithm = "zstd";
     memoryPercent = 25;
   };
+  boot.tmp.useTmpfs = true;
 
   boot.kernelPackages = pkgs.linuxPackages;
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8852au ];
@@ -114,6 +115,11 @@ in {
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
