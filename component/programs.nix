@@ -1,5 +1,8 @@
-args@{ lib, pkgs, ... }: {
+args@{ config, lib, pkgs, ... }: {
   home-manager.enable = true;
+  ssh = {
+    enable = true;
+  };
   git = {
     enable = true;
     userName = "Maechu369";
