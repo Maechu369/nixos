@@ -8,5 +8,7 @@
       package = pkgs.pinentry-qt;
       program = "pinentry";
     };
+    defaultCacheTtl = 34560000;
+    maxCacheTtl = 34560000;
   };
 }
