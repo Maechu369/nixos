@@ -11,4 +11,5 @@ with pkgs; [
   pinentry-qt
   unixtools.xxd
   qrrs
+  nmap
 ]
