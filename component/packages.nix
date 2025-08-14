@@ -3,6 +3,8 @@ with pkgs; [
   procs
   fd
   libgcc
+  libinput
+  usbutils
   pciutils
   nil
   nixfmt-classic
