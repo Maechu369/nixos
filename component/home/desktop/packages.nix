@@ -1,1 +1,1 @@
-{ pkgs, ... }: with pkgs; [ obsidian slack discord gparted ]
+{ pkgs, ... }: with pkgs; [ obsidian slack discord gparted graphviz ]
