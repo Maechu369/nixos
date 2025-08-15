@@ -71,13 +71,6 @@ git() {
   esac
 }
 
-vf() {
-  local file
-  file=$(fzf --prompt='vim > ' --preview='fzf-preview.sh {}')
-  [[ "$file" == '' ]] && return
-  vim "$file"
-}
-
 fd() {
   local dir
   dir=$(command fd --type d --strip-cwd-prefix | fzf --prompt='cd > ' --preview='eza --git --icons -1F {}')
