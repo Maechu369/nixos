@@ -14,4 +14,5 @@ with pkgs; [
   unixtools.xxd
   qrrs
   nmap
+  graphviz
 ]
