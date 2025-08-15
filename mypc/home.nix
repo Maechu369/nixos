@@ -18,5 +18,5 @@ in {
   };
   programs = (import ../component/programs.nix args)
     // (import ../component/desktop/programs.nix args);
-  services = import ../component/services.nix args;
+  services = import ../component/home/services args;
 }
