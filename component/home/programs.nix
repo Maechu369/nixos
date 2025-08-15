@@ -21,7 +21,7 @@ args@{ config, lib, pkgs, ... }: {
     };
   };
   gh = { enable = true; };
-  zsh = import zsh/zsh.nix args;
+  zsh = import ./zsh args;
   eza = {
     enable = true;
     git = true;
@@ -53,8 +53,7 @@ args@{ config, lib, pkgs, ... }: {
     ];
     terminal = "tmux-256color";
   };
-  # neovim = import neovim/neovim.nix args;
-  nixvim = import nixvim/nixvim.nix args;
+  nixvim = import ./nixvim args;
   ripgrep = { enable = true; };
   gpg = { enable = true; };
   password-store = { enable = true; };
