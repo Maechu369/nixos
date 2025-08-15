@@ -90,7 +90,7 @@ fkill() {
 
 sys() {
   local unit
-  unit=$(systemctl list-units | tail -n +2 | awk '{print "$1"}' | fzf --prompt='system unit > ' --preview='systemctl status -- {}')
+  unit=$(systemctl list-units | tail -n +2 | awk '{print $1}' | fzf --prompt='system unit > ' --preview='systemctl status -- {}')
   [[ "$unit" == '' ]] && return 1
   systemctl status -- "$unit" >&2
   echo "$unit"
