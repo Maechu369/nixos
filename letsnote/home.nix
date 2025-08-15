@@ -5,8 +5,8 @@ in {
   home.username = username;
   home.homeDirectory = "/home/${username}";
   home.stateVersion = "25.05";
-  home.packages = (import ../component/packages.nix args)
-    ++ (import ../component/desktop/packages.nix args);
+  home.packages = (import ../component/home/packages.nix args)
+    ++ (import ../component/home/desktop/packages.nix args);
   xdg.userDirs.enable = true;
   xdg.configFile = {
     # "kxkbrc".text = builtins.readFile ./kxkbrc;
@@ -16,7 +16,7 @@ in {
     "libskk/rules".source = ./libskk;
     "libskk/rules".recursive = true;
   };
-  programs = (import ../component/programs.nix args)
-    // (import ../component/desktop/programs.nix args);
+  programs = (import ../component/home/programs.nix args)
+    // (import ../component/home/desktop/programs.nix args);
   services = import ../component/home/services args;
 }
