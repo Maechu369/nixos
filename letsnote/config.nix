@@ -180,6 +180,7 @@ in {
   services = {
     openssh = import ../component/services/openssh;
     xremap = import ../component/services/xremap username;
+    x2goserver.enable = true;
   };
 
   # Open ports in the firewall.
