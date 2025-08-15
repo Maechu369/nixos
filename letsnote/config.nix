@@ -136,7 +136,7 @@ in {
   # services.xserver.libinput.enable = true;
 
   users = import ../component/users args;
-  security.sudo.wheelNeedsPassword = false;
+  security.sudo = import ../component/sudo;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
