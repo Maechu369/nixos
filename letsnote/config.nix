@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, username, nixos-hardware, xremap, ... }:
+args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }:
 let ageKeyFile = "/var/lib/sops-nix/keys.txt";
 in {
   imports = [
@@ -135,18 +135,7 @@ in {
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  users.users."${username}" = {
-    isNormalUser = true;
-    description = username;
-    hashedPasswordFile = config.sops.secrets.hashedPassword.path;
-    extraGroups = [ "networkmanager" "wheel" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFbkbVhapmW864se06Wk+IWzm5XmfsP0nohg0MVX9b1i openpgp:0x67DC50BF"
-    ];
-    shell = pkgs.zsh;
-    packages = with pkgs; [ kdePackages.kate ];
-  };
-  users.mutableUsers = false;
+  users = import ../component/users args;
   security.sudo.wheelNeedsPassword = false;
 
   # Allow unfree packages
