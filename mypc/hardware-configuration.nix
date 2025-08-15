@@ -29,6 +29,12 @@
     options = [ "fmask=0022" "dmask=0022" ];
   };
 
+  fileSystems."/mnt/d" = {
+    device = "/dev/disk/by-uuid/C2440DAC440DA46F";
+    fsType = "ntfs";
+    options = [ "fmask=0022" "dmask=0022" ];
+  };
+
   swapDevices = [{
     device = "/var/lib/swapfile";
     size = 32 * 1024; # MB
