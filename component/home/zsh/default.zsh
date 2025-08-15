@@ -85,7 +85,7 @@ fkill() {
   [[ "$process" == '' ]] && return 1
   pid=$(echo "$process" | grep -oE '[0-9]+' | head -n 1)
   kill "$pid"
-  echo "kill $pid" >&w
+  echo "$pid"
 }
 
 sys() {
