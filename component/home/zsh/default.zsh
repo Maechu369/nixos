@@ -61,8 +61,8 @@ git() {
       ;;
     'history' )
       local commit
-      commit=$(command git log --graph --oneline --decorate | fzf --prompt='commit > ' --preview='echo {} | grep -o -E \[0-9a-f\]+ | head -n 1 | if read -r line; then; git log -n 1 -p --stat "$line"; else; echo Select commit; fi')
-      [[ "$commit" == '' ]] && return
+      commit=$(command git log --graph --oneline --decorate | fzf --prompt='commit > ' --preview='echo {} | grep -o -E \[0-9a-f\]+ | head -n 1 | if read -r line; then; git log -n 1 -p --stat "$line"; else; echo Select commit; fi' | grep -o -E \[0-9a-f\]+ | head -n 1)
+      [[ "$commit" == '' ]] && return 1
       command git log -n 1 -p --stat "$commit"
       ;;
     *)
