@@ -196,6 +196,10 @@ in {
   services = {
     openssh = import ../component/services/openssh;
     xremap = import ../component/services/xremap username;
+    guacamole-server = {
+      enable = true;
+      port = 4822;
+    };
     # x2goserver.enable = true;
   };
 

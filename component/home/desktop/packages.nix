@@ -1,1 +1,1 @@
-{ pkgs, ... }: with pkgs; [ turbovnc guacamole-client obsidian slack discord gparted graphviz ]
+{ pkgs, ... }: with pkgs; [ guacamole-client guacamole-server obsidian slack discord gparted graphviz ]
