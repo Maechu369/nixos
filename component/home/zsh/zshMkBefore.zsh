@@ -8,3 +8,6 @@ fi
 
 export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+
+PATH=$HOME/bin:$PATH
+export PATH
