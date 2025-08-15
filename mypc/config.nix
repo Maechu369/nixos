@@ -194,11 +194,8 @@ in {
     };
   };
   services = {
-    openssh = {
-      enable = true;
-      settings = { PasswordAuthentication = false; };
-    };
-    xremap = import ../component/xremap username;
+    openssh = import ../component/services/openssh;
+    xremap = import ../component/services/xremap username;
   };
 
   # Open ports in the firewall.
