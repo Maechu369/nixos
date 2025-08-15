@@ -36,7 +36,7 @@ git() {
         stash=$(command git stash list | awk -F'[: ]' '{print "$1"}' | fzf --prompt='git stash > ' --preview='command git stash list | grep {}; command git stash show -p {}')
         if [[ "$stash" == '' ]]; then
           DELTA_FEATURES=+
-          return
+          return 1
         fi
         git stash show -p "$stash" >&2
         echo "$stash"
@@ -53,7 +53,7 @@ git() {
       if [[ "$#" == 1 ]]; then
         local branch
         branch=$(command git branch | fzf --prompt='branch > ' --preview='git log --graph --oneline --decorate $(echo {} | cut -c3-)')
-        [[ "$branch" == '' ]] && return
+        [[ "$branch" == '' ]] && return 1
         command git checkout "$branch"
       else
         command git "$@"
@@ -74,7 +74,7 @@ git() {
 fd() {
   local dir
   dir=$(command fd --type d --strip-cwd-prefix | fzf --prompt='cd > ' --preview='eza --git --icons -1F {}')
-  [[ "$dir" == '' ]] && return
+  [[ "$dir" == '' ]] && return 1
   cd "$dir"
 }
 
@@ -82,7 +82,7 @@ fkill() {
   local process
   local pid
   process=$(procs --tree | fzf --prompt='kill > ')
-  [[ "$process" == '' ]] && return
+  [[ "$process" == '' ]] && return 1
   pid=$(echo "$process" | grep -oE '[0-9]+' | head -n 1)
   kill "$pid"
   echo "kill $pid" >&w
@@ -91,7 +91,7 @@ fkill() {
 sys() {
   local unit
   unit=$(systemctl list-units | tail -n +2 | awk '{print "$1"}' | fzf --prompt='system unit > ' --preview='systemctl status -- {}')
-  [[ "$unit" == '' ]] && return
+  [[ "$unit" == '' ]] && return 1
   systemctl status -- "$unit" >&2
   echo "$unit"
 }
