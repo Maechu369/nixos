@@ -6,6 +6,7 @@ with pkgs; [
   libinput
   usbutils
   pciutils
+  hydra-check
   nil
   nixfmt-classic
   ripgrep
