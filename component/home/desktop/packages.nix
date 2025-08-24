@@ -1,1 +1,10 @@
-{ pkgs, ... }: with pkgs; [ obsidian slack discord gparted graphviz prismlauncher ]
+{ pkgs, ... }:
+with pkgs; [
+  libreoffice-fresh
+  obsidian
+  slack
+  discord
+  gparted
+  graphviz
+  prismlauncher
+]
