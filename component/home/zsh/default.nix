@@ -46,5 +46,6 @@
     commit = "git commit -m";
     pc = "procs --tree";
     lsblk = "lsblk -ipo +UUID";
+    compose = "docker compose";
   };
 }
