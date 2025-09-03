@@ -1,6 +1,7 @@
 { pkgs, ... }:
 with pkgs; [
   procs
+  neofetch
   fd
   libgcc
   libinput
