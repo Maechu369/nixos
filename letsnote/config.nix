@@ -143,7 +143,7 @@ in {
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ ];
+  environment.systemPackages = with pkgs; [ clamav ];
 
   environment.variables = {
     SOPS_AGE_KEY_FILE = ageKeyFile;
@@ -180,6 +180,36 @@ in {
   services = {
     openssh = import ../component/services/openssh;
     xremap = import ../component/services/xremap username;
+    clamav = import ../component/services/clamav;
+  };
+  systemd.timers."clamav-fullscan" = {
+    enable = true;
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "monthly";
+      Persistent = true;
+      Unit = "clamav-fullscan.service";
+      RandomizedDelaySec = 3600;
+    };
+  };
+  systemd.services."clamav-fullscan" = {
+    enable = true;
+    wants = [ "clamav-daemon.service" ];
+    after = [ "clamav-daemon.service" ];
+    script = ''
+      set -euo pipefail
+      mkdir -p /var/log/clamav
+      chown clamav:clamav /var/log/clamav
+      ${pkgs.clamav}/bin/clamdscan -m --fdpass --log=/var/log/clamav/scan.log --exclude-dir="/sys" --exclude-dir="/proc" --exclude-dir="/dev" --exclude-dir="/run" --exclude-dir="/tmp" --exclude-dir="/nix/store" --exclude-dir="/nix/var" --infected --recursive /
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+      StandardOutput = "journal";
+      StandardError = "journal";
+      CPUQuota = "50%";
+      MemoryMax = "4G";
+    };
   };
 
   # Open ports in the firewall.
