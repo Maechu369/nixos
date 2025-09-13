@@ -16,4 +16,5 @@ with pkgs; [
   unixtools.xxd
   qrrs
   nmap
+  python3Full
 ]
