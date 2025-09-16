@@ -64,6 +64,10 @@ map({ "", "t", "l" }, "<BS>", "<C-H>", { remap = true })
 map({ "", "t", "l" }, "<C-M>", "<CR>", { remap = true })
 
 
+nmap("(", "x<Left>P")
+nmap(")", "xp")
+
+
 -- Normal-mode commands {{{2
 
 

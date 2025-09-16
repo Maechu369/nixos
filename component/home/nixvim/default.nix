@@ -212,6 +212,11 @@
               word = true,
               cycle = true,
             },
+            augend.constant.new{
+              elements = {"- [ ] ", "- [x] "},
+              word = false,
+              cycle = true,
+            },
             augend.integer.alias.decimal,
             augend.integer.alias.hex,
             augend.date.alias["%Y/%m/%d"],
