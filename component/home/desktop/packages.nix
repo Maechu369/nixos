@@ -7,4 +7,5 @@ with pkgs; [
   gparted
   graphviz
   prismlauncher
+  filezilla
 ]
