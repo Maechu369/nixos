@@ -36,11 +36,7 @@ args@{ config, lib, pkgs, ... }: {
       shellIntegrationOptions = [ "--bottom,40%" ];
     };
   };
-  starship = {
-    enable = true;
-    enableZshIntegration = true;
-    settings = builtins.fromTOML (builtins.readFile ./starship.toml);
-  };
+  starship = import ./starship;
   tmux = import ./tmux args;
   nixvim = import ./nixvim args;
   ripgrep = { enable = true; };
