@@ -41,18 +41,7 @@ args@{ config, lib, pkgs, ... }: {
     enableZshIntegration = true;
     settings = builtins.fromTOML (builtins.readFile ./starship.toml);
   };
-  tmux = {
-    enable = true;
-    keyMode = "vi";
-    prefix = "C-q";
-    extraConfig = builtins.readFile ./tmux.conf;
-    plugins = with pkgs; [
-      tmuxPlugins.sensible
-      tmuxPlugins.resurrect
-      tmuxPlugins.continuum
-    ];
-    terminal = "tmux-256color";
-  };
+  tmux = import ./tmux args;
   nixvim = import ./nixvim args;
   ripgrep = { enable = true; };
   gpg = { enable = true; };
