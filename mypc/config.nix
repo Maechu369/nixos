@@ -199,7 +199,7 @@ in {
     openssh = import ../component/services/openssh;
     xremap = import ../component/services/xremap username;
     clamav = import ../component/services/clamav;
-    open-webui = import ../component/services/open-webui;
+    open-webui = import services/open-webui;
   };
   systemd.timers."clamav-fullscan" = {
     enable = true;
