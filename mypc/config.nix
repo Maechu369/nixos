@@ -159,7 +159,7 @@ in {
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ clamav open-webui ];
+  environment.systemPackages = with pkgs; [ clamav ];
 
   environment.variables = {
     SOPS_AGE_KEY_FILE = ageKeyFile;
@@ -199,7 +199,7 @@ in {
     openssh = import ../component/services/openssh;
     xremap = import ../component/services/xremap username;
     clamav = import ../component/services/clamav;
-    open-webui = import services/open-webui;
+    open-webui = import services/open-webui args;
     ollama = import services/ollama args;
   };
   systemd.timers."clamav-fullscan" = {
