@@ -6,6 +6,7 @@ args@{ config, lib, pkgs, ... }: {
     userEmail = "m6a7e0d8a3@gmail.com";
     extraConfig = {
       core = { quotepath = false; };
+      pull.rebase = "false";
       merge.conflictStyle = "zdiff3";
       gpg.program = "gpg";
     };
