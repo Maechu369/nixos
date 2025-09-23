@@ -27,6 +27,8 @@
     zmv = "noglob zmv -W";
     q = "exit";
     c = "cd";
+    rm = "trash";
+    remove = "command rm";
     v = "vim";
     python = "python3";
     py = "python";
