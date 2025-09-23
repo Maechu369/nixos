@@ -7,6 +7,7 @@ with pkgs; [
   libinput
   usbutils
   pciutils
+  trash-cli
   hydra-check
   nil
   nixfmt-classic
