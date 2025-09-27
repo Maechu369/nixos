@@ -2,17 +2,21 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }:
-{
+args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./extra-hardware-configuration.nix
     nixos-hardware.nixosModules.common-cpu-amd
     nixos-hardware.nixosModules.common-pc-ssd
+    ./gpu.nix
     xremap.nixosModules.default
+
     ../component/locale.nix
     ../component/sops.nix
     ../component/users.nix
+    ../component/desktop
+    ../component/desktop/steam.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -21,14 +25,6 @@ args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }:
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 32;
-
-  zramSwap = {
-    enable = true;
-    priority = 5;
-    algorithm = "zstd";
-    memoryPercent = 25;
-  };
-  boot.tmp.useTmpfs = true;
 
   boot.kernelPackages = pkgs.linuxPackages;
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8852au ];
@@ -42,57 +38,12 @@ args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }:
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Select internationalisation properties.
-  i18n = {
-    inputMethod = {
-      enable = true;
-      type = "fcitx5";
-      fcitx5 = {
-        addons = with pkgs; [ fcitx5-mozc fcitx5-skk ];
-        waylandFrontend = true;
-        settings.inputMethod = {
-          Wayland."InputMethod[$e]" =
-            "/run/current-system/sw/share/applications/org.fcitx.Fcitx5.desktop";
-        };
-      };
-    };
-  };
-  services.dbus.packages = [ config.i18n.inputMethod.package ];
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "jp";
-    variant = "";
-  };
-
-  # environment.etc."skel/.config/kxkbrc".text = builtins.readFile ./kxkbrc;
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.avahi = {
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
-  };
-
-  hardware.graphics.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    # open MUST false WHEN older than Turig (GTX16XX)
-    open = true;
-    nvidiaSettings = true;
-    # package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
   # Enable sound with pipewire.
@@ -114,30 +65,14 @@ args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }:
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  security.sudo = import ../component/sudo;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ clamav ];
-
-  environment.variables = {
-    XKB_CONFIG_ROOT = "${pkgs.xkeyboard_config}/share/X11/xkb";
-  };
+  environment.systemPackages = with pkgs; [ ];
 
   programs.zsh.enable = true;
-  programs.steam = {
-    # 設定は左上のSteamアイコンから開くことができる。
-    # 言語設定: インターフェース
-    # Proton設定: 互換性 デフォルトでProton Experimental
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-    localNetworkGameTransfers.openFirewall = true;
-    fontPackages = with pkgs; [ migu ];
-  };
 
   virtualisation.docker = { enable = true; };
 
@@ -159,7 +94,7 @@ args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }:
   services = {
     openssh = import ../component/services/openssh;
     xremap = import ../component/services/xremap username;
-    clamav = import ../component/services/clamav;
+    clamav = import ../component/services/clamav args;
     open-webui = import services/open-webui args;
     ollama = import services/ollama args;
   };

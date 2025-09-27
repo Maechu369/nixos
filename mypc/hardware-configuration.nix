@@ -23,23 +23,6 @@
     options = [ "fmask=0022" "dmask=0022" ];
   };
 
-  fileSystems."/mnt/c" = {
-    device = "/dev/disk/by-uuid/6CE4E756E4E72156";
-    fsType = "ntfs";
-    options = [ "fmask=0022" "dmask=0022" ];
-  };
-
-  fileSystems."/mnt/d" = {
-    device = "/dev/disk/by-uuid/C2440DAC440DA46F";
-    fsType = "ntfs";
-    options = [ "fmask=0022" "dmask=0022" ];
-  };
-
-  swapDevices = [{
-    device = "/var/lib/swapfile";
-    size = 32 * 1024; # MB
-  }];
-
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
