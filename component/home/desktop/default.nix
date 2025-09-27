@@ -1,4 +1,5 @@
-args@{ pkgs, ... }: {
+username:
+{ pkgs, ... }: {
   xdg.configFile = {
     # "kxkbrc".text = builtins.readFile ./kxkbrc;
     # "kwinrc".text = builtins.readFile ./kwinrc;
@@ -99,7 +100,7 @@ args@{ pkgs, ... }: {
       enable = true;
       languagePacks = [ "ja" ];
       policies = {
-        # DefaultDownloadDirectory = "/home/${username}/Downloads";
+        DefaultDownloadDirectory = "/home/${username}/Downloads";
         DisableAppUpdate = true;
         ExtensionSettings = {
           "*" = {
