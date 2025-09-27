@@ -3,13 +3,17 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }:
-let ageKeyFile = "/var/lib/sops-nix/keys.txt";
-in {
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-  ] ++ (with nixos-hardware.nixosModules; [ common-cpu-amd common-pc-ssd ])
-    ++ [ xremap.nixosModules.default ];
+    nixos-hardware.nixosModules.common-cpu-amd
+    nixos-hardware.nixosModules.common-pc-ssd
+    xremap.nixosModules.default
+    ../component/locale.nix
+    ../component/sops.nix
+    ../component/users.nix
+  ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -38,23 +42,8 @@ in {
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
-  time.timeZone = "Asia/Tokyo";
-
   # Select internationalisation properties.
   i18n = {
-    defaultLocale = "ja_JP.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "ja_JP.UTF-8";
-      LC_IDENTIFICATION = "ja_JP.UTF-8";
-      LC_MEASUREMENT = "ja_JP.UTF-8";
-      LC_MONETARY = "ja_JP.UTF-8";
-      LC_NAME = "ja_JP.UTF-8";
-      LC_NUMERIC = "ja_JP.UTF-8";
-      LC_PAPER = "ja_JP.UTF-8";
-      LC_TELEPHONE = "ja_JP.UTF-8";
-      LC_TIME = "ja_JP.UTF-8";
-    };
     inputMethod = {
       enable = true;
       type = "fcitx5";
@@ -70,32 +59,6 @@ in {
   };
   services.dbus.packages = [ config.i18n.inputMethod.package ];
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  fonts = {
-    packages = with pkgs; [
-      noto-fonts-cjk-serif
-      noto-fonts-cjk-sans
-      noto-fonts-emoji
-      plemoljp-nf
-    ];
-    fontDir.enable = true;
-    fontconfig = {
-      defaultFonts = {
-        serif = [ "Noto Serif CJK JP" "Noto Color Emoji" ];
-        sansSerif = [ "Noto Sans CJK JP" "Noto Color Emoji" ];
-        monospace = [ "PlemolJP Console NF" ];
-        emoji = [ "Noto Color Emoji" ];
-      };
-    };
-  };
-
-  sops = {
-    age.keyFile = ageKeyFile;
-    age.generateKey = true;
-    defaultSopsFile = ../secrets/secret.yaml;
-    defaultSopsFormat = "yaml";
-    secrets.hashedPassword.neededForUsers = true;
-  };
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
@@ -151,7 +114,6 @@ in {
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  users = import ../component/users args;
   security.sudo = import ../component/sudo;
 
   # Allow unfree packages
@@ -162,7 +124,6 @@ in {
   environment.systemPackages = with pkgs; [ clamav ];
 
   environment.variables = {
-    SOPS_AGE_KEY_FILE = ageKeyFile;
     XKB_CONFIG_ROOT = "${pkgs.xkeyboard_config}/share/X11/xkb";
   };
 
