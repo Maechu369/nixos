@@ -1,30 +1,79 @@
-args@{ config, pkgs, username, desktop ? null, plasma-manager, nixvim, ... }: {
-  home.username = username;
-  home.homeDirectory = "/home/${username}";
-  home.stateVersion = "25.05";
-  home.packages = (import ./packages.nix args)
-    ++ (if desktop != null then import ./desktop/packages.nix args else [ ]);
-  home.file = {
-    "bin" = {
-      source = ./bin;
-      recursive = true;
+args@{ pkgs, ... }: {
+  home = {
+    stateVersion = "25.05";
+    file = {
+      "bin" = {
+        source = ./bin;
+        recursive = true;
+      };
     };
+    packages = with pkgs; [
+      procs
+      neofetch
+      fd
+      libgcc
+      libinput
+      usbutils
+      pciutils
+      trash-cli
+      hydra-check
+      nil
+      nixfmt-classic
+      ripgrep
+      nmon
+      pinentry-qt
+      unixtools.xxd
+      qrrs
+      nmap
+      python3Full
+    ];
   };
-  xdg.userDirs.enable = true;
-  xdg.configFile = if desktop != null then {
-    # "kxkbrc".text = builtins.readFile ./kxkbrc;
-    # "kwinrc".text = builtins.readFile ./kwinrc;
-    "fcitx5" = {
-      source = ./fcitx5;
-      recursive = true;
+  programs = {
+    home-manager.enable = true;
+    git = {
+      enable = true;
+      userName = "Maechu369";
+      userEmail = "m6a7e0d8a3@gmail.com";
+      extraConfig = {
+        core = { quotepath = false; };
+        pull.rebase = "false";
+        merge.conflictStyle = "zdiff3";
+        gpg.program = "gpg";
+      };
+      signing = {
+        format = "openpgp";
+        key = "44A046BE9D985980!";
+        signByDefault = true;
+      };
+      delta = { enable = true; };
+      aliases = {
+        co = "checkout";
+        create = "branch";
+      };
     };
-    "libskk/rules" = {
-      source = ./libskk;
-      recursive = true;
+    gh = { enable = true; };
+    zsh = import ./zsh args;
+    eza = {
+      enable = true;
+      git = true;
+      icons = "auto";
     };
-  } else
-    { };
-  programs = (import ./programs.nix args)
-    // (if desktop != null then import ./desktop/programs.nix args else { });
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
+      defaultOptions = [ "--height 40%" "--layout reverse" "--border top" ];
+      tmux = {
+        enableShellIntegration = true;
+        shellIntegrationOptions = [ "--bottom,40%" ];
+      };
+    };
+    starship = import ./starship;
+    tmux = import ./tmux args;
+    nixvim = import ./nixvim args;
+    ripgrep = { enable = true; };
+    gpg = { enable = true; };
+    password-store = { enable = true; };
+  };
   services = import ./services args;
 }
+
