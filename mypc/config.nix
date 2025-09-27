@@ -16,7 +16,12 @@ args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }: {
     ../component/sops.nix
     ../component/users.nix
     ../component/desktop
+    ../component/desktop/sound.nix
     ../component/desktop/steam.nix
+    ../component/openssh.nix
+    ../component/clamav.nix
+    ./open-webui.nix
+    ./ollama.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -44,22 +49,6 @@ args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }: {
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
-  };
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -92,40 +81,7 @@ args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }: {
     };
   };
   services = {
-    openssh = import ../component/services/openssh;
     xremap = import ../component/services/xremap username;
-    clamav = import ../component/services/clamav args;
-    open-webui = import services/open-webui args;
-    ollama = import services/ollama args;
-  };
-  systemd.timers."clamav-fullscan" = {
-    enable = true;
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "monthly";
-      Persistent = true;
-      Unit = "clamav-fullscan.service";
-      RandomizedDelaySec = 3600;
-    };
-  };
-  systemd.services."clamav-fullscan" = {
-    enable = true;
-    wants = [ "clamav-daemon.service" ];
-    after = [ "clamav-daemon.service" ];
-    script = ''
-      set -euo pipefail
-      mkdir -p /var/log/clamav
-      chown clamav:clamav /var/log/clamav
-      ${pkgs.clamav}/bin/clamdscan -m --fdpass --log=/var/log/clamav/scan.log --exclude-dir="/sys" --exclude-dir="/proc" --exclude-dir="/dev" --exclude-dir="/run" --exclude-dir="/tmp" --exclude-dir="/nix/store" --exclude-dir="/nix/var" --infected --recursive /
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "root";
-      StandardOutput = "journal";
-      StandardError = "journal";
-      CPUQuota = "50%";
-      MemoryMax = "4G";
-    };
   };
 
   # Open ports in the firewall.
