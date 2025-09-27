@@ -1,8 +1,9 @@
 username:
-arg@{ config, pkgs, plasma-manager, nixvim, ... }:
-let
-  args = arg // {
-    inherit username;
-    desktop = true;
-  };
-in import ../component/home args
+{ config, pkgs, plasma-manager, nixvim, ... }:
+{
+  imports = [
+    (import ../component/home username)
+    (import ../component/home/desktop username)
+  ];
+  xdg.userDirs.enable = true;
+}
