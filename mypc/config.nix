@@ -10,7 +10,6 @@
     nixos-hardware.nixosModules.common-cpu-amd
     nixos-hardware.nixosModules.common-pc-ssd
     ./gpu.nix
-    xremap.nixosModules.default
 
     ../component/locale.nix
     ../component/sops.nix
@@ -80,9 +79,9 @@
       ExecStart = [ "" "${pkgs.networkmanager}/bin/nm-online -q --timeout=30" ];
     };
   };
-  services = {
-    xremap = import ../component/services/xremap username;
-  };
+  # services = {
+  #   xremap = import ../component/services/xremap username;
+  # };
 
   # Open ports in the firewall.
   networking.nftables.enable = true;
