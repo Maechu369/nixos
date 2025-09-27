@@ -1,5 +1,5 @@
 username:
-arg@{ config, pkgs, plasma-manager, nixvim, ... }:
+{ config, pkgs, plasma-manager, nixvim, ... }:
 {
   imports = [
     (import ../component/home username)
