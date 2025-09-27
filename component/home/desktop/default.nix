@@ -183,8 +183,12 @@ username:
           name = "Mouse";
           remap = {
             KEY_MUHENKAN-e = { launch = [ "ydotool" "click" "0xC0" ]; };
-            KEY_MUHENKAN-r = "KEY_SCROLLUP";
-            KEY_MUHENKAN-f = "KEY_SCROLLDOWN";
+            KEY_MUHENKAN-r = {
+              launch = ["ydotool" "mousemove" "-w" "-x" "0" "-y" "+2"];
+            };
+            KEY_MUHENKAN-f = {
+              launch = ["ydotool" "mousemove" "-w" "-x" "0" "-y" "-2"];
+            };
             KEY_MUHENKAN-w = {
               launch = [ "ydotool" "mousemove" "-x" "0" "-y" "-40" ];
             };
