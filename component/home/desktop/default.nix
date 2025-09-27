@@ -181,7 +181,35 @@ username:
         }
         {
           name = "Mouse";
-          remap = { KEY_MUHENKAN-e = { launch = [ "ydotool" "click" "0xC0" ]; }; };
+          remap = {
+            KEY_MUHENKAN-e = { launch = [ "ydotool" "click" "0xC0" ]; };
+            KEY_MUHENKAN-r = "KEY_SCROLLUP";
+            KEY_MUHENKAN-f = "KEY_SCROLLDOWN";
+            KEY_MUHENKAN-w = {
+              launch = [ "ydotool" "mousemove" "-x" "0" "-y" "-40" ];
+            };
+            KEY_MUHENKAN-s = {
+              launch = [ "ydotool" "mousemove" "-x" "0" "-y" "+40" ];
+            };
+            KEY_MUHENKAN-a = {
+              launch = [ "ydotool" "mousemove" "-x" "-40" "-y" "0" ];
+            };
+            KEY_MUHENKAN-d = {
+              launch = [ "ydotool" "mousemove" "-x" "+40" "-y" "0" ];
+            };
+            Shift-KEY_MUHENKAN-w = {
+              launch = [ "ydotool" "mousemove" "-x" "0" "-y" "-100" ];
+            };
+            Shift-KEY_MUHENKAN-s = {
+              launch = [ "ydotool" "mousemove" "-x" "0" "-y" "+100" ];
+            };
+            Shift-KEY_MUHENKAN-a = {
+              launch = [ "ydotool" "mousemove" "-x" "-100" "-y" "0" ];
+            };
+            Shift-KEY_MUHENKAN-d = {
+              launch = [ "ydotool" "mousemove" "-x" "+100" "-y" "0" ];
+            };
+          };
         }
         {
           name = "F13 to Fn";
