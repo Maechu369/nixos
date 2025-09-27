@@ -2,17 +2,25 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }:
-let ageKeyFile = "/var/lib/sops-nix/keys.txt";
-in {
+args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-  ] ++ (with nixos-hardware.nixosModules; [
-    common-cpu-intel
-    common-pc-laptop
-    common-pc-ssd
-  ]) ++ [ xremap.nixosModules.default ];
+    ./extra-hardware-configuration.nix
+    nixos-hardware.nixosModules.common-cpu-intel
+    nixos-hardware.nixosModules.common-cpu-intel
+    nixos-hardware.nixosModules.common-pc-ssd
+    xremap.nixosModules.default
+
+    ../component/locale.nix
+    ../component/sops.nix
+    ../component/users.nix
+    ../component/desktop
+    ../component/desktop/sound.nix
+    ../component/desktop/steam.nix
+    ../component/openssh.nix
+    ../component/clamav.nix
+  ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -20,13 +28,6 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 32;
-
-  zramSwap = {
-    enable = true;
-    priority = 5;
-    algorithm = "zstd";
-    memoryPercent = 50;
-  };
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -37,81 +38,6 @@ in {
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "Asia/Tokyo";
-
-  # Select internationalisation properties.
-  i18n = {
-    defaultLocale = "ja_JP.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "ja_JP.UTF-8";
-      LC_IDENTIFICATION = "ja_JP.UTF-8";
-      LC_MEASUREMENT = "ja_JP.UTF-8";
-      LC_MONETARY = "ja_JP.UTF-8";
-      LC_NAME = "ja_JP.UTF-8";
-      LC_NUMERIC = "ja_JP.UTF-8";
-      LC_PAPER = "ja_JP.UTF-8";
-      LC_TELEPHONE = "ja_JP.UTF-8";
-      LC_TIME = "ja_JP.UTF-8";
-    };
-    inputMethod = {
-      enable = true;
-      type = "fcitx5";
-      fcitx5 = {
-        addons = with pkgs; [ fcitx5-mozc fcitx5-skk ];
-        waylandFrontend = true;
-        settings.inputMethod = {
-          Wayland."InputMethod[$e]" =
-            "/run/current-system/sw/share/applications/org.fcitx.Fcitx5.desktop";
-        };
-      };
-    };
-  };
-  services.dbus.packages = [ config.i18n.inputMethod.package ];
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  fonts = {
-    packages = with pkgs; [
-      noto-fonts-cjk-serif
-      noto-fonts-cjk-sans
-      noto-fonts-emoji
-      plemoljp-nf
-    ];
-    fontDir.enable = true;
-    fontconfig = {
-      defaultFonts = {
-        serif = [ "Noto Serif CJK JP" "Noto Color Emoji" ];
-        sansSerif = [ "Noto Sans CJK JP" "Noto Color Emoji" ];
-        monospace = [ "PlemolJP Console NF" ];
-        emoji = [ "Noto Color Emoji" ];
-      };
-    };
-  };
-
-  sops = {
-    age.keyFile = ageKeyFile;
-    age.generateKey = true;
-    defaultSopsFile = ../secrets/secret.yaml;
-    defaultSopsFormat = "yaml";
-    secrets.hashedPassword.neededForUsers = true;
-  };
-
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "jp";
-    variant = "";
-  };
-
-  # environment.etc."skel/.config/kxkbrc".text = builtins.readFile ./kxkbrc;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -135,32 +61,14 @@ in {
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  users = import ../component/users args;
-  security.sudo = import ../component/sudo;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ clamav ];
-
-  environment.variables = {
-    SOPS_AGE_KEY_FILE = ageKeyFile;
-    XKB_CONFIG_ROOT = "${pkgs.xkeyboard_config}/share/X11/xkb";
-  };
+  environment.systemPackages = with pkgs; [ ];
 
   programs.zsh.enable = true;
-  programs.steam = {
-    # 設定は左上のSteamアイコンから開くことができる。
-    # 言語設定: インターフェース
-    # Proton設定: 互換性 デフォルトでProton Experimental
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-    localNetworkGameTransfers.openFirewall = true;
-    fontPackages = with pkgs; [ migu ];
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -178,38 +86,7 @@ in {
     };
   };
   services = {
-    openssh = import ../component/services/openssh;
     xremap = import ../component/services/xremap username;
-    clamav = import ../component/services/clamav;
-  };
-  systemd.timers."clamav-fullscan" = {
-    enable = true;
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "monthly";
-      Persistent = true;
-      Unit = "clamav-fullscan.service";
-      RandomizedDelaySec = 3600;
-    };
-  };
-  systemd.services."clamav-fullscan" = {
-    enable = true;
-    wants = [ "clamav-daemon.service" ];
-    after = [ "clamav-daemon.service" ];
-    script = ''
-      set -euo pipefail
-      mkdir -p /var/log/clamav
-      chown clamav:clamav /var/log/clamav
-      ${pkgs.clamav}/bin/clamdscan -m --fdpass --log=/var/log/clamav/scan.log --exclude-dir="/sys" --exclude-dir="/proc" --exclude-dir="/dev" --exclude-dir="/run" --exclude-dir="/tmp" --exclude-dir="/nix/store" --exclude-dir="/nix/var" --infected --recursive /
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "root";
-      StandardOutput = "journal";
-      StandardError = "journal";
-      CPUQuota = "50%";
-      MemoryMax = "4G";
-    };
   };
 
   # Open ports in the firewall.
