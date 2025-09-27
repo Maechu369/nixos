@@ -133,7 +133,6 @@ username:
   };
   services.xremap = {
     withKDE = true;
-    watch = true;
     config = {
       virtual_modifiers =
         [ "KEY_KATAKANAHIRAGANA" "KEY_HENKAN" "KEY_MUHENKAN" "F13" ];
@@ -175,6 +174,14 @@ username:
             KEY_MUHENKAN-g = "C-TAB";
             KEY_MUHENKAN-t = "C-SHIFT-TAB";
           };
+        }
+        {
+          name = "Open terminal";
+          remap = { Win-t = { launch = [ "alacritty" ]; }; };
+        }
+        {
+          name = "Mouse";
+          remap = { KEY_MUHENKAN-e = { launch = [ "ydotool" "click" "0xC0" ]; }; };
         }
         {
           name = "F13 to Fn";
