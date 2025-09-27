@@ -133,7 +133,6 @@ username:
   };
   services.xremap = {
     withKDE = true;
-    watch = true;
     config = {
       virtual_modifiers =
         [ "KEY_KATAKANAHIRAGANA" "KEY_HENKAN" "KEY_MUHENKAN" "F13" ];
@@ -174,6 +173,42 @@ username:
           remap = {
             KEY_MUHENKAN-g = "C-TAB";
             KEY_MUHENKAN-t = "C-SHIFT-TAB";
+          };
+        }
+        {
+          name = "Open terminal";
+          remap = { Win-t = { launch = [ "alacritty" ]; }; };
+        }
+        {
+          name = "Mouse";
+          remap = {
+            KEY_MUHENKAN-e = { launch = [ "ydotool" "click" "0xC0" ]; };
+            KEY_MUHENKAN-r = "KEY_SCROLLUP";
+            KEY_MUHENKAN-f = "KEY_SCROLLDOWN";
+            KEY_MUHENKAN-w = {
+              launch = [ "ydotool" "mousemove" "-x" "0" "-y" "-40" ];
+            };
+            KEY_MUHENKAN-s = {
+              launch = [ "ydotool" "mousemove" "-x" "0" "-y" "+40" ];
+            };
+            KEY_MUHENKAN-a = {
+              launch = [ "ydotool" "mousemove" "-x" "-40" "-y" "0" ];
+            };
+            KEY_MUHENKAN-d = {
+              launch = [ "ydotool" "mousemove" "-x" "+40" "-y" "0" ];
+            };
+            Shift-KEY_MUHENKAN-w = {
+              launch = [ "ydotool" "mousemove" "-x" "0" "-y" "-100" ];
+            };
+            Shift-KEY_MUHENKAN-s = {
+              launch = [ "ydotool" "mousemove" "-x" "0" "-y" "+100" ];
+            };
+            Shift-KEY_MUHENKAN-a = {
+              launch = [ "ydotool" "mousemove" "-x" "-100" "-y" "0" ];
+            };
+            Shift-KEY_MUHENKAN-d = {
+              launch = [ "ydotool" "mousemove" "-x" "+100" "-y" "0" ];
+            };
           };
         }
         {

@@ -34,5 +34,7 @@
     XKB_CONFIG_ROOT = "${pkgs.xkeyboard_config}/share/X11/xkb";
   };
 
+  programs.ydotool.enable = true;
+
   # environment.etc."skel/.config/kxkbrc".text = builtins.readFile ./kxkbrc;
 }
