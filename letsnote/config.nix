@@ -10,7 +10,6 @@ args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }: {
     nixos-hardware.nixosModules.common-cpu-intel
     nixos-hardware.nixosModules.common-cpu-intel
     nixos-hardware.nixosModules.common-pc-ssd
-    xremap.nixosModules.default
 
     ../component/locale.nix
     ../component/sops.nix
@@ -84,9 +83,6 @@ args@{ config, lib, pkgs, username, nixos-hardware, xremap, ... }: {
     serviceConfig = {
       ExecStart = [ "" "${pkgs.networkmanager}/bin/nm-online -q --timeout=30" ];
     };
-  };
-  services = {
-    xremap = import ../component/services/xremap username;
   };
 
   # Open ports in the firewall.
