@@ -28,7 +28,9 @@ args@{ pkgs, ... }: {
       unixtools.xxd
       qrrs
       nmap
-      python3Full
+      python313Packages.python
+      python313Packages.numpy
+      python313Packages.matplotlib
     ];
   };
   programs = {
