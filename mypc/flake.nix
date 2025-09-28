@@ -46,7 +46,7 @@
               useUserPackages = true;
               sharedModules = [
                 nixvim.homeModules.nixvim
-                plasma-manager.homeManagerModules.plasma-manager
+                plasma-manager.homeModules.plasma-manager
                 sops-nix.homeManagerModules.sops
               ];
               users."${username}" = import ./home.nix {
