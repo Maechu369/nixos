@@ -1,2 +1,0 @@
-args@{ config, lib, pkgs, ... }: {
-}
