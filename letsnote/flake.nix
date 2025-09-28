@@ -49,7 +49,10 @@
                 plasma-manager.homeManagerModules.plasma-manager
                 sops-nix.homeManagerModules.sops
               ];
-              users."${username}" = import ./home.nix username;
+              users."${username}" = import ./home.nix {
+                inherit username;
+                inherit xremap;
+              };
             };
           }
           sops-nix.nixosModules.sops
