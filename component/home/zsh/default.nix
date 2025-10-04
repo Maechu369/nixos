@@ -16,6 +16,7 @@
   sessionVariables = {
     TERM = "xterm-256color";
     EZA_ICON_SPACING = 1;
+    PYTHONCACHEPREFIX = "/tmp";
   };
   initContent = let
     zshMkBefore = lib.mkOrder 500 (builtins.readFile ./zshMkBefore.zsh);
