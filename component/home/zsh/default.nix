@@ -30,6 +30,7 @@
     c = "cd";
     rm = "trash";
     remove = "command rm";
+    tmux = "tmux new -A";
     v = "vim";
     python = "python3";
     py = "python";
