@@ -338,6 +338,7 @@
       lua_ls.enable = true;
       nil_ls = {
         enable = true;
+        package = pkgs.nil;
         settings = {
           cmd = [ "nil" ];
           filetypes = [ "nix" ];
@@ -350,6 +351,26 @@
               };
             };
           };
+        };
+      };
+      pyright = {
+        enable = false;
+        package = pkgs.pyright;
+        settings = {
+          cmd = [ "pyright" ];
+          filetypes = [ "python" ];
+          settings = {
+            pyright = { formatting.command = [ "ruff" "format" ]; };
+          };
+        };
+      };
+      ruff = {
+        enable = true;
+        package = pkgs.ruff;
+        settings = {
+          cmd = [ "ruff" "server" ];
+          filetypes = [ "python" ];
+          settings = { ruff = { formatting.command = [ "ruff" "format" ]; }; };
         };
       };
     };

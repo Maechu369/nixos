@@ -20,7 +20,6 @@ args@{ pkgs, ... }: {
       pciutils
       trash-cli
       hydra-check
-      nil
       nixfmt-classic
       ripgrep
       nmon
