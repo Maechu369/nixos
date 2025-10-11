@@ -251,11 +251,6 @@
           },
           scope = {enabled = false}
         })
-        vim.api.nvim_create_augroup("indent_blankline", {})
-        vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
-          group = "indent_blankline",
-          callback = vim.lsp.buf.document_highlight
-        })
       '';
     };
     highlight-colors.enable = true;
@@ -325,13 +320,29 @@
       vim.api.nvim_set_hl(0, "LspReferenceWrite",
         {cterm = {underline = true}, ctermfg = 1, ctermbg = 8, underline = true, fg=fg, bg=bg})
       vim.api.nvim_create_augroup("lsp_document_highlight", {})
+      local _is_support_document_highlight = function()
+        return vim.lsp.get_clients()[1].server_capabilities.documentHighlightProvider
+      end
+      local is_support_document_highlight = function()
+        success, result = pcall(_is_support_document_highlight)
+        if success then
+          return result
+        end
+        return false
+      end
       vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
         group="lsp_document_highlight",
-        callback=vim.lsp.buf.document_highlight
+        buffer=0,
+        callback=function()
+          return (is_support_document_highlight() and vim.lsp.buf.document_highlight())
+        end
       })
       vim.api.nvim_create_autocmd({"CursorMoved", "CursorMovedI"}, {
         group="lsp_document_highlight",
-        callback=vim.lsp.buf.clear_references
+        buffer=0,
+        callback=function()
+          return (is_support_document_highlight() and vim.lsp.buf.clear_references())
+        end
       })
     '';
     servers = {
