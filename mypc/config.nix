@@ -79,9 +79,6 @@
       ExecStart = [ "" "${pkgs.networkmanager}/bin/nm-online -q --timeout=30" ];
     };
   };
-  # services = {
-  #   xremap = import ../component/services/xremap username;
-  # };
 
   # Open ports in the firewall.
   networking.nftables.enable = true;
