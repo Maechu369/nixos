@@ -15,6 +15,7 @@ username:
   home = {
     packages = with pkgs; [
       libreoffice-fresh
+      libnotify
       obsidian
       slack
       discord
