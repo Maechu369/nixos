@@ -1,5 +1,6 @@
 username:
 args@{ pkgs, ... }: {
+  xdg.configFile."tmux/notify.sh" = { source = ./tmux/notify.sh; };
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
