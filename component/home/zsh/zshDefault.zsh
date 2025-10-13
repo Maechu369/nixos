@@ -73,19 +73,13 @@ git() {
 
 fd() {
   local dir
-  dir=$(command fd --type d --strip-cwd-prefix | fzf --prompt='cd > ' --preview='eza --git --icons -1F {}')
+  dir=$(command fd --type d --strip-cwd-prefix | fzf --prompt='cd > ' --preview='eza --color=always --git --icons -1F {}')
   [[ "$dir" == '' ]] && return 1
   cd "$dir"
 }
 
 fkill() {
-  local process
-  local pid
-  process=$(procs --tree | fzf --prompt='kill > ')
-  [[ "$process" == '' ]] && return 1
-  pid=$(echo "$process" | grep -oE '[0-9]+' | head -n 1)
-  kill "$pid"
-  echo "$pid"
+  procs --tree | fzf --prompt='kill > ' --bind='enter:become(kill $(echo {} | grep -oE "[0-9]+" | head -n 1))'
 }
 
 sys() {
