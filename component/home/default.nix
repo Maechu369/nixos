@@ -32,6 +32,7 @@ args@{ pkgs, ... }: {
       python313Packages.numpy
       python313Packages.matplotlib
       bat
+      emacs
     ];
   };
   programs = {
