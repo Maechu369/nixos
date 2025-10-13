@@ -71,10 +71,15 @@ git() {
   esac
 }
 
-alias fd="command fd --type d --strip-cwd-prefix | fzf --prompt='cd > ' --preview='eza --color=always --git --icons -1F {}' --bind 'enter:become(cd {})'"
+fd() {
+  local dir
+  dir=$(command fd --type d --strip-cwd-prefix | fzf --prompt='cd > ' --preview='eza --color=always --git --icons -1F {}')
+  [[ "$dir" == '' ]] && return 1
+  cd "$dir"
+}
 
 fkill() {
-  $(procs --tree | fzf --prompt='kill > ' --bind='enter:become(kill $(echo {} | grep -oE "[0-9]+" | head -n 1))')
+  procs --tree | fzf --prompt='kill > ' --bind='enter:become(kill $(echo {} | grep -oE "[0-9]+" | head -n 1))'
 }
 
 sys() {
