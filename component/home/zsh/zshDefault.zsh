@@ -71,12 +71,7 @@ git() {
   esac
 }
 
-fd() {
-  local dir
-  dir=$(command fd --type d --strip-cwd-prefix | fzf --prompt='cd > ' --preview='eza --git --icons -1F {}')
-  [[ "$dir" == '' ]] && return 1
-  cd "$dir"
-}
+alias fd="command fd --type d --strip-cwd-prefix | fzf --prompt='cd > ' --preview='eza --git --icons -1F {}' --bind 'enter:become(cd {})'"
 
 fkill() {
   local process
