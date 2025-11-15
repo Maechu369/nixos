@@ -15,7 +15,7 @@
     };
   };
   systemd.services."clamav-fullscan" = {
-    enable = true;
+    enable = false;
     wants = [ "clamav-daemon.service" ];
     after = [ "clamav-daemon.service" ];
     script = ''
