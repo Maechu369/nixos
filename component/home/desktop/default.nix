@@ -134,6 +134,7 @@ username:
     vscode = { enable = true; };
   };
   services.xremap = {
+    enable = true;
     withKDE = true;
     config = {
       virtual_modifiers =
