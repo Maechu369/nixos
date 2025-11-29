@@ -1,7 +1,7 @@
-{ lib, ... }: {
+{ lib, config, ... }: {
   enable = true;
   defaultKeymap = "emacs";
-  dotDir = ".config/zsh";
+  dotDir = "${config.xdg.configHome}/zsh";
   autocd = true;
   autosuggestion.enable = true;
   dirHashes = {
