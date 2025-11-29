@@ -27,7 +27,7 @@
     ../component/desktop/steam.nix
     ../component/openssh.nix
     ../component/clamav.nix
-    # ./open-webui.nix
+    ./open-webui.nix
     ./ollama.nix
   ];
 
