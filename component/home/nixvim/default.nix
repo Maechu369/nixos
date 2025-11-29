@@ -350,7 +350,7 @@
       nil_ls = {
         enable = true;
         package = pkgs.nil;
-        settings = {
+        config = {
           cmd = [ "nil" ];
           filetypes = [ "nix" ];
           settings = {
@@ -367,7 +367,7 @@
       pyright = {
         enable = false;
         package = pkgs.pyright;
-        settings = {
+        config = {
           cmd = [ "pyright" ];
           filetypes = [ "python" ];
           settings = {
@@ -378,7 +378,7 @@
       ruff = {
         enable = true;
         package = pkgs.ruff;
-        settings = {
+        config = {
           cmd = [ "ruff" "server" ];
           filetypes = [ "python" ];
           settings = { ruff = { formatting.command = [ "ruff" "format" ]; }; };
