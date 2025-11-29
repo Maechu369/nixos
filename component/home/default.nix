@@ -39,26 +39,26 @@ args@{ pkgs, ... }: {
     home-manager.enable = true;
     git = {
       enable = true;
-      userName = "Maechu369";
-      userEmail = "m6a7e0d8a3@gmail.com";
-      extraConfig = {
-        core = { quotepath = false; };
-        pull.rebase = "false";
-        merge.conflictStyle = "zdiff3";
-        gpg.program = "gpg";
-      };
       signing = {
         format = "openpgp";
         key = "44A046BE9D985980!";
         signByDefault = true;
       };
-      delta = { enable = true; };
-      aliases = {
-        co = "checkout";
-        create = "branch";
+      settings = {
+        alias = {
+          co = "checkout";
+          create = "branch";
+        };
+        user.name = "Maechu369";
+        user.email = "m6a7e0d8a3@gmail.com";
+        core = { quotepath = false; };
+        pull.rebase = "false";
+        merge.conflictStyle = "zdiff3";
+        gpg.program = "gpg";
       };
     };
     gh = { enable = true; };
+    delta = { enable = true; };
     zsh = import ./zsh args;
     eza = {
       enable = true;
