@@ -365,13 +365,13 @@
         };
       };
       pyright = {
-        enable = false;
+        enable = true;
         package = pkgs.pyright;
         config = {
-          cmd = [ "pyright" ];
+          cmd = [ "pyright-langserver" "--stdio" ];
           filetypes = [ "python" ];
           settings = {
-            pyright = { formatting.command = [ "ruff" "format" ]; };
+            # pyright = { formatting.command = [ "ruff" "format" ]; };
           };
         };
       };
