@@ -15,6 +15,8 @@
   };
   services.dbus.packages = [ config.i18n.inputMethod.package ];
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.variables.GTK_IM_MODULE = "fcitx";
+  environment.variables.QT_IM_MODULE = "fcitx";
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
