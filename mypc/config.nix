@@ -11,17 +11,7 @@
     nixos-hardware.nixosModules.common-pc-ssd
     ./gpu.nix
 
-    ../component/experimental.nix
-    ../component/bootloader.nix
-    ../component/kernel.nix
-    ../component/networking.nix
-    ../component/printer.nix
-    ../component/locale.nix
-    ../component/unfree.nix
-    ../component/sops.nix
-    ../component/system-packages.nix
-    ../component/docker.nix
-    ../component/users.nix
+    ../component
     ../component/desktop
     ../component/desktop/sound.nix
     ../component/desktop/steam.nix
