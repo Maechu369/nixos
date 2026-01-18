@@ -13,8 +13,6 @@
 
     ../component
     ../component/desktop
-    ../component/desktop/sound.nix
-    ../component/desktop/steam.nix
     ../component/openssh.nix
     ../component/clamav.nix
     ./open-webui.nix

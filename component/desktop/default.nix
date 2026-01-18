@@ -1,4 +1,5 @@
 { config, pkgs, ... }: {
+  imports = [ ./sound.nix ./steam.nix ];
   i18n = {
     inputMethod = {
       enable = true;
