@@ -11,20 +11,8 @@
     nixos-hardware.nixosModules.common-cpu-intel
     nixos-hardware.nixosModules.common-pc-ssd
 
-    ../component/experimental.nix
-    ../component/bootloader.nix
-    ../component/kernel.nix
-    ../component/networking.nix
-    ../component/printer.nix
-    ../component/locale.nix
-    ../component/unfree.nix
-    ../component/sops.nix
-    ../component/system-packages.nix
-    ../component/docker.nix
-    ../component/users.nix
+    ../component
     ../component/desktop
-    ../component/desktop/sound.nix
-    ../component/desktop/steam.nix
     ../component/openssh.nix
     ../component/clamav.nix
   ];
