@@ -1,3 +1,4 @@
+{ ... }:
 let ageKeyFile = "/var/lib/sops-nix/keys.txt";
 in {
   sops = {

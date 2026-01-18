@@ -31,11 +31,7 @@
     in {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {
-          inherit username;
-          inherit nixos-hardware;
-          inherit xremap;
-        };
+        specialArgs = { inherit username nixos-hardware xremap; };
         modules = [
           ./config.nix
           home-manager.nixosModules.home-manager
@@ -49,10 +45,8 @@
                 plasma-manager.homeModules.plasma-manager
                 sops-nix.homeManagerModules.sops
               ];
-              users."${username}" = import ./home.nix {
-                inherit username;
-                inherit xremap;
-              };
+              users."${username}" =
+                import ./home.nix { inherit username xremap; };
             };
           }
           sops-nix.nixosModules.sops
