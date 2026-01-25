@@ -23,6 +23,7 @@ username:
       graphviz
       prismlauncher
       filezilla
+      pinta
     ];
   };
   programs = {
