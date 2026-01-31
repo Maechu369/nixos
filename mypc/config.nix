@@ -17,6 +17,7 @@
     ../component/clamav.nix
     ./open-webui.nix
     ./ollama.nix
+    ./tailscale.nix
   ];
 
   # Enable touchpad support (enabled default in most desktopManager).
