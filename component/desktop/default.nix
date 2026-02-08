@@ -41,3 +41,4 @@
 
   # environment.etc."skel/.config/kxkbrc".text = builtins.readFile ./kxkbrc;
 }
+
