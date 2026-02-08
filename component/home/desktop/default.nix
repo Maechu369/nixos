@@ -1,6 +1,4 @@
-username:
 { pkgs, ... }: {
-  _module.args = { inherit username; };
   imports = [
     ./alacritty.nix
     ./firefox.nix
