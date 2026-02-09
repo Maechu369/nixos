@@ -1,6 +1,6 @@
-args@{ pkgs, username, ... }: {
+{ pkgs, username, ... }: {
   xdg.configFile."tmux/notify.sh" = { source = ./tmux/notify.sh; };
-  imports = [ ./git.nix ./zsh ./starship ./tmux ./nixvim ];
+  imports = [ ./git.nix ./zsh ./starship ./tmux ./nixvim ./gpg.nix ];
   home = {
     homeDirectory = "/home/${username}";
     stateVersion = "25.05";
@@ -52,9 +52,7 @@ args@{ pkgs, username, ... }: {
       };
     };
     ripgrep = { enable = true; };
-    gpg = { enable = true; };
     password-store = { enable = true; };
   };
-  services = import ./services args;
 }
 
