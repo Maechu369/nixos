@@ -1,5 +1,8 @@
-{
-  enable = true;
-  enableZshIntegration = true;
-  settings = builtins.fromTOML (builtins.readFile ./starship.toml);
+{ pkgs, ... }: {
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = builtins.fromTOML (builtins.readFile ./starship.toml);
+  };
 }
+
