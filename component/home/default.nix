@@ -1,5 +1,6 @@
 args@{ pkgs, username, ... }: {
   xdg.configFile."tmux/notify.sh" = { source = ./tmux/notify.sh; };
+  imports = [ ./git.nix ];
   home = {
     homeDirectory = "/home/${username}";
     stateVersion = "25.05";
@@ -35,28 +36,6 @@ args@{ pkgs, username, ... }: {
   };
   programs = {
     home-manager.enable = true;
-    git = {
-      enable = true;
-      signing = {
-        format = "openpgp";
-        key = "44A046BE9D985980!";
-        signByDefault = true;
-      };
-      settings = {
-        alias = {
-          co = "checkout";
-          sw = "switch";
-          re = "restore";
-        };
-        user.name = "Maechu369";
-        user.email = "m6a7e0d8a3@gmail.com";
-        core = { quotepath = false; };
-        pull.rebase = "false";
-        merge.conflictStyle = "zdiff3";
-        gpg.program = "gpg";
-      };
-    };
-    gh = { enable = true; };
     delta = { enable = true; };
     zsh = import ./zsh args;
     eza = {
