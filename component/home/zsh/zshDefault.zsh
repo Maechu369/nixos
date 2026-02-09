@@ -45,10 +45,6 @@ git() {
         command git "$@"
       fi
       ;;
-    'create' )
-      command git branch "$2"
-      command git checkout "$2"
-      ;;
     'branch' )
       if [[ "$#" == 1 ]]; then
         local branch
