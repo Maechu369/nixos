@@ -44,8 +44,6 @@
     gt = "cd `git rev-parse --show-toplevel`";
     gs = "git status";
     gl = "git log --all --graph";
-    gitc = "git checkout";
-    gls = "git ls-files";
     clean = "git clean -ifd";
     commit = "git commit -m";
     pc = "procs --tree";
@@ -53,3 +51,4 @@
     compose = "docker compose";
   };
 }
+
