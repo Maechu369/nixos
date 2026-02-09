@@ -1,6 +1,6 @@
 args@{ pkgs, username, ... }: {
   xdg.configFile."tmux/notify.sh" = { source = ./tmux/notify.sh; };
-  imports = [ ./git.nix ./zsh ./starship ];
+  imports = [ ./git.nix ./zsh ./starship ./tmux ];
   home = {
     homeDirectory = "/home/${username}";
     stateVersion = "25.05";
@@ -51,7 +51,6 @@ args@{ pkgs, username, ... }: {
         shellIntegrationOptions = [ "--bottom,40%" ];
       };
     };
-    tmux = import ./tmux args;
     nixvim = import ./nixvim args;
     ripgrep = { enable = true; };
     gpg = { enable = true; };
