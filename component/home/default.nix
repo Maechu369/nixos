@@ -1,6 +1,6 @@
 args@{ pkgs, username, ... }: {
   xdg.configFile."tmux/notify.sh" = { source = ./tmux/notify.sh; };
-  imports = [ ./git.nix ];
+  imports = [ ./git.nix ./zsh ];
   home = {
     homeDirectory = "/home/${username}";
     stateVersion = "25.05";
@@ -37,7 +37,6 @@ args@{ pkgs, username, ... }: {
   programs = {
     home-manager.enable = true;
     delta = { enable = true; };
-    zsh = import ./zsh args;
     eza = {
       enable = true;
       git = true;
