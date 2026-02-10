@@ -1,6 +1,15 @@
 { pkgs, username, ... }: {
   xdg.configFile."tmux/notify.sh" = { source = ./tmux/notify.sh; };
-  imports = [ ./git.nix ./zsh ./starship ./tmux ./nixvim ./gpg.nix ];
+  imports = [
+    ./git.nix
+    ./zsh
+    ./starship
+    ./tmux
+    ./nixvim
+    ./gpg.nix
+    ./fzf.nix
+    ./eza.nix
+  ];
   home = {
     homeDirectory = "/home/${username}";
     stateVersion = "25.05";
@@ -37,20 +46,6 @@
   programs = {
     home-manager.enable = true;
     delta = { enable = true; };
-    eza = {
-      enable = true;
-      git = true;
-      icons = "auto";
-    };
-    fzf = {
-      enable = true;
-      enableZshIntegration = true;
-      defaultOptions = [ "--height 40%" "--layout reverse" "--border top" ];
-      tmux = {
-        enableShellIntegration = true;
-        shellIntegrationOptions = [ "--bottom,40%" ];
-      };
-    };
     ripgrep = { enable = true; };
     password-store = { enable = true; };
   };
