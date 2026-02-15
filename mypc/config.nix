@@ -10,6 +10,7 @@
     nixos-hardware.nixosModules.common-cpu-amd
     nixos-hardware.nixosModules.common-pc-ssd
     ./gpu.nix
+    ./wol.nix
 
     ../component
     ../component/desktop
