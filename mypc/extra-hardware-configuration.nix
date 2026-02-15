@@ -1,4 +1,4 @@
-{
+{ ... }: {
   fileSystems."/mnt/c" = {
     device = "/dev/disk/by-uuid/6CE4E756E4E72156";
     fsType = "ntfs";
