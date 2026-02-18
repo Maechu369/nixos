@@ -15,6 +15,7 @@
     ../component/desktop
     ../component/openssh.nix
     ../component/clamav.nix
+    ./tailscale.nix
   ];
 
   # Enable touchpad support (enabled default in most desktopManager).
