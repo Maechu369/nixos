@@ -41,6 +41,7 @@
       python313Packages.matplotlib
       bat
       emacs
+      sc-im
     ];
   };
   programs = {
