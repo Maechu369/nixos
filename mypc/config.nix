@@ -20,6 +20,7 @@
     ./ollama.nix
     ./tailscale.nix
   ];
+  networking.hostName = "mypc";
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;

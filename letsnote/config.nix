@@ -17,6 +17,7 @@
     ../component/clamav.nix
     ./tailscale.nix
   ];
+  networking.hostName = "letsnote";
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
