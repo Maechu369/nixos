@@ -5,6 +5,7 @@
     ],
     "define": {
         "keymap": {
+            "C-j": "set-input-mode-hiragana",
             "@": "set-input-mode-hankaku-katakana",
             "q": null,
             "C-q": null,
