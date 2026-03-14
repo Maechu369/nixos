@@ -6,6 +6,7 @@
     ../component/home
     ../component/home/desktop
     ./opencode.nix
+    ./nixvim.nix
   ];
   xdg.userDirs.enable = true;
 }
