@@ -21,7 +21,7 @@
     };
     packages = with pkgs; [
       procs
-      neofetch
+      fastfetch
       fd
       libgcc
       libinput
@@ -29,7 +29,7 @@
       pciutils
       trash-cli
       hydra-check
-      nixfmt-classic
+      nixfmt
       ripgrep
       nmon
       pinentry-qt
