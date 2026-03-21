@@ -1,7 +1,20 @@
-{ ... }: {
-  swapDevices = [{
-    device = "/dev/vg/swap";
-  }];
+{ ... }:
+{
+  boot.supportedFilesystems = [ "zfs" ];
+  networking.hostId = "abcd1234";
+
+  fileSystems."/nix" = {
+    device = "tank/nix";
+    fsType = "zfs";
+  };
+  boot.zfs.forceImportRoot = false;
+  boot.zfs.forceImportAll = false;
+
+  swapDevices = [
+    {
+      device = "/dev/vg/swap";
+    }
+  ];
 
   zramSwap = {
     enable = true;
@@ -14,4 +27,3 @@
   # swapのあるデバイス
   boot.resumeDevice = "/dev/vg/swap";
 }
-
