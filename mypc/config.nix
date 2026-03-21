@@ -11,6 +11,7 @@
     nixos-hardware.nixosModules.common-pc-ssd
     ./gpu.nix
     ./wol.nix
+    ./build.nix
 
     ../component
     ../component/desktop
