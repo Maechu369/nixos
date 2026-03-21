@@ -1,20 +1,20 @@
-{ ... }: {
-  fileSystems."/mnt/c" = {
-    device = "/dev/disk/by-uuid/6CE4E756E4E72156";
-    fsType = "ntfs";
-    options = [ "fmask=0022" "dmask=0022" ];
-  };
+{ ... }:
+{
+  boot.supportedFilesystems = [ "zfs" ];
+  networking.hostId = "abcd1234";
 
-  fileSystems."/mnt/d" = {
-    device = "/dev/disk/by-uuid/C2440DAC440DA46F";
-    fsType = "ntfs";
-    options = [ "fmask=0022" "dmask=0022" ];
+  fileSystems."/nix" = {
+    device = "tank/nix";
+    fsType = "zfs";
   };
+  boot.zfs.forceImportRoot = false;
+  boot.zfs.forceImportAll = false;
 
-  swapDevices = [{
-    device = "/var/lib/swapfile";
-    size = 32 * 1024; # MB
-  }];
+  swapDevices = [
+    {
+      device = "/dev/vg/swap";
+    }
+  ];
 
   zramSwap = {
     enable = true;
@@ -25,9 +25,5 @@
   boot.tmp.useTmpfs = true;
 
   # swapのあるデバイス
-  boot.resumeDevice = "/dev/disk/by-uuid/f7e01cc4-f1af-47ce-bb2b-14cd7bbd26ac";
-  # swapfileのoffsetの先頭(swapfileのみ)
-  # sudo filefrag -v /path/to/swapfile | head -n 4
-  boot.kernelParams = [ "resume_offset=427436032" ];
+  boot.resumeDevice = "/dev/vg/swap";
 }
-
