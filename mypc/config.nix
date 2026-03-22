@@ -9,6 +9,7 @@
     ./extra-hardware-configuration.nix
     nixos-hardware.nixosModules.common-cpu-amd
     nixos-hardware.nixosModules.common-pc-ssd
+    ./tpm.nix
     ./gpu.nix
     ./wol.nix
     ./build.nix
