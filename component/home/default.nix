@@ -36,6 +36,7 @@
       unixtools.xxd
       qrrs
       nmap
+      dig
       python313Packages.python
       python313Packages.numpy
       python313Packages.matplotlib
