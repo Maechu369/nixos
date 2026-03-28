@@ -1,5 +1,13 @@
-{ pkgs, username, ... }: {
-  xdg.configFile."tmux/notify.sh" = { source = ./tmux/notify.sh; };
+{
+  pkgs,
+  username,
+  config,
+  ...
+}:
+{
+  xdg.configFile."tmux/notify.sh" = {
+    source = ./tmux/notify.sh;
+  };
   imports = [
     ./git.nix
     ./zsh
@@ -47,9 +55,15 @@
   };
   programs = {
     home-manager.enable = true;
-    delta = { enable = true; };
-    ripgrep = { enable = true; };
-    password-store = { enable = true; };
+    delta = {
+      enable = true;
+    };
+    ripgrep = {
+      enable = true;
+    };
+    password-store = {
+      enable = true;
+      settings.PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
+    };
   };
 }
-
