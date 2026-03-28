@@ -5,6 +5,9 @@ local map = vim.keymap.set
 local nmap = function(lhs, rhs, opts)
   map("n", lhs, rhs, opts)
 end
+local tmap = function(lhs, rhs, opts)
+  map("t", lhs, rhs, opts)
+end
 local Key_v = function(lhs, rhs)
   return function()
     if vim.fn.visualmode() ~= "v" then
