@@ -1,4 +1,4 @@
-{ ... }:
+{ username, ... }:
 {
   boot.supportedFilesystems = [ "zfs" ];
   networking.hostId = "abcd1234";
@@ -9,6 +9,12 @@
   };
   boot.zfs.forceImportRoot = false;
   boot.zfs.forceImportAll = false;
+
+  fileSystems."/home/${username}/.local/share/Steam" = {
+    device = "tank/steam";
+    fsType = "zfs";
+    noCheck = true;
+  };
 
   swapDevices = [
     {
