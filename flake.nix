@@ -86,6 +86,13 @@
           sops-nix.nixosModules.sops
         ];
       };
+      nixosConfigurations.iso = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit username; };
+        modules = [
+          iso/configuration.nix
+        ];
+      };
       nixosConfigurations.minimum = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit username nixos-hardware xremap; };

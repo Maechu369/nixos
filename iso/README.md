@@ -1,5 +1,9 @@
 # NixOS iso image
 
+## 書き込み
+
+sudo dd if=nixos--x86_64-linux.iso of=/dev/sda bs=4k status=progress
+
 ## 起動したらすること
 
 1. パーティショニング
