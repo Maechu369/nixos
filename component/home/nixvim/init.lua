@@ -21,10 +21,10 @@ nmap("SS", "<C-W>W")
 nmap("<C-W><C-S>", "<C-W>w")
 nmap("<C-W>s", "<C-W>w")
 nmap("<C-W><C-N>", "")
-nmap("<C-S>", "<C-\\><C-N><C-W>", { remap = true })
-nmap("<C-S><C-N>", "<C-\\><C-N>")
-nmap("<C-R>", function() return '<C-\\><C-N>"' .. vim.fn.nr2char(vim.fn.getchar()) .. "pi" end, { expr = true })
-
+tmap("<C-S>", "<C-\\><C-N><C-W>", { remap = true })
+tmap("<C-S><C-N>", "<C-\\><C-N>")
+tmap("<C-R>", function() return '<C-\\><C-N>"' .. vim.fn.nr2char(vim.fn.getchar()) .. "pi" end, { expr = true })
+tmap("<C-R><C-R>", function() return '<C-\\><C-N>pi' end, { expr = true })
 
 -- Macro {{{2
 
