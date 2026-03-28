@@ -7,6 +7,7 @@
     ./plasma.nix
     ./xremap.nix
   ];
+  xdg.userDirs.setSessionVariables = true;
   xdg.configFile = {
     # "kxkbrc".text = builtins.readFile ./kxkbrc;
     # "kwinrc".text = builtins.readFile ./kwinrc;
