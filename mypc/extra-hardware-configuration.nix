@@ -10,6 +10,11 @@
   boot.zfs.forceImportRoot = false;
   boot.zfs.forceImportAll = false;
 
+  fileSystems."/home" = {
+    device = "/dev/vg/home";
+    fsType = "ext4";
+  };
+
   fileSystems."/home/${username}/.local/share/Steam" = {
     device = "tank/steam";
     fsType = "zfs";
