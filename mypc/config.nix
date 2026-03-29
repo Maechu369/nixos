@@ -13,6 +13,7 @@
     ./gpu.nix
     ./wol.nix
     ./build.nix
+    ./backup.nix
 
     ../component
     ../component/desktop
