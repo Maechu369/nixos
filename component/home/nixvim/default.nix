@@ -261,6 +261,7 @@
       camelcasemotion
       clever-f-vim
       nvim-hlslens
+      plenary-nvim
     ];
     lsp = {
       keymaps = [
