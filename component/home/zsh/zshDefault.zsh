@@ -77,12 +77,4 @@ fd() {
 fkill() {
   procs --tree | fzf --prompt='kill > ' --bind='enter:become(kill $(echo {} | grep -oE "[0-9]+" | head -n 1))'
 }
-
-sys() {
-  local unit
-  unit=$(systemctl list-units | tail -n +2 | awk '{print $1}' | fzf --prompt='system unit > ' --preview='systemctl status -- {}')
-  [[ "$unit" == '' ]] && return 1
-  systemctl status -- "$unit" >&2
-  echo "$unit"
-}
 # vim: et

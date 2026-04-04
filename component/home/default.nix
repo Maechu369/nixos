@@ -51,6 +51,7 @@
       bat
       emacs
       sc-im
+      systemd-manager-tui
     ];
   };
   programs = {
