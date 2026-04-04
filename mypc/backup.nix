@@ -12,6 +12,7 @@
       weekly = 4;
       monthly = 6;
     };
+    persistentTimer = true;
     preHook = ''
       mount /dev/data/backup /mnt/backup || true
     '';
