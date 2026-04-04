@@ -22,6 +22,7 @@
     ./open-webui.nix
     ./ollama.nix
     ./tailscale.nix
+    ./gitea.nix
   ];
   networking.hostName = "mypc";
 
