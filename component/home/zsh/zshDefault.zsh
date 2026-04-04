@@ -16,6 +16,7 @@ select-word-style default
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':zle:*' word-style unspecified
 
+setopt completealiases
 eval "$(gh completion -s zsh)"
 
 git() {
