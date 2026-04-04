@@ -13,11 +13,27 @@
       monthly = 6;
     };
     persistentTimer = true;
-    preHook = ''
-      mount /dev/data/backup /mnt/backup || true
-    '';
-    postHook = ''
-      umount /mnt/backup || true
-    '';
   };
+  systemd.services."borgbackup-job-home" = {
+    requires = [ "mnt-backup.mount" ];
+    after = [ "mnt-backup.mount" ];
+    serviceConfig = {
+      ExecStopPost = "systemctl stop --no-block mnt-backup.mount";
+    };
+  };
+  systemd.mounts = [
+    {
+      what = "/dev/data/backup";
+      where = "/mnt/backup";
+      type = "ext4";
+      options = "defaults";
+      wantedBy = [ ];
+    }
+  ];
+  systemd.automounts = [
+    {
+      where = "/mnt/backup";
+      wantedBy = [ ];
+    }
+  ];
 }
