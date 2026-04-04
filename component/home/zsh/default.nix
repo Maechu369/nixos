@@ -50,6 +50,7 @@
       pc = "procs --tree";
       lsblk = "lsblk -ipo +UUID";
       compose = "docker compose";
+      sys = "systemd-manager-tui";
     };
   };
 }
