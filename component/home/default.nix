@@ -52,6 +52,7 @@
       emacs
       sc-im
       systemd-manager-tui
+      tea
     ];
   };
   programs = {
