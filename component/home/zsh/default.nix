@@ -51,6 +51,7 @@
       lsblk = "lsblk -ipo +UUID";
       compose = "docker compose";
       sys = "systemd-manager-tui";
+      te = "tea";
     };
   };
 }
