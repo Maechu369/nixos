@@ -5,6 +5,7 @@
   ...
 }:
 {
+  xdg.enable = true;
   xdg.configFile."tmux/notify.sh" = {
     source = ./tmux/notify.sh;
   };
@@ -65,7 +66,7 @@
     };
     password-store = {
       enable = true;
-      settings.PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
+      settings.PASSWORD_STORE_DIR = "${config.xdg.dataHome}/password-store";
     };
   };
 }
