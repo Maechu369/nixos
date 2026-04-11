@@ -1,15 +1,21 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   services.open-webui = {
     enable = true;
     package = pkgs.open-webui;
-    host = "0.0.0.0";
-    openFirewall = true;
+    host = "127.0.0.1";
+    openFirewall = false;
   };
-  networking.firewall = {
-    extraInputRules = ''
-      ip saddr 100.0.0.0/8 tcp dport 8080 accept
-      ip saddr 192.168.2.0/24 tcp dport 8080 accept
-    '';
+  services.nginx.virtualHosts."webui.home.arpa" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:8080";
+      proxyWebsockets = true;
+      extraConfig = ''
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+      '';
+    };
   };
 }
-
