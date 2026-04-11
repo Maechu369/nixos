@@ -11,6 +11,8 @@
         HTTP_PORT = 3000;
         DOMAIN = "gitea.home.arpa";
         ROOT_URL = "http://gitea.home.arpa";
+        SSH_PORT = 22;
+        DISABLE_SSH = false;
       };
     };
     lfs.enable = true;
