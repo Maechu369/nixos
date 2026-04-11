@@ -13,6 +13,7 @@
     ./gpu.nix
     ./wol.nix
     ./dns.nix
+    ./nginx.nix
     ./build.nix
     ./backup.nix
 
