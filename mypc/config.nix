@@ -12,6 +12,7 @@
     ./tpm.nix
     ./gpu.nix
     ./wol.nix
+    ./dns.nix
     ./build.nix
     ./backup.nix
 
