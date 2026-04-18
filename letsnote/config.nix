@@ -11,6 +11,7 @@
     nixos-hardware.nixosModules.common-cpu-intel
     nixos-hardware.nixosModules.common-pc-ssd
     ./tpm.nix
+    ./dns.nix
 
     ../component
     ../component/desktop
