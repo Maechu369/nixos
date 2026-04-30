@@ -18,7 +18,6 @@ zstyle ':zle:*' word-style unspecified
 
 setopt completealiases
 eval "$(gh completion -s zsh)"
-. <(tea completion zsh)
 
 git() {
   case "$1" in
