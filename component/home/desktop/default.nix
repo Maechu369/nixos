@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./alacritty.nix
+    ./kitty.nix
     ./firefox.nix
     ./thunderbird.nix
     ./vscode.nix
