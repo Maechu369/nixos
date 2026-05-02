@@ -360,7 +360,8 @@
                 formatting.command = [ "nixfmt" ];
                 nix.flake = {
                   autoArchive = false;
-                  autoEvalInputs = true;
+                  autoEvalInputs = false;  # trueの方が便利だがメモリ不足で落ちるよりマシ
+                  nixpkgsInputName = "nixpkgs";
                 };
               };
             };
