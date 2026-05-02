@@ -4,6 +4,7 @@
     enable = true;
     shellIntegration.mode = "no-cursor";
     extraConfig = ''
+      text_composition_strategy legacy
       cursor_shape block
       scrollbar never
       remember_window_size no
