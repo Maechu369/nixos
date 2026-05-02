@@ -1,6 +1,7 @@
-{ pkgs, username, ... }: {
+{ pkgs, config, username, ... }: {
   programs.firefox = {
     enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     languagePacks = [ "ja" ];
     policies = {
       DefaultDownloadDirectory = "/home/${username}/Downloads";
