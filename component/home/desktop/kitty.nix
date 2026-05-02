@@ -2,10 +2,16 @@
 {
   programs.kitty = {
     enable = true;
-    font = {
-      package = pkgs.plemoljp-nf;
-      size = 11.0;
-      name = "Plemoljp NF";
-    };
+    shellIntegration.mode = "no-cursor";
+    extraConfig = ''
+      cursor_shape block
+      scrollbar never
+      remember_window_size no
+      initial_window_width 800
+      initial_window_height 600
+      kitty_mod ctrl+shift
+      map kitty_mod+c copy_to_clipboard
+      map kitty_mod+v paste_from_clipboard
+    '';
   };
 }
