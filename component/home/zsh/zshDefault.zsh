@@ -79,11 +79,7 @@ fkill() {
   procs --tree | fzf --prompt='kill > ' --bind='enter:become(kill $(echo {} | grep -oE "[0-9]+" | head -n 1))'
 }
 
-ssh() {
-  if [[ $TERM = 'xterm-kitty' ]]; then
-    kitty +kitten ssh "$@"
-  else
-    command ssh "$@"
-  fi
-}
+if [[ $TERM = 'xterm-kitty' ]]; then
+  alias ssh='kitty +kitten ssh'
+fi
 # vim: et
