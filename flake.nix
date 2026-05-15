@@ -2,7 +2,7 @@
   description = "NixOS config";
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs?ref=release-25.05";
-    nixpkgs.url = "github:nixos/nixpkgs/b12141ef619e0a9c1c84dc8c684040326f27cdcc";
+    nixpkgs.url = "github:nixos/nixpkgs/15f4ee454b1dce334612fa6843b3e05cf546efab";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
