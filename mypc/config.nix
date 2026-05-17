@@ -22,6 +22,7 @@
     ../component/openssh.nix
     ../component/clamav.nix
     ./open-webui.nix
+    ./llama.nix
     ./ollama.nix
     ./tailscale.nix
     ./gitea.nix
