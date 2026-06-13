@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ ... }:
 {
   programs.nixvim.plugins = {
     nui = {
@@ -10,18 +10,19 @@
     avante = {
       enable = true;
       settings = {
-        provider = "ollama";
-        auto_suggestion_provider = "ollama";
+        provider = "llama_swap";
+        input.provider = "dressing";
+        auto_suggestion_provider = "llama_swap";
         providers = {
-          ollama = {
-            local = true;
-            endpoint = "localhost:11434";
+          llama_swap = {
+            __inherited_from = "openai";
+            endpoint = "http://localhost:8080/v1";
+            model = "qwen3.5:4b";
             extra_request_body = {
               temperature = 1;
-              max_tokens = 128000;
+              max_tokens = 8192;
             };
-            model = "qwen3.5:4b";
-            is_env_set.__raw = ''require("avante.providers.ollama").check_endpoint_alive'';
+            api_key_name = "AVANTE_DUMMY";
           };
         };
         behaviour = {
@@ -29,5 +30,8 @@
         };
       };
     };
+  };
+  home.sessionVariables = {
+    AVANTE_DUMMY = "dummy";
   };
 }
