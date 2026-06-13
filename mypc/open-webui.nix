@@ -1,12 +1,12 @@
 { pkgs, ... }:
 {
   services.open-webui = {
-    enable = true;
+    enable = false;
     package = pkgs.open-webui;
     host = "127.0.0.1";
     openFirewall = false;
   };
-  services.nginx.virtualHosts."webui.home.arpa" = {
+  services.nginx.virtualHosts."llama.home.arpa" = {
     locations."/" = {
       proxyPass = "http://127.0.0.1:8080";
       proxyWebsockets = true;

@@ -9,7 +9,7 @@ in
 {
   services.llama-swap = {
     enable = true;
-    port = 8000;
+    port = 8080;
     settings = {
       healthCheckTimeout = 120;
       models = {
@@ -21,10 +21,23 @@ in
               -ngl 99
               -c 8192
               --no-webui
+              --jinja
           '';
-          aliases = ["qwen"];
+          aliases = [ "qwen" ];
         };
       };
+    };
+  };
+  services.nginx.virtualHosts."llama.home.arpa" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:8080";
+      proxyWebsockets = true;
+      extraConfig = ''
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+      '';
     };
   };
 }
