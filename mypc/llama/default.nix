@@ -9,6 +9,7 @@ in
 {
   services.llama-swap = {
     enable = true;
+    port = 8000;
     settings = {
       healthCheckTimeout = 120;
       models = {
@@ -16,9 +17,10 @@ in
           cmd = ''
             ${llama-server}
               --port ''${PORT}
-              -m /var/lib/llama/models/qwen3.5
+              -m /var/lib/llama/models/Qwen3.5-4B-Q4_K_M.gguf
               -ngl 99
               -c 8192
+              --no-webui
           '';
           aliases = ["qwen"];
         };
