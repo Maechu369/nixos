@@ -5,7 +5,7 @@
     xremap.homeManagerModules.default
     ../component/home
     ../component/home/desktop
-    ./opencode.nix
+    ./opencode
     ./nixvim.nix
   ];
   xdg.userDirs.enable = true;
