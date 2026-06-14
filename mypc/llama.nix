@@ -20,9 +20,13 @@ in
               --port ''${PORT}
               -m /var/lib/llama/models/Qwen3.5-4B-Q4_K_M.gguf
               -ngl 99
-              -c 8192
-              --no-webui
+              -c 65536
+              --flash-attn on
+              --cache-type-k q8_0
+              --cache-type-v q8_0
               --jinja
+              --spec-type ngram-simple --spec-draft-n-max 64
+              --no-webui
           '';
           aliases = [ "qwen3.5" ];
         };
@@ -33,9 +37,11 @@ in
               --port ''${PORT}
               -m /var/lib/llama/models/qwen2.5-coder-3b-instruct-q4_k_m.gguf
               -ngl 99
-              -c 8192
-              --no-webui
+              -c 32768
+              --flash-attn on
               --jinja
+              --spec-type ngram-simple --spec-draft-n-max 64
+              --no-webui
           '';
           aliases = [ "qwen2.5-coder" ];
         };
