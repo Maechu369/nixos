@@ -11,6 +11,7 @@
         co = "checkout";
         sw = "switch";
         re = "restore";
+        br = "branch";
       };
       user.name = "Maechu369";
       user.email = "m6a7e0d8a3@gmail.com";
