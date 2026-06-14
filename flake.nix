@@ -29,6 +29,7 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       nixos-hardware,
       home-manager,
@@ -46,7 +47,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit username nixos-hardware xremap; };
         modules = [
-          mypc/config.nix
+          ./mypc/config.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -58,7 +59,8 @@
                 plasma-manager.homeModules.plasma-manager
                 sops-nix.homeManagerModules.sops
               ];
-              users."${username}" = import mypc/home.nix { inherit username xremap; };
+              extraSpecialArgs = { inherit username xremap; };
+              users."${username}" = ./mypc/home.nix;
             };
           }
           sops-nix.nixosModules.sops
@@ -68,7 +70,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit username nixos-hardware xremap; };
         modules = [
-          letsnote/config.nix
+          ./letsnote/config.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -80,7 +82,8 @@
                 plasma-manager.homeModules.plasma-manager
                 sops-nix.homeManagerModules.sops
               ];
-              users."${username}" = import letsnote/home.nix { inherit username xremap; };
+              extraSpecialArgs = { inherit username xremap; };
+              users."${username}" = ./letsnote/home.nix;
             };
           }
           sops-nix.nixosModules.sops
@@ -90,14 +93,14 @@
         system = "x86_64-linux";
         specialArgs = { inherit username; };
         modules = [
-          iso/configuration.nix
+          ./iso/configuration.nix
         ];
       };
       nixosConfigurations.minimum = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit username nixos-hardware xremap; };
         modules = [
-          minimum/minimum.nix
+          ./minimum/minimum.nix
         ];
       };
     };
