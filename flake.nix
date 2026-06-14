@@ -3,7 +3,10 @@
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs?ref=release-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/9ae611a455b90cf061d8f332b977e387bda8e1ca";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,7 +48,7 @@
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       flake.nixosConfigurations = {
-        mypc = inputs.nixpkgs.lib.nixosSystem {
+        mypc = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit username nixos-hardware xremap; };
           modules = [
@@ -68,7 +71,7 @@
             sops-nix.nixosModules.sops
           ];
         };
-        nixosConfigurations.letsnote = nixpkgs.lib.nixosSystem {
+        letsnote = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit username nixos-hardware xremap; };
           modules = [
@@ -91,14 +94,14 @@
             sops-nix.nixosModules.sops
           ];
         };
-        nixosConfigurations.iso = nixpkgs.lib.nixosSystem {
+        iso = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit username; };
           modules = [
             ./iso/configuration.nix
           ];
         };
-        nixosConfigurations.minimum = nixpkgs.lib.nixosSystem {
+        minimum = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit username nixos-hardware xremap; };
           modules = [
