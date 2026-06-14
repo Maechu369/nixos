@@ -14,6 +14,7 @@ in
       healthCheckTimeout = 120;
       models = {
         "qwen3.5:4b" = {
+          # hf download unsloth/Qwen3.5-4B-GGUF Qwen3.5-4B-Q4_K_M.gguf --local-dir .
           cmd = ''
             ${llama-server}
               --port ''${PORT}
@@ -23,7 +24,20 @@ in
               --no-webui
               --jinja
           '';
-          aliases = [ "qwen" ];
+          aliases = [ "qwen3.5" ];
+        };
+        "qwen2.5-coder:3b" = {
+          # hf download Qwen/Qwen2.5-Coder-3B-Instruct-GGUF qwen2.5-coder-3b-instruct-q4_k_m.gguf --local-dir .
+          cmd = ''
+            ${llama-server}
+              --port ''${PORT}
+              -m /var/lib/llama/models/qwen2.5-coder-3b-instruct-q4_k_m.gguf
+              -ngl 99
+              -c 8192
+              --no-webui
+              --jinja
+          '';
+          aliases = [ "qwen2.5-coder" ];
         };
       };
     };
