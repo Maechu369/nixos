@@ -54,6 +54,7 @@
       sc-im
       systemd-manager-tui
       tea
+      direnv
     ];
   };
   programs = {

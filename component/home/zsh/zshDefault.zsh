@@ -83,4 +83,5 @@ if [[ $TERM = 'xterm-kitty' ]]; then
   alias ssh='kitty +kitten ssh'
 fi
 alias icat='kitty +kitten icat'
+command -v direnv 1>/dev/null && eval "$(direnv hook zsh)" 
 # vim: et
