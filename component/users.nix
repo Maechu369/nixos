@@ -39,7 +39,7 @@
         commands = [
           {
             command = "/nix/var/nix/profiles/system/bin/switch-to-configuration";
-            options = [ "NOPASSWORD" ];
+            options = [ "NOPASSWD" ];
           }
         ];
       }
