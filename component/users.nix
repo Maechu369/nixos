@@ -18,7 +18,9 @@
         "ydotool"
       ];
       openssh.authorizedKeys.keys = [
+        # 原則、GPG鍵で接続
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFbkbVhapmW864se06Wk+IWzm5XmfsP0nohg0MVX9b1i openpgp:0x67DC50BF"
+        # TermuxではGPGを使用したsshがうまく行かないので、通常のssh鍵で運用
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLR3JlwwfoQ6epSxsqTTCVdN61xZqo3C4YFkxHDQ4eT u0_a242@localhost"
       ];
       shell = pkgs.zsh;
