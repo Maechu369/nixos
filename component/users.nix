@@ -33,5 +33,16 @@
     configFile = ''
       Defaults:root,%wheel timestamp_timeout=15
     '';
+    extraRules = [
+      {
+        users = [ username ];
+        commands = [
+          {
+            command = "/nix/var/nix/profiles/system/bin/switch-to-configuration";
+            options = [ "NOPASSWORD" ];
+          }
+        ];
+      }
+    ];
   };
 }
