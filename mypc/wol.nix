@@ -8,7 +8,8 @@
         };
       };
     };
-    firewall = { allowedUDPPorts = [ 9 ]; };
+    firewall = {
+      allowedUDPPorts = [ 9 ];
+    };
   };
 }
-

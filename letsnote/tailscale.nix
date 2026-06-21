@@ -4,4 +4,3 @@
     package = pkgs.tailscale;
   };
 }
-

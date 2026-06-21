@@ -54,8 +54,8 @@
     networkmanager
   ];
 
-  systemd.services.wpa_supplicant.wantedBy = lib.mkForce ["multi-user.target"];
-  systemd.services.sshd.wantedBy = lib.mkForce ["multi-user.target"];
+  systemd.services.wpa_supplicant.wantedBy = lib.mkForce [ "multi-user.target" ];
+  systemd.services.sshd.wantedBy = lib.mkForce [ "multi-user.target" ];
 
   environment.etc.recommend-config = {
     source = ./..;

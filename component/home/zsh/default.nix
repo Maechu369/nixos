@@ -19,10 +19,15 @@
       EZA_ICON_SPACING = 1;
       PYTHONCACHEPREFIX = "/tmp";
     };
-    initContent = let
-      zshMkBefore = lib.mkOrder 500 (builtins.readFile ./zshMkBefore.zsh);
-      zshDefault = lib.mkOrder 1000 (builtins.readFile ./zshDefault.zsh);
-    in lib.mkMerge [ zshMkBefore zshDefault ];
+    initContent =
+      let
+        zshMkBefore = lib.mkOrder 500 (builtins.readFile ./zshMkBefore.zsh);
+        zshDefault = lib.mkOrder 1000 (builtins.readFile ./zshDefault.zsh);
+      in
+      lib.mkMerge [
+        zshMkBefore
+        zshDefault
+      ];
     shellAliases = {
       "..." = "cd ../..";
       "...." = "cd ../../..";
@@ -55,4 +60,3 @@
     };
   };
 }
-

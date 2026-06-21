@@ -36,7 +36,9 @@
       nrformats = "bin,hex,alpha,unsigned";
     };
 
-    autoGroups = { init.clear = true; };
+    autoGroups = {
+      init.clear = true;
+    };
 
     autoCmd = [
       {
@@ -54,12 +56,16 @@
     nixpkgs.useGlobalPackages = true;
     colorscheme = "torte";
     plugins = {
-      lspconfig = { enable = true; };
+      lspconfig = {
+        enable = true;
+      };
       treesitter = {
         enable = true;
         settings = {
           # auto_install = true;
-          highlight = { enable = true; };
+          highlight = {
+            enable = true;
+          };
           indent.enable = true;
         };
       };
@@ -79,11 +85,21 @@
       telescope = {
         enable = true;
         keymaps = {
-          "<leader>ff" = { action = "find_files"; };
-          "<leader>fg" = { action = "live_grep"; };
-          "<leader>fb" = { action = "buffers"; };
-          "<leader>fh" = { action = "help_tags"; };
-          "<leader>sk" = { action = "keymaps"; };
+          "<leader>ff" = {
+            action = "find_files";
+          };
+          "<leader>fg" = {
+            action = "live_grep";
+          };
+          "<leader>fb" = {
+            action = "buffers";
+          };
+          "<leader>fh" = {
+            action = "help_tags";
+          };
+          "<leader>sk" = {
+            action = "keymaps";
+          };
         };
       };
       nvim-autopairs = {
@@ -93,8 +109,12 @@
           disable_in_macro = true;
           map_bs = true;
           map_ch = true;
-          ts_config = { nix = [ "string_fragment" ]; };
-          fast_wrap = { map = "<C-F>"; };
+          ts_config = {
+            nix = [ "string_fragment" ];
+          };
+          fast_wrap = {
+            map = "<C-F>";
+          };
         };
         luaConfig.post = ''
           local npairs = require("nvim-autopairs")
@@ -122,7 +142,9 @@
       cmp = {
         enable = true;
         settings = {
-          experimental = { ghost_text = true; };
+          experimental = {
+            ghost_text = true;
+          };
           snippet.expand = ''
             function(args)
               require("luasnip").lsp_expand(args.body)
@@ -184,8 +206,12 @@
           };
         };
       };
-      luasnip = { enable = true; };
-      lualine = { enable = true; };
+      luasnip = {
+        enable = true;
+      };
+      lualine = {
+        enable = true;
+      };
       gitsigns = {
         enable = true;
         settings = {
@@ -360,7 +386,7 @@
                 formatting.command = [ "nixfmt" ];
                 nix.flake = {
                   autoArchive = false;
-                  autoEvalInputs = false;  # trueの方が便利だがメモリ不足で落ちるよりマシ
+                  autoEvalInputs = false; # trueの方が便利だがメモリ不足で落ちるよりマシ
                   nixpkgsInputName = "nixpkgs";
                 };
               };
@@ -371,7 +397,10 @@
           enable = true;
           package = pkgs.pyright;
           config = {
-            cmd = [ "pyright-langserver" "--stdio" ];
+            cmd = [
+              "pyright-langserver"
+              "--stdio"
+            ];
             filetypes = [ "python" ];
             settings = {
               # pyright = { formatting.command = [ "ruff" "format" ]; };
@@ -382,10 +411,18 @@
           enable = true;
           package = pkgs.ruff;
           config = {
-            cmd = [ "ruff" "server" ];
+            cmd = [
+              "ruff"
+              "server"
+            ];
             filetypes = [ "python" ];
             settings = {
-              ruff = { formatting.command = [ "ruff" "format" ]; };
+              ruff = {
+                formatting.command = [
+                  "ruff"
+                  "format"
+                ];
+              };
             };
           };
         };

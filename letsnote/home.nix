@@ -1,4 +1,13 @@
-{ config, pkgs, plasma-manager, nixvim, username, xremap, ... }: {
+{
+  config,
+  pkgs,
+  plasma-manager,
+  nixvim,
+  username,
+  xremap,
+  ...
+}:
+{
   _module.args = { inherit username; };
   imports = [
     xremap.homeManagerModules.default
@@ -7,4 +16,3 @@
   ];
   xdg.userDirs.enable = true;
 }
-

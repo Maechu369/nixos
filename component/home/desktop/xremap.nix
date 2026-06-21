@@ -3,16 +3,24 @@
     enable = true;
     withKDE = true;
     config = {
-      virtual_modifiers =
-        [ "KEY_KATAKANAHIRAGANA" "KEY_HENKAN" "KEY_MUHENKAN" "F13" ];
+      virtual_modifiers = [
+        "KEY_KATAKANAHIRAGANA"
+        "KEY_HENKAN"
+        "KEY_MUHENKAN"
+        "F13"
+      ];
       modmap = [
         {
           name = "LCTRL to F13";
-          remap = { LEFTCTRL = "F13"; };
+          remap = {
+            LEFTCTRL = "F13";
+          };
         }
         {
           name = "CL to Ctrl";
-          remap = { CAPSLOCK = "LEFTCTRL"; };
+          remap = {
+            CAPSLOCK = "LEFTCTRL";
+          };
         }
         {
           name = "無変換 to Esc";
@@ -27,15 +35,21 @@
       keymap = [
         {
           name = "<C-h> to <BS>";
-          remap = { Ctrl_L-h = "Backspace"; };
+          remap = {
+            Ctrl_L-h = "Backspace";
+          };
         }
         {
           name = "<C-m> to <CR>";
-          remap = { Ctrl_L-m = "KEY_ENTER"; };
+          remap = {
+            Ctrl_L-m = "KEY_ENTER";
+          };
         }
         {
           name = "無変換+J to AltTab";
-          remap = { KEY_MUHENKAN-j = "ALT-TAB"; };
+          remap = {
+            KEY_MUHENKAN-j = "ALT-TAB";
+          };
         }
         {
           name = "無変換+G to Ctrl+Tab";
@@ -46,41 +60,123 @@
         }
         {
           name = "Open terminal";
-          remap = { Win-t = { launch = [ "alacritty" ]; }; };
+          remap = {
+            Win-t = {
+              launch = [ "alacritty" ];
+            };
+          };
         }
         {
           name = "Mouse";
           remap = {
-            KEY_MUHENKAN-e = { launch = [ "ydotool" "click" "0xC0" ]; };
+            KEY_MUHENKAN-e = {
+              launch = [
+                "ydotool"
+                "click"
+                "0xC0"
+              ];
+            };
             KEY_MUHENKAN-r = {
-              launch = [ "ydotool" "mousemove" "-w" "-x" "0" "-y" "+2" ];
+              launch = [
+                "ydotool"
+                "mousemove"
+                "-w"
+                "-x"
+                "0"
+                "-y"
+                "+2"
+              ];
             };
             KEY_MUHENKAN-f = {
-              launch = [ "ydotool" "mousemove" "-w" "-x" "0" "-y" "-2" ];
+              launch = [
+                "ydotool"
+                "mousemove"
+                "-w"
+                "-x"
+                "0"
+                "-y"
+                "-2"
+              ];
             };
             KEY_MUHENKAN-w = {
-              launch = [ "ydotool" "mousemove" "-x" "0" "-y" "-40" ];
+              launch = [
+                "ydotool"
+                "mousemove"
+                "-x"
+                "0"
+                "-y"
+                "-40"
+              ];
             };
             KEY_MUHENKAN-s = {
-              launch = [ "ydotool" "mousemove" "-x" "0" "-y" "+40" ];
+              launch = [
+                "ydotool"
+                "mousemove"
+                "-x"
+                "0"
+                "-y"
+                "+40"
+              ];
             };
             KEY_MUHENKAN-a = {
-              launch = [ "ydotool" "mousemove" "-x" "-40" "-y" "0" ];
+              launch = [
+                "ydotool"
+                "mousemove"
+                "-x"
+                "-40"
+                "-y"
+                "0"
+              ];
             };
             KEY_MUHENKAN-d = {
-              launch = [ "ydotool" "mousemove" "-x" "+40" "-y" "0" ];
+              launch = [
+                "ydotool"
+                "mousemove"
+                "-x"
+                "+40"
+                "-y"
+                "0"
+              ];
             };
             Shift-KEY_MUHENKAN-w = {
-              launch = [ "ydotool" "mousemove" "-x" "0" "-y" "-100" ];
+              launch = [
+                "ydotool"
+                "mousemove"
+                "-x"
+                "0"
+                "-y"
+                "-100"
+              ];
             };
             Shift-KEY_MUHENKAN-s = {
-              launch = [ "ydotool" "mousemove" "-x" "0" "-y" "+100" ];
+              launch = [
+                "ydotool"
+                "mousemove"
+                "-x"
+                "0"
+                "-y"
+                "+100"
+              ];
             };
             Shift-KEY_MUHENKAN-a = {
-              launch = [ "ydotool" "mousemove" "-x" "-100" "-y" "0" ];
+              launch = [
+                "ydotool"
+                "mousemove"
+                "-x"
+                "-100"
+                "-y"
+                "0"
+              ];
             };
             Shift-KEY_MUHENKAN-d = {
-              launch = [ "ydotool" "mousemove" "-x" "+100" "-y" "0" ];
+              launch = [
+                "ydotool"
+                "mousemove"
+                "-x"
+                "+100"
+                "-y"
+                "0"
+              ];
             };
           };
         }

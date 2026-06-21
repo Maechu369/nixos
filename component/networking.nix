@@ -10,7 +10,10 @@
 
   systemd.services.NetworkManager-wait-online = {
     serviceConfig = {
-      ExecStart = [ "" "${pkgs.networkmanager}/bin/nm-online -q --timeout=30" ];
+      ExecStart = [
+        ""
+        "${pkgs.networkmanager}/bin/nm-online -q --timeout=30"
+      ];
     };
   };
 

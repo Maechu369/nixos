@@ -29,7 +29,9 @@
         shape = "Block";
         blinking = "On";
       };
-      env = { TERM = "xterm-256color"; };
+      env = {
+        TERM = "xterm-256color";
+      };
       keyboard.bindings = [
         {
           key = "C";
@@ -52,4 +54,3 @@
     };
   };
 }
-

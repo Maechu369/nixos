@@ -1,6 +1,8 @@
 { ... }:
-let ageKeyFile = "/var/lib/sops-nix/keys.txt";
-in {
+let
+  ageKeyFile = "/var/lib/sops-nix/keys.txt";
+in
+{
   sops = {
     age.keyFile = ageKeyFile;
     age.generateKey = true;
@@ -8,5 +10,7 @@ in {
     defaultSopsFormat = "yaml";
     secrets.hashedPassword.neededForUsers = true;
   };
-  environment.variables = { SOPS_AGE_KEY_FILE = ageKeyFile; };
+  environment.variables = {
+    SOPS_AGE_KEY_FILE = ageKeyFile;
+  };
 }

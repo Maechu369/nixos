@@ -1,8 +1,10 @@
 { ... }: {
-  swapDevices = [{
-    device = "/var/lib/swapfile";
-    size = 9 * 1024; # MB
-  }];
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 9 * 1024; # MB
+    }
+  ];
 
   zramSwap = {
     enable = true;
@@ -13,4 +15,3 @@
 
   boot.tmp.useTmpfs = true;
 }
-
