@@ -22,6 +22,7 @@
     ./dns.nix
 
     ../component
+    ../component/nixbuild.nix
     ../component/desktop
     ../component/openssh.nix
     ../component/clamav.nix
