@@ -16,6 +16,7 @@
     ./nginx.nix
     ./build.nix
     ./backup.nix
+    ./nixbuild-host.nix
 
     ../component
     ../component/desktop
