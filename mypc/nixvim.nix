@@ -23,7 +23,7 @@
           llama_swap = {
             __inherited_from = "openai";
             endpoint = "http://localhost:8080/v1";
-            model = "qwen2.5-coder:3b";
+            model = "qwen2.5-coder:14b";
             extra_request_body = {
               temperature = 1;
               max_tokens = 8192;
