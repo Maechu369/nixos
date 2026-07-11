@@ -35,7 +35,7 @@
       };
     };
   };
-  # home.sessionVariables = {
-  #   AVANTE_DUMMY = "dummy";
-  # };
+  home.sessionVariables = {
+    AVANTE_DUMMY = "dummy";
+  };
 }
