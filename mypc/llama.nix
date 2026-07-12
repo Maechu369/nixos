@@ -82,6 +82,8 @@ in
     };
   };
   services.nginx.virtualHosts."llama.home.arpa" = {
+    forceSSL = true;
+    useACMEHost = "llama.home.arpa";
     locations."/" = {
       proxyPass = "http://127.0.0.1:8080";
       proxyWebsockets = true;
@@ -92,5 +94,10 @@ in
         proxy_set_header X-Forwarded-Proto $scheme;
       '';
     };
+  };
+  security.acme.certs."llama.home.arpa" = {
+    server = "https://step-ca.home.arpa:9000/acme/acme/directory";
+    webroot = "/var/lib/acme/acme-challenge";
+    group = "nginx";
   };
 }

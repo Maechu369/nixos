@@ -20,6 +20,8 @@
     group = "gitea";
   };
   services.nginx.virtualHosts."gitea.home.arpa" = {
+    forceSSL = true;
+    useACMEHost = "gitea.home.arpa";
     locations."/" = {
       proxyPass = "http://127.0.0.1:3000";
       proxyWebsockets = true;
@@ -30,5 +32,10 @@
         proxy_set_header X-Forwarded-Proto $scheme;
       '';
     };
+  };
+  security.acme.certs."gitea.home.arpa" = {
+    server = "https://step-ca.home.arpa:9000/acme/acme/directory";
+    webroot = "/var/lib/acme/acme-challenge";
+    group = "nginx";
   };
 }

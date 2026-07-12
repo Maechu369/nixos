@@ -11,5 +11,6 @@
     ./system-packages.nix
     ./docker.nix
     ./users.nix
+    ./ca-root.nix
   ];
 }
