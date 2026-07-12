@@ -11,6 +11,12 @@
     languagePacks = [ "ja" ];
     policies = {
       DefaultDownloadDirectory = "/home/${username}/Downloads";
+      Certificates = {
+        ImportEnterpriseRoots = true;
+        Install = [
+          ../../root_ca.crt
+        ];
+      };
       DisableAppUpdate = true;
       ExtensionSettings = {
         "*" = {
