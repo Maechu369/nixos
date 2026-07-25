@@ -26,6 +26,7 @@
     ./llama.nix
     ./tailscale.nix
     ./gitea.nix
+    ./samba.nix
   ];
   networking.hostName = "mypc";
 
