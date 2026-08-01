@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -8,7 +8,7 @@
     # open MUST false WHEN older than Turig (GTX16XX)
     open = true;
     nvidiaSettings = true;
-    # package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
   nix.settings = {
     substituters = [
