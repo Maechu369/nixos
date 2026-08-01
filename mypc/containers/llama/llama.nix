@@ -7,8 +7,12 @@ let
   llama-server = lib.getExe' llama-cpp "llama-server";
 in
 {
+  imports = [
+    ../../../component/unfree.nix
+  ];
   services.llama-swap = {
     enable = true;
+    listenAddress = "0.0.0.0";
     port = 8080;
     settings = {
       healthCheckTimeout = 120;
@@ -81,23 +85,15 @@ in
       };
     };
   };
-  services.nginx.virtualHosts."llama.home.arpa" = {
-    forceSSL = true;
-    useACMEHost = "llama.home.arpa";
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:8080";
-      proxyWebsockets = true;
-      extraConfig = ''
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-      '';
+  networking = {
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [
+        8080
+      ];
     };
+    useHostResolvConf = lib.mkForce false;
   };
-  security.acme.certs."llama.home.arpa" = {
-    server = "https://step-ca.home.arpa:9000/acme/acme/directory";
-    webroot = "/var/lib/acme/acme-challenge";
-    group = "nginx";
-  };
+  services.resolved.enable = true;
+  system.stateVersion = "26.11";
 }
