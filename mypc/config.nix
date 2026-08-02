@@ -23,10 +23,9 @@
     ../component/openssh.nix
     ../component/clamav.nix
     ./acme.nix
-    ./llama.nix
     ./tailscale.nix
-    ./gitea.nix
     ./samba.nix
+    ./containers
   ];
   networking.hostName = "mypc";
 

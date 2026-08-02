@@ -16,7 +16,7 @@
         providers = {
           llama_swap = {
             __inherited_from = "openai";
-            endpoint = "http://localhost:8080/v1";
+            endpoint = "http://192.168.64.2:8080/v1";
             model = "qwen3.6:35b-a3b";
             api_key_name = "AVANTE_DUMMY";
           };
@@ -30,7 +30,7 @@
       enable = true;
       settings = {
         backend = "openai";
-        url = "http://localhost:8080/v1";
+        url = "http://192.168.64.2:8080/v1";
         model = "qwen2.5-coder:14b";
       };
     };
