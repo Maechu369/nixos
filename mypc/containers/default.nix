@@ -7,5 +7,6 @@
   };
   imports = [
     ./llama
+    ./gitea
   ];
 }

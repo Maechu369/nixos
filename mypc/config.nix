@@ -24,7 +24,6 @@
     ../component/clamav.nix
     ./acme.nix
     ./tailscale.nix
-    ./gitea.nix
     ./samba.nix
     ./containers
   ];
