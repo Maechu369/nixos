@@ -18,8 +18,18 @@
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+        allow 100.64.0.0/10;
+        allow 192.168.2.3/32;
+        deny all;
       '';
     };
+    listen = [
+      {
+        addr = "0.0.0.0";
+        port = 443;
+        ssl = true;
+      }
+    ];
   };
   security.acme.certs."gitea.home.arpa" = {
     server = "https://step-ca.home.arpa:9000/acme/acme/directory";
