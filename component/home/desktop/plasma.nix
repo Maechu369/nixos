@@ -2,24 +2,27 @@
   programs.plasma = {
 
     enable = true;
-    overrideConfig = true;
-    input = {
-      keyboard = {
-        layouts = [ { layout = "jp"; } ];
-        model = "jp106";
-      };
-    };
+    shortcuts = { };
     configFile = {
-      kxkbrc = {
-        Layout.LayoutList.immutable = true;
+      kuriikwsfilterrc.General = {
+        EnableWebShortcuts = true;
+        KeywordDelimiter = ":";
+        PreferredWebShortcuts = "";
+        UsePreferredWebShortcutsOnly = false;
       };
-      kwinrc = {
-        Wayland.InputMethod.value = "/run/current-system/sw/share/applications/org.fcitx.Fcitx5.desktop";
-        Wayland.InputMethod.shellExpand = true;
-        Wayland.InputMethod.immutable = true;
+      kwinrc.Wayland."InputMethod[$ei]" =
+        "/run/current-system/sw/share/applications/org.fcitx.Fcitx5.desktop";
+      kxkbrc.Layout = {
+        DisplayNames = "";
+        "LayoutList[$i]" = "jp";
+        Model = "jp106";
+        Use = true;
+        VariantList = "";
+      };
+      spectaclerc = {
+        ImageSave.translatedScreenshotsFolder = "スクリーンショット";
+        VideoSave.translatedScreencastsFolder = "画面録画";
       };
     };
-  }
-
-  ;
+  };
 }

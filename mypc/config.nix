@@ -26,6 +26,7 @@
     ./tailscale.nix
     ./samba.nix
     ./containers
+    ./plasma.nix
   ];
   networking.hostName = "mypc";
 
