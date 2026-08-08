@@ -1,7 +1,7 @@
 {
   description = "NixOS config";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/148bab9c1c3c53136ecb44a6ea356a0ed5b39b06";
+    nixpkgs.url = "github:nixos/nixpkgs/f13ff45afd1bb73e640eaa08a7066dbed07e3238";
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
       inputs.nixpkgs.follows = "nixpkgs";
