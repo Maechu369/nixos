@@ -30,6 +30,10 @@
         port = 443;
         ssl = true;
       }
+      {
+        addr = "0.0.0.0";
+        port = 80;
+      }
     ];
   };
   security.acme.certs."gitea.home.arpa" = {
