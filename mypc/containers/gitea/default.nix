@@ -3,6 +3,7 @@
   containers."gitea" = {
     autoStart = true;
     privateNetwork = true;
+    privateUsers = "pick";
     hostAddress = "192.168.64.1";
     localAddress = "192.168.64.3";
     config = ./gitea.nix;
