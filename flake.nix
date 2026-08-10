@@ -1,5 +1,9 @@
 {
   description = "NixOS config";
+  nixConfig = {
+    extra-substituters = [ "https://microvm.cachix.org" ];
+    extra-trusted-public-keys = [ "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys=" ];
+  };
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/f13ff45afd1bb73e640eaa08a7066dbed07e3238";
     nixos-hardware = {
@@ -32,6 +36,10 @@
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -44,6 +52,7 @@
       plasma-manager,
       xremap,
       nixvim,
+      microvm,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -54,6 +63,7 @@
         ./letsnote
         ./iso
         ./minimum
+        ./openclaw
         inputs.git-hooks-nix.flakeModule
       ];
       perSystem =

@@ -1,4 +1,9 @@
-{ inputs, username, ... }:
+{
+  self,
+  inputs,
+  username,
+  ...
+}:
 let
   inherit (inputs)
     nixpkgs
@@ -8,6 +13,7 @@ let
     plasma-manager
     xremap
     nixvim
+    microvm
     ;
 in
 {
@@ -15,6 +21,7 @@ in
     specialArgs = { inherit username nixos-hardware xremap; };
     modules = [
       ./config.nix
+      microvm.nixosModules.host
       home-manager.nixosModules.home-manager
       {
         home-manager = {
@@ -29,6 +36,9 @@ in
           extraSpecialArgs = { inherit username xremap; };
           users."${username}" = ./home.nix;
         };
+      }
+      {
+        microvm.vms."openclaw".flake = self;
       }
       sops-nix.nixosModules.sops
     ];
