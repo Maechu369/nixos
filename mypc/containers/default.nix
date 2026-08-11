@@ -16,16 +16,14 @@
         "vm-openclaw"
       ];
     };
-  };
-  systemd.network = {
-    enable = true;
-    networks = {
+    interfaces = {
       "vm-openclaw" = {
-        matchConfig.Name = "vm-openclaw";
-        networkConfig = {
-          Address = [ "192.168.65.1/24" ];
-          DHCP = "no";
-        };
+        ipv4.addresses = [
+          {
+            address = "192.168.65.1";
+            prefixLength = 24;
+          }
+        ];
       };
     };
   };
