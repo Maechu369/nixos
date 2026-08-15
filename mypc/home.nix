@@ -3,6 +3,7 @@
   pkgs,
   plasma-manager,
   nixvim,
+  oh-my-pi,
   username,
   xremap,
   ...
@@ -14,6 +15,7 @@
     ../component/home
     ../component/home/desktop
     ./opencode
+    ./omp.nix
     ./nixvim.nix
   ];
   xdg.userDirs.enable = true;
