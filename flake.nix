@@ -32,6 +32,10 @@
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    oh-my-pi = {
+      url = "github:can1357/oh-my-pi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -44,6 +48,7 @@
       plasma-manager,
       xremap,
       nixvim,
+      oh-my-pi,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
