@@ -29,14 +29,21 @@ in
       };
     };
   };
+  boot.kernelModules = [ "overlay" ];
   microvm = {
     writableStoreOverlay = "/var/lib/volumes/openclaw/nix-store.img";
     volumes = [
       {
         autoCreate = true;
+        mountPoint = "/var/tmp";
+        image = "/var/lib/volumes/openclaw/var-tmp.img";
+        size = 1024;
+      }
+      {
+        autoCreate = true;
         mountPoint = "/var/lib";
         image = "/var/lib/volumes/openclaw/var-lib.img";
-        size = 1024;
+        size = 8192;
       }
     ];
     interfaces = [
@@ -64,6 +71,34 @@ in
         type = "ed25519";
       }
     ];
+  };
+  systemd.tmpfiles.rules = [
+    "d /var/lib/openclaw/config 0750 1000 1000 -"
+    "d /var/lib/openclaw/auth-secret 0700 1000 1000 -"
+  ];
+  virtualisation.podman.enable = true;
+  virtualisation.podman.dockerCompat = true;
+  virtualisation.oci-containers = {
+    backend = "podman";
+    containers."openclaw" = {
+      image = "ghcr.io/openclaw/openclaw:2026.6.10-beta.1-browser";
+      autoStart = true;
+      user = "1000:1000";
+      ports = [ "127.0.0.1:18789:18789" ];
+      environment = {
+        OPENCLAW_TZ = "Asia/Tokyo";
+      };
+      extraOptions = [
+        "--health-cmd=curl -fsS http://127.0.0.1:18789/healthz || exit 1"
+        "--health-interval=30s"
+        "--security-opt=no-new-privileges"
+      ];
+      # 手動で下記の元ディレクトリを生成し、chown 1000:1000すること
+      volumes = [
+        "/var/lib/openclaw-state/config:/home/node/.openclaw"
+        "/var/lib/openclaw-state/auth-secret:/home/node/.config/openclaw"
+      ];
+    };
   };
   system.stateVersion = "26.11";
 }
