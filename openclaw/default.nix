@@ -3,6 +3,7 @@ let
   inherit (inputs)
     nixpkgs
     microvm
+    home-manager
     ;
 in
 {
@@ -11,6 +12,16 @@ in
     modules = [
       microvm.nixosModules.microvm
       ./config.nix
+      home-manager.nixosModules.home-manager
+      {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          sharedModules = [
+          ];
+          users."root" = ./home.nix;
+        };
+      }
     ];
   };
 }
