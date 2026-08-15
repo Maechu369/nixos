@@ -8,6 +8,7 @@ let
     plasma-manager
     xremap
     nixvim
+    oh-my-pi
     ;
 in
 {
@@ -25,6 +26,7 @@ in
             nixvim.homeModules.nixvim
             plasma-manager.homeModules.plasma-manager
             sops-nix.homeManagerModules.sops
+            oh-my-pi.homeManagerModules.default
           ];
           extraSpecialArgs = { inherit username xremap; };
           users."${username}" = ./home.nix;
