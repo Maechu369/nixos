@@ -53,7 +53,8 @@ in
   networking.firewall = {
     enable = true;
     extraInputRules = ''
-      ip saddr 192.168.65.1 tcp dport 18789 accept
+      udp dport 41641 accept
+      iifname "tailscale0" accept
     '';
   };
   services.openssh = {
@@ -68,6 +69,18 @@ in
         type = "ed25519";
       }
     ];
+  };
+  services.tailscale = {
+    enable = true;
+    package = pkgs.tailscale;
+  };
+  systemd.services.tailscale-service = {
+    after = [ "tailscaled.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      ${pkgs.tailscale}/bin/tailscale serve --bg http://localhost:18789
+    '';
   };
   virtualisation.podman.enable = true;
   virtualisation.podman.dockerCompat = true;
