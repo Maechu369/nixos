@@ -8,11 +8,6 @@ in
     "nix-command"
     "flakes"
   ];
-  nixpkgs.config.permittedInsecurePackages = [
-  ];
-  environment.systemPackages = with pkgs; [
-    zeroclaw
-  ];
   users.users."root" = {
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFbkbVhapmW864se06Wk+IWzm5XmfsP0nohg0MVX9b1i openpgp:0x67DC50BF"
@@ -72,10 +67,6 @@ in
       }
     ];
   };
-  systemd.tmpfiles.rules = [
-    "d /var/lib/openclaw/config 0750 1000 1000 -"
-    "d /var/lib/openclaw/auth-secret 0700 1000 1000 -"
-  ];
   virtualisation.podman.enable = true;
   virtualisation.podman.dockerCompat = true;
   virtualisation.oci-containers = {
@@ -93,12 +84,16 @@ in
         "--health-interval=30s"
         "--security-opt=no-new-privileges"
       ];
-      # 手動で下記の元ディレクトリを生成し、chown 1000:1000すること
+      # 手動で下記のディレクトリを生成し、chown 1000:1000すること
       volumes = [
         "/var/lib/openclaw-state/config:/home/node/.openclaw"
         "/var/lib/openclaw-state/auth-secret:/home/node/.config/openclaw"
       ];
     };
+    systemd.tmpfiles.rules = [
+      "d /var/lib/openclaw/config 0750 1000 1000 -"
+      "d /var/lib/openclaw/auth-secret 0700 1000 1000 -"
+    ];
   };
   system.stateVersion = "26.11";
 }
