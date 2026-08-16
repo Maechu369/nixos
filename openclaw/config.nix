@@ -52,7 +52,9 @@ in
   };
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 ];
+    extraInputRules = ''
+      ip saddr 192.168.65.1 tcp dport 18789 accept
+    '';
   };
   services.openssh = {
     enable = true;
@@ -75,7 +77,7 @@ in
       image = "ghcr.io/openclaw/openclaw:2026.6.10-beta.1-browser";
       autoStart = true;
       user = "1000:1000";
-      ports = [ "127.0.0.1:18789:18789" ];
+      ports = [ "0.0.0.0:18789:18789" ];
       environment = {
         OPENCLAW_TZ = "Asia/Tokyo";
       };
@@ -90,10 +92,10 @@ in
         "/var/lib/openclaw-state/auth-secret:/home/node/.config/openclaw"
       ];
     };
-    systemd.tmpfiles.rules = [
-      "d /var/lib/openclaw/config 0750 1000 1000 -"
-      "d /var/lib/openclaw/auth-secret 0700 1000 1000 -"
-    ];
   };
+  systemd.tmpfiles.rules = [
+    "d /var/lib/openclaw/config 0750 1000 1000 -"
+    "d /var/lib/openclaw/auth-secret 0700 1000 1000 -"
+  ];
   system.stateVersion = "26.11";
 }
