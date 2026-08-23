@@ -13,6 +13,7 @@
       filterForward = true;
       trustedInterfaces = [
         "ve-*"
+        "vm-openclaw"
       ];
     };
     interfaces = {

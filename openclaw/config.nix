@@ -52,10 +52,8 @@ in
   };
   networking.firewall = {
     enable = true;
-    extraInputRules = ''
-      udp dport 41641 accept
-      iifname "tailscale0" accept
-    '';
+    trustedInterfaces = [ "tailscale0" ];
+    allowedUDPPorts = [ 41641 ];
   };
   services.openssh = {
     enable = true;
@@ -90,7 +88,7 @@ in
       image = "ghcr.io/openclaw/openclaw:2026.6.10-beta.1-browser";
       autoStart = true;
       user = "1000:1000";
-      ports = [ "0.0.0.0:18789:18789" ];
+      networks = [ "host" ];
       environment = {
         OPENCLAW_TZ = "Asia/Tokyo";
       };
