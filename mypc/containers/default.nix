@@ -15,6 +15,9 @@
         "ve-*"
         "vm-openclaw"
       ];
+      extraForwardRules = ''
+        iifname { "vm-openclaw" } oifname { "ve-llama" } accept
+      '';
     };
     interfaces = {
       "vm-openclaw" = {
