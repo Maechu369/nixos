@@ -48,12 +48,15 @@ in
         inherit mac;
       }
     ];
+    mem = 1024;
     hypervisor = "qemu";
   };
   networking.firewall = {
     enable = true;
-    trustedInterfaces = [ "tailscale0" ];
-    allowedUDPPorts = [ 41641 ];
+    allowedTCPPorts = [
+      22
+      18789
+    ];
   };
   services.openssh = {
     enable = true;
@@ -67,18 +70,6 @@ in
         type = "ed25519";
       }
     ];
-  };
-  services.tailscale = {
-    enable = true;
-    package = pkgs.tailscale;
-  };
-  systemd.services.tailscale-service = {
-    after = [ "tailscaled.service" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "oneshot";
-    script = ''
-      ${pkgs.tailscale}/bin/tailscale serve --bg http://localhost:18789
-    '';
   };
   virtualisation.podman.enable = true;
   virtualisation.podman.dockerCompat = true;

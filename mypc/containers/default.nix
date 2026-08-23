@@ -30,5 +30,6 @@
   imports = [
     ./llama
     ./gitea
+    ./openclaw.nix
   ];
 }
