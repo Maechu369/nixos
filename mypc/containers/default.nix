@@ -16,7 +16,7 @@
         "vm-openclaw"
       ];
       extraForwardRules = ''
-        iifname { "vm-openclaw" } oifname { "ve-llama" } accept
+        iifname { "vm-openclaw" } oifname { "ve-llama", "ve-searxng" } accept
       '';
     };
     interfaces = {
@@ -33,6 +33,7 @@
   imports = [
     ./llama
     ./gitea
+    ./searxng
     ./openclaw.nix
   ];
 }

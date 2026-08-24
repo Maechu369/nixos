@@ -48,7 +48,7 @@ in
         inherit mac;
       }
     ];
-    mem = 1024;
+    mem = 2047;
     hypervisor = "qemu";
   };
   networking.firewall = {
