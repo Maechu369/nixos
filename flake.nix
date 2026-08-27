@@ -1,11 +1,17 @@
 {
   description = "NixOS config";
   nixConfig = {
-    extra-substituters = [ "https://microvm.cachix.org" ];
-    extra-trusted-public-keys = [ "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys=" ];
+    extra-substituters = [
+      "https://cache.nixos-cuda.org"
+      "https://microvm.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+      "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys="
+    ];
   };
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/f13ff45afd1bb73e640eaa08a7066dbed07e3238";
+    nixpkgs.url = "github:nixos/nixpkgs/e1e0df5f658744682c000ebf46e696222175aaa0";
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
       inputs.nixpkgs.follows = "nixpkgs";
