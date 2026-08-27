@@ -22,7 +22,7 @@
   };
   home = {
     packages = with pkgs; [
-      libreoffice-fresh
+      libreoffice-stable
       libnotify
       obsidian
       slack
