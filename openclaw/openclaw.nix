@@ -6,9 +6,10 @@ let
   version = "2026.7.1";
   openclaw_version = "2026.7.1-2";
 
-  # 手動で用意
-  # pnpm install --frozen-lockfile --store-dir=./pnpm-store
-  # tar cavf openclaw-v${openclaw_version}.tar.zst node_modules pnpm-store
+  # Prepare manually
+  # because of reproducibility of pnpm (https://github.com/NixOS/nixpkgs/pull/522703)
+  # $ pnpm install --frozen-lockfile --store-dir=./pnpm-store
+  # $ tar cavf openclaw-v${openclaw_version}.tar.zst node_modules pnpm-store
   openclaw_node_modules = builtins.fetchurl {
     url = "https://files.home.arpa/openclaw-v${openclaw_version}.tar.zst";
     sha256 = "sha256:1vj6hlcdbja9sqad5wz2dj8w5iiid35894b6gf5ppqw8f85zyar7";
