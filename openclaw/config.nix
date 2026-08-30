@@ -2,6 +2,7 @@
 let
   mac = "02:00:00:00:00:01";
   openclaw = import ./openclaw.nix { inherit pkgs; };
+  locale = "ja_JP.UTF-8";
 in
 {
   networking.hostName = "openclaw";
@@ -16,6 +17,21 @@ in
     openclaw
     pkgs.nodejs_22
   ];
+  time.timeZone = "Asia/Tokyo";
+  i18n = {
+    defaultLocale = "ja_JP.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = locale;
+      LC_IDENTIFICATION = locale;
+      LC_MEASUREMENT = locale;
+      LC_MONETARY = locale;
+      LC_NAME = locale;
+      LC_NUMERIC = locale;
+      LC_PAPER = locale;
+      LC_TELEPHONE = locale;
+      LC_TIME = locale;
+    };
+  };
   users.users."root" = {
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFbkbVhapmW864se06Wk+IWzm5XmfsP0nohg0MVX9b1i openpgp:0x67DC50BF"
