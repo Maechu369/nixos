@@ -1,12 +1,19 @@
 { pkgs, ... }:
 let
   mac = "02:00:00:00:00:01";
+  openclaw = import ./openclaw.nix { inherit pkgs; };
 in
 {
   networking.hostName = "openclaw";
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
+  ];
+  nixpkgs.config.permittedInsecurePackages = [
+    "openclaw-2026.7.1"
+  ];
+  environment.systemPackages = [
+    openclaw
   ];
   users.users."root" = {
     openssh.authorizedKeys.keys = [
