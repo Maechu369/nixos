@@ -1,10 +1,6 @@
 { pkgs, lib, ... }:
 let
-  llama-cpp = pkgs.llama-cpp.override {
-    cudaSupport = true;
-    blasSupport = true;
-  };
-  llama-server = lib.getExe' llama-cpp "llama-server";
+  llama-server = lib.getExe' pkgs.llama-cpp-cuda "llama-server";
 in
 {
   imports = [
