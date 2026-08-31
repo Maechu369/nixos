@@ -1,10 +1,6 @@
 { pkgs, lib, ... }:
 let
-  llama-cpp = pkgs.llama-cpp.override {
-    cudaSupport = true;
-    blasSupport = true;
-  };
-  llama-server = lib.getExe' llama-cpp "llama-server";
+  llama-server = lib.getExe' pkgs.llama-cpp-cuda "llama-server";
 in
 {
   imports = [
@@ -17,6 +13,24 @@ in
     settings = {
       healthCheckTimeout = 120;
       models = {
+        "ornith1.5:35b-a3b" = {
+          # hf download ornith-ai/Ornith-1.5-35B-A3B-GGUF Ornith-1.5-35B-Q4_K_M.gguf --local-dir . --dry-run
+          cmd = ''
+            ${llama-server}
+              --port ''${PORT}
+              -m /var/lib/llama/models/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
+              -ngl 999
+              -ot "blk\.(0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17)\.ffn_.*_exps\.=CUDA0,exps=CPU" \
+              -c 131072
+              --flash-attn on
+              --cache-type-k q8_0
+              --cache-type-v q8_0
+              --jinja
+              --spec-type ngram-simple --spec-draft-n-max 64
+              --no-webui
+          '';
+          aliases = [ "ornith1.5" ];
+        };
         "qwen3.6:35b-a3b" = {
           # hf download unsloth/Qwen3.6-35B-A3B-GGUF Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --local-dir . --dry-run
           cmd = ''
