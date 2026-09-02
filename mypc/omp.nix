@@ -11,7 +11,7 @@ in
         setupWizard = false;
       };
       theme.dark = "titanium";
-      modelRoles.default = "llama-swap/qwen3.6:35b-a3b";
+      modelRoles.default = "llama-swap/ornith1.5:35b-a3b";
     };
   };
   home.file.".omp/agent/models.yml" = {

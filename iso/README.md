@@ -1,8 +1,17 @@
 # NixOS iso image
 
+## ファイル
+
+| ファイル | 説明 |
+|----------|------|
+| `configuration.nix` | ISOイメージのNixOS設定 |
+| `default.nix` | flake出力 |
+
 ## 書き込み
 
+```bash
 sudo dd if=nixos--x86_64-linux.iso of=/dev/sda bs=4k status=progress
+```
 
 ## 起動したらすること
 
