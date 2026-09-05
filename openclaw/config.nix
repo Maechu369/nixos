@@ -11,7 +11,7 @@ in
     "flakes"
   ];
   nixpkgs.config.permittedInsecurePackages = [
-    "openclaw-2026.7.1"
+    "openclaw-2026.9.1"
   ];
   environment.systemPackages = [
     openclaw
@@ -127,7 +127,7 @@ in
       KillSignal = "SIGTERM";
       TimeoutStopSec = 15;
       Restart = "always";
-      RestartSec = 5;
+      RestartSec = 15;
       User = "openclaw";
       Group = "openclaw";
       StateDirectory = "openclaw";
