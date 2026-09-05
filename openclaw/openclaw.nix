@@ -3,17 +3,18 @@
   ...
 }:
 let
-  version = "2026.7.1";
-  openclaw_version = "2026.7.1-2";
+  version = "2026.9.1";
+  openclaw_version = "2026.9.1";
 
   # Prepare manually
   # because of reproducibility of pnpm (https://github.com/NixOS/nixpkgs/pull/522703)
   # $ nix-shell -p pnpm nodejs
+  # $ vim package.json  # remove .packageManager
   # $ pnpm install --frozen-lockfile --store-dir=./pnpm-store
   # $ tar cavf openclaw-v${openclaw_version}.tar.zst node_modules pnpm-store
   openclaw_node_modules = builtins.fetchurl {
     url = "https://files.home.arpa/openclaw-v${openclaw_version}.tar.zst";
-    sha256 = "sha256:1vj6hlcdbja9sqad5wz2dj8w5iiid35894b6gf5ppqw8f85zyar7";
+    sha256 = "sha256:1zfnjdrvc5pga483dkwsyyz2d0fh28sk9iyjdby81qjkvgarc630";
     name = "openclaw-node-modules";
   };
 in
@@ -23,7 +24,7 @@ pkgs.openclaw.overrideAttrs (old: {
     owner = "openclaw";
     repo = "openclaw";
     tag = "v${openclaw_version}";
-    hash = "sha256-kpiKCTjXX4l525IJDNsnI7j2IT6ZYdqvFTyRlKGgomg=";
+    hash = "sha256-g7N+xotLQl0D+5vcBcAuNVyrPQNih9cDKJwwlC+4kBY=";
   };
   pnpmDeps = null;
   nativeBuildInputs = [
@@ -48,6 +49,8 @@ pkgs.openclaw.overrideAttrs (old: {
   buildPhase = ''
     runHook preBuild
     export CI=true
+    export OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB=4096
+    export OPENCLAW_BUILD_TIMESTAMP="$(date -u -d @$SOURCE_DATE_EPOCH +'%Y-%m-%dT%H:%M:%S.000Z')"
 
     # Replace pnpm-installed rolldown with the Nix-built version
     rm -rf node_modules/rolldown node_modules/@rolldown/pluginutils
@@ -68,6 +71,6 @@ pkgs.openclaw.overrideAttrs (old: {
   preInstall = ''
     libdir=$out/lib/openclaw
     mkdir -p $libdir
-    cp --reflink=auto -r packages openclaw.mjs $libdir/
+    cp --reflink=auto -r packages openclaw.mjs examples $libdir/
   '';
 })
