@@ -8,6 +8,7 @@ let
 
   # Prepare manually
   # because of reproducibility of pnpm (https://github.com/NixOS/nixpkgs/pull/522703)
+  # $ nix-shell -p pnpm nodejs
   # $ pnpm install --frozen-lockfile --store-dir=./pnpm-store
   # $ tar cavf openclaw-v${openclaw_version}.tar.zst node_modules pnpm-store
   openclaw_node_modules = builtins.fetchurl {

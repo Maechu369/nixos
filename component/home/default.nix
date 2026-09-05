@@ -29,6 +29,7 @@
       };
     };
     packages = with pkgs; [
+      wget
       procs
       fastfetch
       fd
@@ -55,6 +56,8 @@
       systemd-manager-tui
       tea
       direnv
+      pnpm
+      nodejs
     ];
   };
   programs = {
