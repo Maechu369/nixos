@@ -31,7 +31,7 @@
       settings = {
         backend = "openai";
         url = "http://192.168.64.2:8080/v1";
-        model = "qwen2.5-coder:14b";
+        model = "qwen2.5-coder:3b";
       };
     };
   };
