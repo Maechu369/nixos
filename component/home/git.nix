@@ -7,6 +7,9 @@
       signByDefault = true;
     };
     settings = {
+      init = {
+        defaultBranch = "main";
+      };
       alias = {
         co = "checkout";
         sw = "switch";
