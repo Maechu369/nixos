@@ -7,7 +7,8 @@
 {
   programs.firefox = {
     enable = true;
-    configPath = "${config.xdg.configHome}/mozilla/firefox";
+    package = pkgs.firefox;
+    configPath = ".mozilla/firefox";
     languagePacks = [ "ja" ];
     policies = {
       DefaultDownloadDirectory = "/home/${username}/Downloads";
