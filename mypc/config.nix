@@ -20,7 +20,7 @@
 
     ../component
     ../component/desktop
-    ../component/openssh.nix
+    ./openssh.nix
     ../component/clamav.nix
     ./acme.nix
     ./tailscale.nix
