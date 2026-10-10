@@ -22,16 +22,13 @@
     ./dns.nix
 
     ../component
+    ../component/trusted-users.nix
     ../component/desktop
     ../component/openssh.nix
     ../component/clamav.nix
     ./tailscale.nix
   ];
   networking.hostName = "letsnote";
-  nix.settings.trusted-users = [
-    "root"
-    username
-  ];
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
