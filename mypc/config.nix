@@ -19,6 +19,7 @@
     ./nixbuild-host.nix
 
     ../component
+    ../component/trusted-users.nix
     ../component/desktop
     ./openssh.nix
     ../component/clamav.nix
