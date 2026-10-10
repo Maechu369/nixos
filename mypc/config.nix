@@ -16,6 +16,7 @@
     ./nginx.nix
     ./build.nix
     ./backup.nix
+    ./audit.nix
 
     ../component
     ../component/trusted-users.nix
