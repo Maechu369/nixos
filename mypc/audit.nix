@@ -9,11 +9,12 @@
         "-f 1"
 
         # ノイズ除外
-        "-a never,exit -F arch=b64 -S all -F exe=/usr/bin/firefox -F key=noise"
 
         # 認証
         "-w /etc/passwd -p wa -k identity"
         "-w /etc/shadow -p wa -k identity"
+        "-w /etc/group -p wa -k identity"
+        "-w /etc/gshadow -p wa -k identity"
         "-w /etc/sudoers -p wa -k sudoers"
         "-w /etc/sudoers.d -p wa -k sudoers"
         "-w /etc/pam.d -p wa -k pam"
@@ -22,8 +23,6 @@
         "-w /etc/systemd/system/ -p wa -k persist_systemd"
         "-w /etc/cron.d/ -p wa -k persist_cron"
         "-w /etc/ld.so.preload -p wa -k persist_ld"
-        "-a always,exclude -F msgtype=SERVICE_START"
-        "-a always,exclude -F msgtype=SERVICE_STOP"
 
         # カーネル
         "-a always,exit -F arch=b64 -S init_module,finit_module,delete_module -k modules"
