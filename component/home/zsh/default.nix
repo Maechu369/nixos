@@ -34,7 +34,7 @@
       zmv = "noglob zmv -W";
       q = "exit";
       c = "cd";
-      rm = "trash";
+      rm = "trash-empty -f 31; trash";
       remove = "command rm";
       tmux = "tmux new -A";
       v = "vim";
