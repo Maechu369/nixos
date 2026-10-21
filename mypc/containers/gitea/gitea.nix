@@ -9,7 +9,6 @@
       server = {
         HTTP_ADDR = "0.0.0.0";
         HTTP_PORT = 3000;
-        DOMAIN = "gitea.home.arpa";
         ROOT_URL = "http://gitea.home.arpa";
         SSH_PORT = 22;
         DISABLE_SSH = false;
