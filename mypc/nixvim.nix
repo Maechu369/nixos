@@ -27,7 +27,7 @@
       };
     };
     llm = {
-      enable = true;
+      enable = false;
       settings = {
         backend = "openai";
         url = "http://192.168.64.2:8080/v1";
