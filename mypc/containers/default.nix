@@ -34,6 +34,7 @@
     ./llama
     ./gitea
     ./searxng
+    ./files
     ./openclaw.nix
   ];
 }
