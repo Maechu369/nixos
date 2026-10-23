@@ -1,19 +1,29 @@
 { ... }:
+let
+  hostAddress = "192.168.64.1";
+  localAddress = "192.168.64.5";
+  domain = "files.home.arpa";
+  guestFileRoot = "/var/lib/files";
+  hostFileRoot = "/var/lib/files";
+in
 {
-  services.nginx = {
-    enable = true;
+  containers."files" = {
+    autoStart = true;
+    privateNetwork = true;
+    privateUsers = "pick";
+    inherit hostAddress;
+    inherit localAddress;
+    config = ./files.nix;
+    bindMounts."${guestFileRoot}" = {
+      hostPath = hostFileRoot;
+      isReadOnly = true;
+    };
   };
-  networking.firewall = {
-    allowedTCPPorts = [
-      80
-      443
-    ];
-  };
-  services.nginx.virtualHosts."files.home.arpa" = {
+  services.nginx.virtualHosts."${domain}" = {
     forceSSL = true;
-    useACMEHost = "files.home.arpa";
+    useACMEHost = domain;
     locations."/" = {
-      root = "/var/lib/files";
+      root = guestFileRoot;
       index = "index.html";
       extraConfig = ''
         autoindex on;
@@ -40,7 +50,7 @@
       }
     ];
   };
-  security.acme.certs."files.home.arpa" = {
+  security.acme.certs."${domain}" = {
     server = "https://step-ca.home.arpa:9000/acme/acme/directory";
     webroot = "/var/lib/acme/acme-challenge";
     group = "nginx";

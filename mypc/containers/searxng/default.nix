@@ -1,18 +1,23 @@
 { ... }:
+let
+  hostAddress = "192.168.64.1";
+  localAddress = "192.168.64.4";
+  domain = "searxng.home.arpa";
+in
 {
   containers."searxng" = {
     autoStart = true;
     privateNetwork = true;
     privateUsers = "pick";
-    hostAddress = "192.168.64.1";
-    localAddress = "192.168.64.4";
+    inherit hostAddress;
+    inherit localAddress;
     config = ./searxng.nix;
   };
-  services.nginx.virtualHosts."searxng.home.arpa" = {
+  services.nginx.virtualHosts."${domain}" = {
     forceSSL = true;
     useACMEHost = "searxng.home.arpa";
     locations."/" = {
-      proxyPass = "http://192.168.64.4:8080";
+      proxyPass = "http://${localAddress}:8080";
       proxyWebsockets = true;
       extraConfig = ''
         proxy_set_header Host $host;
@@ -35,7 +40,7 @@
       }
     ];
   };
-  security.acme.certs."searxng.home.arpa" = {
+  security.acme.certs."${domain}" = {
     server = "https://step-ca.home.arpa:9000/acme/acme/directory";
     webroot = "/var/lib/acme/acme-challenge";
     group = "nginx";

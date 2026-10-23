@@ -1,18 +1,23 @@
 { ... }:
+let
+  hostAddress = "192.168.64.1";
+  localAddress = "192.168.64.3";
+  domain = "gitea.home.arpa";
+in
 {
   containers."gitea" = {
     autoStart = true;
     privateNetwork = true;
     privateUsers = "pick";
-    hostAddress = "192.168.64.1";
-    localAddress = "192.168.64.3";
+    inherit hostAddress;
+    inherit localAddress;
     config = ./gitea.nix;
   };
-  services.nginx.virtualHosts."gitea.home.arpa" = {
+  services.nginx.virtualHosts."${domain}" = {
     forceSSL = true;
-    useACMEHost = "gitea.home.arpa";
+    useACMEHost = domain;
     locations."/" = {
-      proxyPass = "http://192.168.64.3:3000";
+      proxyPass = "http://${localAddress}:3000";
       proxyWebsockets = true;
       extraConfig = ''
         proxy_set_header Host $host;
@@ -36,7 +41,7 @@
       }
     ];
   };
-  security.acme.certs."gitea.home.arpa" = {
+  security.acme.certs."${domain}" = {
     server = "https://step-ca.home.arpa:9000/acme/acme/directory";
     webroot = "/var/lib/acme/acme-challenge";
     group = "nginx";

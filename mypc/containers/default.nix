@@ -1,4 +1,7 @@
 { ... }: {
+  services.nginx = {
+    enable = true;
+  };
   networking = {
     nat = {
       enable = true;
@@ -10,6 +13,10 @@
       enableIPv6 = false;
     };
     firewall = {
+      allowedTCPPorts = [
+        80
+        443
+      ];
       filterForward = true;
       trustedInterfaces = [
         "ve-*"
@@ -34,6 +41,7 @@
     ./llama
     ./gitea
     ./searxng
+    ./files
     ./openclaw.nix
   ];
 }

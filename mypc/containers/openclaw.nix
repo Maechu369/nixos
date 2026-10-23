@@ -1,10 +1,15 @@
 { ... }:
+let
+  hostAddress = "192.168.65.1";
+  localAddress = "192.168.65.2";
+  domain = "openclaw.home.arpa";
+in
 {
-  services.nginx.virtualHosts."openclaw.home.arpa" = {
+  services.nginx.virtualHosts."${domain}" = {
     forceSSL = true;
-    useACMEHost = "openclaw.home.arpa";
+    useACMEHost = domain;
     locations."/" = {
-      proxyPass = "http://192.168.65.2:18789";
+      proxyPass = "http://${localAddress}:18789";
       proxyWebsockets = true;
       extraConfig = ''
         proxy_set_header Host $host;
@@ -27,7 +32,7 @@
       }
     ];
   };
-  security.acme.certs."openclaw.home.arpa" = {
+  security.acme.certs."${domain}" = {
     server = "https://step-ca.home.arpa:9000/acme/acme/directory";
     webroot = "/var/lib/acme/acme-challenge";
     group = "nginx";
