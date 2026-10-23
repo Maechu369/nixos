@@ -1,11 +1,16 @@
 { ... }:
+let
+  hostAddress = "192.168.64.1";
+  localAddress = "192.168.64.2";
+  domain = "llama.home.arpa";
+in
 {
   containers."llama" = {
     autoStart = true;
     privateNetwork = true;
     privateUsers = "pick";
-    hostAddress = "192.168.64.1";
-    localAddress = "192.168.64.2";
+    inherit hostAddress;
+    inherit localAddress;
     config = ./llama.nix;
     bindMounts = {
       "/var/lib/llama/models" = {
@@ -63,9 +68,9 @@
   };
   services.nginx.virtualHosts."llama.home.arpa" = {
     forceSSL = true;
-    useACMEHost = "llama.home.arpa";
+    useACMEHost = domain;
     locations."/" = {
-      proxyPass = "http://192.168.64.2:8080";
+      proxyPass = "http://${localAddress}:8080";
       proxyWebsockets = true;
       extraConfig = ''
         proxy_set_header Host $host;
@@ -91,7 +96,7 @@
       }
     ];
   };
-  security.acme.certs."llama.home.arpa" = {
+  security.acme.certs."${domain}" = {
     server = "https://step-ca.home.arpa:9000/acme/acme/directory";
     webroot = "/var/lib/acme/acme-challenge";
     group = "nginx";
