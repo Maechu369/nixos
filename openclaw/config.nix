@@ -1,8 +1,8 @@
 { pkgs, lib, ... }:
 let
   mac = "02:00:00:00:00:01";
-  # openclaw = import ./openclaw.nix { inherit pkgs; };
-  openclaw = pkgs.openclaw;
+  openclaw = import ./openclaw.nix { inherit pkgs; };
+  # openclaw = pkgs.openclaw;
   locale = "ja_JP.UTF-8";
 in
 {
