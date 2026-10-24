@@ -12,7 +12,7 @@ in
     "flakes"
   ];
   nixpkgs.config.permittedInsecurePackages = [
-    "openclaw-2026.10.3"
+    "openclaw-2026.10.5"
   ];
   environment.systemPackages = [
     openclaw
