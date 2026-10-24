@@ -38,7 +38,7 @@
     };
   };
   imports = [
-    ./llama
+    # ./llama
     ./gitea
     ./searxng
     ./files
