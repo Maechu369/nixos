@@ -18,7 +18,7 @@ in
           cmd = ''
             ${llama-server}
               --port ''${PORT}
-              -m /var/lib/llama/models/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
+              -m /var/lib/llama/models/Ornith-1.5-35B-Q4_K_M.gguf
               -ngl 999
               -ot "blk\.(0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17)\.ffn_.*_exps\.=CUDA0,exps=CPU" \
               -c 131072
