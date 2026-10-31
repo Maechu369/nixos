@@ -73,4 +73,27 @@
       settings.PASSWORD_STORE_DIR = "${config.xdg.dataHome}/password-store";
     };
   };
+  systemd.user = {
+    services."trash-empty" = {
+      Unit = {
+        Description = "Trash empty items which trashed later than a month.";
+      };
+      Service = {
+        ExecStart = "${pkgs.trash-cli}/bin/trash-empty -f 31";
+      };
+    };
+    timers."trash-empty" = {
+      Unit = {
+        Description = "Manage Trash daily";
+      };
+      Timer = {
+        OnCalendar = "daily";
+        Persistent = true;
+        RandomizedDelaySec = "5m";
+      };
+      Install = {
+        WantedBy = [ "timers.target" ];
+      };
+    };
+  };
 }
