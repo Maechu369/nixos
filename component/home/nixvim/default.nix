@@ -426,6 +426,17 @@
             };
           };
         };
+        gopls = {
+          enable = true;
+          package = pkgs.gopls;
+          config = {
+            cmd = [
+              "gopls"
+              "serve"
+            ];
+            filetypes = [ "go" ];
+          };
+        };
       };
     };
 
