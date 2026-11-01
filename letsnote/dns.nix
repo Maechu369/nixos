@@ -1,7 +1,10 @@
 { ... }:
+let
+  ip = import ../component/ip.nix;
+in
 {
   networking.nameservers = [
-    "192.168.2.13"
+    ip.zero
     "1.1.1.1"
     "8.8.8.8"
   ];

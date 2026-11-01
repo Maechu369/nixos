@@ -5,6 +5,7 @@ let
   domain = "files.home.arpa";
   guestFileRoot = "/var/lib/files";
   hostFileRoot = "/var/lib/files";
+  ip = import ../../../component/ip.nix;
 in
 {
   containers."files" = {
@@ -34,7 +35,7 @@ in
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        allow 192.168.2.6/32;
+        allow ${ip.mypc}/32;
         deny all;
       '';
     };
