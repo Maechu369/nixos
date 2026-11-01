@@ -2,6 +2,7 @@
   self,
   inputs,
   username,
+  ip,
   ...
 }:
 let
@@ -19,7 +20,14 @@ let
 in
 {
   flake.nixosConfigurations.mypc = nixpkgs.lib.nixosSystem {
-    specialArgs = { inherit username nixos-hardware xremap; };
+    specialArgs = {
+      inherit
+        username
+        ip
+        nixos-hardware
+        xremap
+        ;
+    };
     modules = [
       ./config.nix
       microvm.nixosModules.host

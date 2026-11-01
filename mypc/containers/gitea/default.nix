@@ -1,9 +1,8 @@
-{ ... }:
+{ ip, ... }:
 let
   hostAddress = "192.168.64.1";
   localAddress = "192.168.64.3";
   domain = "gitea.home.arpa";
-  ip = import ../../../component/ip.nix;
 in
 {
   containers."gitea" = {

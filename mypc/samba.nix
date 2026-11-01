@@ -1,5 +1,6 @@
 {
   username,
+  ip,
   pkgs,
   config,
   lib,
@@ -7,7 +8,6 @@
 }:
 let
   directory = "/mnt/samba";
-  ip = import ../component/ip.nix;
 in
 {
   services.samba = {

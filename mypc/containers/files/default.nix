@@ -1,11 +1,10 @@
-{ ... }:
+{ ip, ... }:
 let
   hostAddress = "192.168.64.1";
   localAddress = "192.168.64.5";
   domain = "files.home.arpa";
   guestFileRoot = "/var/lib/files";
   hostFileRoot = "/var/lib/files";
-  ip = import ../../../component/ip.nix;
 in
 {
   containers."files" = {

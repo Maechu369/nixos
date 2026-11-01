@@ -1,7 +1,4 @@
-{ ... }:
-let
-  ip = import ../component/ip.nix;
-in
+{ ip, ... }:
 {
   networking.nameservers = [
     ip.zero

@@ -1,9 +1,8 @@
-{ ... }:
+{ ip, ... }:
 let
   hostAddress = "192.168.65.1";
   localAddress = "192.168.65.2";
   domain = "openclaw.home.arpa";
-  ip = import ../../component/ip.nix;
 in
 {
   services.nginx.virtualHosts."${domain}" = {

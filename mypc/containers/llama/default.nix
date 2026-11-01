@@ -1,9 +1,8 @@
-{ ... }:
+{ ip, ... }:
 let
   hostAddress = "192.168.64.1";
   localAddress = "192.168.64.2";
   domain = "llama.home.arpa";
-  ip = import ../../../component/ip.nix;
 in
 {
   containers."llama" = {
