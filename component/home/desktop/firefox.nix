@@ -10,6 +10,15 @@
     package = pkgs.firefox;
     configPath = ".mozilla/firefox";
     languagePacks = [ "ja" ];
+    profiles.default = {
+      id = 0;
+      isDefault = true;
+      path = "e7jzhkig.default";
+      settings = {
+        "intl.locale.requested" = "ja,en-US";
+        "intl.accept_languages" = "ja,en-US,en";
+      };
+    };
     policies = {
       DefaultDownloadDirectory = "/home/${username}/Downloads";
       Certificates = {
