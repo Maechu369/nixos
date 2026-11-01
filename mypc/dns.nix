@@ -1,7 +1,7 @@
-{ ... }:
+{ ip, ... }:
 {
   networking.nameservers = [
-    "192.168.2.13"
+    ip.zero
   ];
   networking.search = [ ];
 }

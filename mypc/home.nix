@@ -5,11 +5,12 @@
   nixvim,
   oh-my-pi,
   username,
+  ip,
   xremap,
   ...
 }:
 {
-  _module.args = { inherit username; };
+  _module.args = { inherit username ip; };
   imports = [
     xremap.homeManagerModules.default
     ../component/home

@@ -1,4 +1,9 @@
-{ inputs, username, ... }:
+{
+  inputs,
+  username,
+  ip,
+  ...
+}:
 let
   inherit (inputs)
     nixpkgs
@@ -12,7 +17,14 @@ let
 in
 {
   flake.nixosConfigurations.letsnote = nixpkgs.lib.nixosSystem {
-    specialArgs = { inherit username nixos-hardware xremap; };
+    specialArgs = {
+      inherit
+        username
+        ip
+        nixos-hardware
+        xremap
+        ;
+    };
     modules = [
       ./config.nix
       home-manager.nixosModules.home-manager

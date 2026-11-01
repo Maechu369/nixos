@@ -68,7 +68,10 @@
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
-      _module.args.username = "hiroki";
+      _module.args = {
+        username = "hiroki";
+        ip = import component/ip.nix;
+      };
       imports = [
         ./mypc
         ./letsnote
