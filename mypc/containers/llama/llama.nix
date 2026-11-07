@@ -75,6 +75,8 @@ in
               -ngl 999
               -c 32768
               --flash-attn on
+              --cache-type-k q8_0
+              --cache-type-v q8_0
               --jinja
               --spec-type ngram-simple --spec-draft-n-max 64
               --no-webui
@@ -90,11 +92,30 @@ in
               -ngl 999
               -c 32768
               --flash-attn on
+              --cache-type-k q8_0
+              --cache-type-v q8_0
               --jinja
               --spec-type ngram-simple --spec-draft-n-max 64
               --no-webui
           '';
           aliases = [ "qwen2.5-coder:3b" ];
+        };
+        "gemma4:12b" = {
+          # hf download unsloth/gemma-4-12b-it-GGUF gemma-4-12b-it-Q4_K_M.gguf --local-dir . --dry-run
+          cmd = ''
+            ${llama-server}
+              --port ''${PORT}
+              -m /var/lib/llama/models/gemma-4-12b-it-Q4_K_M.gguf
+              -ngl 999
+              -c 131072
+              --flash-attn on
+              --cache-type-k q8_0
+              --cache-type-v q8_0
+              --jinja
+              --spec-type ngram-simple --spec-draft-n-max 64
+              --no-webui
+          '';
+          aliases = [ "gemma4:12b" ];
         };
       };
     };
