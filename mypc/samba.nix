@@ -20,7 +20,7 @@ in
         "netbios name" = "mypc";
         security = "user";
         "hosts allow" =
-          "192.168.2.2 ${ip.letsnote} 192.168.2.4 ${ip.mypc} ${ip.arrows} 127.0.0.1 100.64.0.0/10";
+          "192.168.2.2 ${ip.letsnote} ${ip.aquos} ${ip.mypc} ${ip.arrows} 127.0.0.1 100.64.0.0/10";
         "hosts deny" = "0.0.0.0/0";
         "map to guest" = "never";
         "min protocol" = "SMB2";
