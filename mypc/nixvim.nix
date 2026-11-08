@@ -8,7 +8,7 @@
       enable = true;
     };
     avante = {
-      enable = true;
+      enable = false;
       settings = {
         provider = "llama_swap";
         input.provider = "dressing";
