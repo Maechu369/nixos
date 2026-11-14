@@ -27,6 +27,7 @@
     ./samba.nix
     ./containers
     ./plasma.nix
+    ./llama.nix
   ];
   networking.hostName = "mypc";
   environment.systemPackages = [
