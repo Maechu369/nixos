@@ -2,6 +2,7 @@
   pkgs,
   lib,
   ip,
+  username,
   ...
 }:
 let
@@ -10,13 +11,18 @@ let
   port = 8081;
 in
 {
+  systemd.services.llama-swap = {
+    serviceConfig = {
+      StateDirectory = "llama-swap-strata";
+    };
+  };
   services.llama-swap = {
     enable = true;
     listenAddress = "0.0.0.0";
     openFirewall = false;
     inherit port;
     settings = {
-      healthCheckTimeout = 120;
+      healthCheckTimeout = 600;
       models = {
         "ornith1.5:35b-a3b" = {
           # hf download ornith-ai/Ornith-1.5-35B-A3B-GGUF Ornith-1.5-35B-Q4_K_M.gguf --local-dir . --dry-run

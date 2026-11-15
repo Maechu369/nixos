@@ -17,7 +17,7 @@ in
   home.file.".omp/agent/models.yml" = {
     source = yaml.generate "omp-models.yml" {
       providers.llama-swap = {
-        baseUrl = "http://192.168.64.2:8080/v1";
+        baseUrl = "http://localhost:8081/v1";
         api = "openai-completions";
         auth = "none";
         discovery = {
