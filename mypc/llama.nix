@@ -11,10 +11,8 @@ let
   port = 8081;
 in
 {
-  systemd.services.llama-swap = {
-    serviceConfig = {
-      StateDirectory = "llama-swap-strata";
-    };
+  hardware.nvidia-container-toolkit = {
+    enable = true;
   };
   services.llama-swap = {
     enable = true;
@@ -128,6 +126,23 @@ in
           '';
           aliases = [ "gemma4:12b" ];
         };
+        # "strata" = {
+        #   cmd = ''
+        #     ${pkgs.docker}/bin/docker run --rm --name strata --gpus all
+        #       --ulimit memlock=-1:-1 --shm-size 2g --stop-timeout 120
+        #       -v strata-data:/data
+        #       -e MODEL_PATH=/models -e FAMILY=unsloth -e MODEL=UD-Q4_K_XL
+        #       -e TUNE=skip -e PRESET=docker
+        #       -e API_KEY=31f90eb0dba30b663ed77e21b997ad4a7b8bd22120e3044d
+        #       -p 127.0.0.1''${PORT}:8080
+        #       ghcr.io/niko1221/strata:0.2.7-cuda13
+        #   '';
+        #   # llama-swap runs this (docker stop) to gracefully unload and
+        #   # free the GPU, instead of letting docker run swallow SIGTERM.
+        #   cmdStop = "${pkgs.docker}/bin/docker stop --timeout 120 strata";
+        #   unloadTimeout = 60;
+        #   aliases = [ "strata" ];
+        # };
       };
     };
   };
