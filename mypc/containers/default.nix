@@ -24,6 +24,7 @@
       ];
       extraForwardRules = ''
         iifname { "vm-openclaw" } oifname { "ve-searxng" } accept
+        iifname { "docker0" } accept
       '';
     };
     interfaces = {
