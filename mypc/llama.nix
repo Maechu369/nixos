@@ -1,17 +1,30 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ip,
+  username,
+  ...
+}:
 let
   llama-server = lib.getExe' pkgs.llama-cpp-cuda "llama-server";
+  docker = lib.getExe' pkgs.docker "docker";
+  domain = "llama.home.arpa";
+  port = 8081;
 in
 {
-  imports = [
-    ../../../component/unfree.nix
-  ];
+  hardware.nvidia-container-toolkit = {
+    enable = true;
+  };
+  systemd.services."llama-swap".serviceConfig = {
+    Group = "docker";
+  };
   services.llama-swap = {
     enable = true;
     listenAddress = "0.0.0.0";
-    port = 8080;
+    openFirewall = false;
+    inherit port;
     settings = {
-      healthCheckTimeout = 120;
+      healthCheckTimeout = 600;
       models = {
         "ornith1.5:35b-a3b" = {
           # hf download ornith-ai/Ornith-1.5-35B-A3B-GGUF Ornith-1.5-35B-Q4_K_M.gguf --local-dir . --dry-run
@@ -117,18 +130,88 @@ in
           '';
           aliases = [ "gemma4:12b" ];
         };
+        "strata" = {
+          cmd = ''
+            ${docker} run
+              --rm
+              --name strata
+              --device=nvidia.com/gpu=all
+              -p 127.0.0.1:18081:8080
+              --ulimit memlock=-1:-1
+              --shm-size 2g
+              --stop-timeout 120
+              -v /strata-data:/data
+              -e FAMILY=qwen
+              -e MODEL=IQ3_XXS
+              -e API_KEY=passwordpassword
+              ghcr.io/niko1221/strata:0.2.17-cuda13
+          '';
+          proxy = "http://127.0.0.1:18080";
+          # llama-swap runs this (docker stop) to gracefully unload and
+          # free the GPU, instead of letting docker run swallow SIGTERM.
+          cmdStop = "${docker} stop --timeout 120 strata";
+          unloadTimeout = 60;
+          aliases = [ "strata" ];
+        };
       };
     };
   };
-  networking = {
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [
-        8080
-      ];
+  networking.firewall.extraInputRules = ''
+    ip saddr { 192.168.65.0/24 } tcp dport ${toString port} accept
+  '';
+  services.nginx.virtualHosts."llama.home.arpa" = {
+    forceSSL = true;
+    useACMEHost = domain;
+    locations."/" = {
+      proxyPass = "http://localhost:${toString port}";
+      proxyWebsockets = true;
+      extraConfig = ''
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        allow 100.64.0.0/10;
+        allow ${ip.mypc}/32;
+        allow 192.168.65.2/32;
+        allow ${ip.letsnote}/32;
+        deny all;
+      '';
     };
-    useHostResolvConf = lib.mkForce false;
+    listen = [
+      {
+        addr = "0.0.0.0";
+        port = 443;
+        ssl = true;
+      }
+      {
+        addr = "0.0.0.0";
+        port = 80;
+      }
+    ];
   };
-  services.resolved.enable = true;
-  system.stateVersion = "26.11";
+  services.nginx.virtualHosts."127.0.0.1:18080" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:18081";
+      proxyWebsockets = true;
+      extraConfig = ''
+        proxy_set_header Authorization "Bearer passwordpassword";
+        proxy_buffering off;
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
+        allow 127.0.0.1/32;
+        deny all;
+      '';
+    };
+    listen = [
+      {
+        addr = "127.0.0.1";
+        port = 18080;
+      }
+    ];
+  };
+  security.acme.certs."${domain}" = {
+    server = "https://step-ca.home.arpa:9000/acme/acme/directory";
+    webroot = "/var/lib/acme/acme-challenge";
+    group = "nginx";
+  };
 }

@@ -27,9 +27,13 @@
     ./samba.nix
     ./containers
     ./plasma.nix
+    ./docker.nix
+    ./llama.nix
   ];
   networking.hostName = "mypc";
-  environment.systemPackages = with pkgs; [ zenn-cli ];
+  environment.systemPackages = [
+    pkgs.zenn-cli
+  ];
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
