@@ -7,12 +7,16 @@
 }:
 let
   llama-server = lib.getExe' pkgs.llama-cpp-cuda "llama-server";
+  docker = lib.getExe' pkgs.docker "docker";
   domain = "llama.home.arpa";
   port = 8081;
 in
 {
   hardware.nvidia-container-toolkit = {
     enable = true;
+  };
+  systemd.services."llama-swap".serviceConfig = {
+    Group = "docker";
   };
   services.llama-swap = {
     enable = true;
@@ -126,23 +130,29 @@ in
           '';
           aliases = [ "gemma4:12b" ];
         };
-        # "strata" = {
-        #   cmd = ''
-        #     ${pkgs.docker}/bin/docker run --rm --name strata --gpus all
-        #       --ulimit memlock=-1:-1 --shm-size 2g --stop-timeout 120
-        #       -v strata-data:/data
-        #       -e MODEL_PATH=/models -e FAMILY=unsloth -e MODEL=UD-Q4_K_XL
-        #       -e TUNE=skip -e PRESET=docker
-        #       -e API_KEY=31f90eb0dba30b663ed77e21b997ad4a7b8bd22120e3044d
-        #       -p 127.0.0.1''${PORT}:8080
-        #       ghcr.io/niko1221/strata:0.2.7-cuda13
-        #   '';
-        #   # llama-swap runs this (docker stop) to gracefully unload and
-        #   # free the GPU, instead of letting docker run swallow SIGTERM.
-        #   cmdStop = "${pkgs.docker}/bin/docker stop --timeout 120 strata";
-        #   unloadTimeout = 60;
-        #   aliases = [ "strata" ];
-        # };
+        "strata" = {
+          cmd = ''
+            ${docker} run
+              --rm
+              --name strata
+              --device=nvidia.com/gpu=all
+              -p 127.0.0.1:18081:8080
+              --ulimit memlock=-1:-1
+              --shm-size 2g
+              --stop-timeout 120
+              -v /strata-data:/data
+              -e FAMILY=qwen
+              -e MODEL=IQ3_XXS
+              -e API_KEY=passwordpassword
+              ghcr.io/niko1221/strata:0.2.17-cuda13
+          '';
+          proxy = "http://127.0.0.1:18080";
+          # llama-swap runs this (docker stop) to gracefully unload and
+          # free the GPU, instead of letting docker run swallow SIGTERM.
+          cmdStop = "${docker} stop --timeout 120 strata";
+          unloadTimeout = 60;
+          aliases = [ "strata" ];
+        };
       };
     };
   };
@@ -176,6 +186,26 @@ in
       {
         addr = "0.0.0.0";
         port = 80;
+      }
+    ];
+  };
+  services.nginx.virtualHosts."127.0.0.1:18080" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:18081";
+      proxyWebsockets = true;
+      extraConfig = ''
+        proxy_set_header Authorization "Bearer passwordpassword";
+        proxy_buffering off;
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
+        allow 127.0.0.1/32;
+        deny all;
+      '';
+    };
+    listen = [
+      {
+        addr = "127.0.0.1";
+        port = 18080;
       }
     ];
   };
