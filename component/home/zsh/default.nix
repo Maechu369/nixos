@@ -5,10 +5,6 @@
     dotDir = "${config.xdg.configHome}/zsh";
     autocd = true;
     autosuggestion.enable = true;
-    dirHashes = {
-      c = "/mnt/c";
-      wh = "/mnt/c/Users/$USER";
-    };
     history = {
       ignoreAllDups = true;
       ignoreSpace = true;
