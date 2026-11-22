@@ -34,29 +34,15 @@
       zmv = "noglob zmv -W";
       q = "exit";
       c = "cd";
-      rm = "trash";
       remove = "command rm";
-      tmux = "tmux new -A";
-      v = "vim";
-      python = "python3";
-      py = "python";
-      l = "ls";
-      ls = "eza -F";
-      la = "eza -aF";
-      ll = "eza -aahlF";
-      lt = "eza -aT -L 3 -I '.git|.cache'";
-      diff = "delta";
-      diffs = "DELTA_FEATURES=+side-by-side delta";
+      # 外部コマンド前提のalias(ls/eza, diff/delta, rm=trash, v=vim, python,
+      # pc=procs, sys, te, compose, tmux, lsblk)はzshDefault.zsh側でcommand -vガード付きで定義
       gt = "cd `git rev-parse --show-toplevel`";
       gs = "git status";
       gl = "git log --all --graph";
       clean = "git clean -ifd";
       commit = "git commit -m";
-      pc = "procs --tree";
-      lsblk = "lsblk -ipo +UUID";
-      compose = "docker compose";
-      sys = "systemd-manager-tui";
-      te = "tea";
+      l = "ls";
     };
   };
 }

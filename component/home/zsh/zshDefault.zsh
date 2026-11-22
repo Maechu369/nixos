@@ -82,6 +82,30 @@ fkill() {
 if [[ $TERM = 'xterm-kitty' ]]; then
   alias ssh='kitty +kitten ssh'
 fi
-alias icat='kitty +kitten icat'
+command -v kitty >/dev/null 2>&1 && alias icat='kitty +kitten icat'
 command -v direnv 1>/dev/null && eval "$(direnv hook zsh)" 
+
+# 外部コマンド不在時にaliasを定義しない(未定義なら素のls/rm/diff等がそのまま使える)
+command -v eza >/dev/null 2>&1 && {
+  alias ls='eza -F'
+  alias la='eza -aF'
+  alias ll='eza -aahlF'
+  alias lt="eza -aT -L 3 -I '.git|.cache'"
+}
+command -v delta >/dev/null 2>&1 && {
+  alias diff=delta
+  alias diffs='DELTA_FEATURES=+side-by-side delta'
+}
+command -v trash >/dev/null 2>&1 && alias rm=trash
+command -v vim >/dev/null 2>&1 && alias v=vim
+command -v python3 >/dev/null 2>&1 && {
+  alias python=python3
+  alias py=python
+}
+command -v procs >/dev/null 2>&1 && alias pc='procs --tree'
+command -v tea >/dev/null 2>&1 && alias te=tea
+command -v systemd-manager-tui >/dev/null 2>&1 && alias sys=systemd-manager-tui
+command -v docker >/dev/null 2>&1 && alias compose='docker compose'
+command -v tmux >/dev/null 2>&1 && alias tmux='tmux new -A'
+command -v lsblk >/dev/null 2>&1 && alias lsblk='lsblk -ipo +UUID'
 # vim: et
