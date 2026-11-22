@@ -110,6 +110,13 @@
             '';
             packages = config.pre-commit.settings.enabledPackages;
           };
+
+          packages = import ./component/home/nixvim/export.nix {
+            inherit pkgs;
+            username = "hiroki";
+            lib = pkgs.lib;
+            inherit (inputs) home-manager nixvim;
+          };
         };
     };
 }
