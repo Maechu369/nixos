@@ -1,8 +1,9 @@
 { pkgs, lib, ... }:
 let
   mac = "02:00:00:00:00:01";
-  openclaw = import ./openclaw.nix { inherit pkgs; };
-  # openclaw = pkgs.openclaw;
+  openclaw-pkg = import ./openclaw.nix { inherit pkgs; };
+  # openclaw-pkg = pkgs.openclaw;
+  openclaw = lib.getExe' openclaw-pkg "openclaw";
   locale = "ja_JP.UTF-8";
 in
 {
@@ -15,7 +16,7 @@ in
     "openclaw-2026.10.5"
   ];
   environment.systemPackages = [
-    openclaw
+    openclaw-pkg
     pkgs.nodejs_22
   ];
   time.timeZone = "Asia/Tokyo";
@@ -122,8 +123,8 @@ in
     };
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${openclaw}/bin/openclaw gateway";
-      WorkingDirectory = openclaw;
+      ExecStart = "${openclaw} gateway";
+      WorkingDirectory = openclaw-pkg;
       KillMode = "control-group";
       KillSignal = "SIGTERM";
       TimeoutStopSec = 15;
