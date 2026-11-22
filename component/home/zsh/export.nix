@@ -22,12 +22,13 @@ let
 
   zshFiles = hmConfig.home.file;
 
-  # 1: .zshrc 2: .zshenv 3: .zprofile 4: ~/.zshenv 5: homeDirectory
+  # 1: .zshrc 2: .zshenv 3: .zprofile 4: ~/.zshenv 5: starship.toml 6: homeDirectory
   data = pkgs.writeText "zsh-export.paths" ''
     ${zshFiles.".config/zsh/.zshrc".source}
     ${zshFiles.".config/zsh/.zshenv".source}
     ${zshFiles.".config/zsh/.zprofile".source}
     ${zshFiles.".zshenv".source}
+    ${./../starship/starship.toml}
     ${homeDir}
   '';
 

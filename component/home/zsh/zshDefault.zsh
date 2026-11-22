@@ -18,7 +18,8 @@ zstyle ':zle:*' word-style unspecified
 autoload -Uz zmv
 
 setopt completealiases
-eval "$(gh completion -s zsh)"
+command -v gh >/dev/null 2>&1 && eval "$(gh completion -s zsh)"
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 
 git() {
   case "$1" in

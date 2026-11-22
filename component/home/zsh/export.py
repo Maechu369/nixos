@@ -3,12 +3,13 @@
 
 Usage: export.py PATHS_FILE OUT_DIR TARGET   (TARGET = linux | termux)
 
-PATHS_FILE lists, one per line: .zshrc .zshenv .zprofile ~/.zshenv homeDirectory.
+PATHS_FILE lists, one per line: .zshrc .zshenv .zprofile ~/.zshenv starship.toml homeDirectory.
 Store paths are rewritten so the files work with the target platform's packages.
 """
 
 import os
 import re
+import shutil
 import sys
 
 AUTOSUGGEST_PATHS = {
@@ -37,8 +38,11 @@ def transform(text, home_dir, target):
             path = AUTOSUGGEST_PATHS[target]
             out.append(f"[[ -f {path} ]] && source {path}")
             continue
-        if s == 'eval "$(gh completion -s zsh)"':
-            out.append('command -v gh >/dev/null 2>&1 && eval "$(gh completion -s zsh)"')
+        m = re.match(r'^eval "\$\((\w+)[^"]*\)"$', s)
+        if m:
+            out.append(
+                f'command -v {m.group(1)} >/dev/null 2>&1 && eval "{s[len("eval "):]}"'
+            )
             continue
         if "/nix/store" in line:
             print(f"warning: dropped store path line: {line}", file=sys.stderr)
@@ -51,7 +55,7 @@ def main():
     paths_file, out_dir, target = sys.argv[1], sys.argv[2], sys.argv[3]
     with open(paths_file) as f:
         paths = f.read().splitlines()
-    zshrc_src, zshenv_src, zprofile_src, zshenv_home_src, home_dir = paths
+    zshrc_src, zshenv_src, zprofile_src, zshenv_home_src, starship_toml, home_dir = paths
 
     if target not in AUTOSUGGEST_PATHS:
         sys.exit(f"unknown target: {target}")
@@ -65,6 +69,7 @@ def main():
         f.write(transform(open(zprofile_src).read(), home_dir, target))
     with open(f"{out_dir}/zshenv", "w") as f:
         f.write(transform(open(zshenv_home_src).read(), home_dir, target))
+    shutil.copy(starship_toml, f"{out_dir}/starship.toml")
 
     readme = []
     if target == "termux":
@@ -77,13 +82,14 @@ def main():
     readme.append("```sh")
     readme.append("cp -r zsh ~/.config/")
     readme.append("cp zshenv ~/.zshenv   # ZDOTDIR=$HOME/.config/zsh へのshim")
+    readme.append("cp starship.toml ~/.config/starship.toml")
     readme.append("```")
     readme.append("")
     readme.append("## 前提パッケージ(alias/function用。無くてもzshは起動する)")
     readme.append("")
     if target == "termux":
         readme.append("```sh")
-        readme.append("pkg install zsh git gh fzf fd eza procs direnv tmux tea")
+        readme.append("pkg install zsh git gh fzf fd eza procs direnv tmux tea starship")
         readme.append("git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh-autosuggestions")
         readme.append("```")
         readme.append("")
@@ -94,7 +100,7 @@ def main():
         readme.append("パッケージ名はディストリビューションに依存する(Debian/Ubuntu例):")
         readme.append("")
         readme.append("```sh")
-        readme.append("apt install zsh git gh fzf fd-find eza direnv tmux zsh-autosuggestions")
+        readme.append("apt install zsh git gh fzf fd-find eza direnv tmux zsh-autosuggestions starship")
         readme.append("```")
         readme.append("")
         readme.append("- `delta` / `procs` はaptに無い(cargo等別途)。`diff`/`diffs`/`pc` alias用。")
