@@ -15,6 +15,7 @@ autoload -Uz select-word-style
 select-word-style default
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':zle:*' word-style unspecified
+autoload -Uz zmv
 
 setopt completealiases
 eval "$(gh completion -s zsh)"

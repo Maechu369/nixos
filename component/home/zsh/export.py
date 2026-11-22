@@ -13,7 +13,7 @@ import sys
 
 AUTOSUGGEST_PATHS = {
     "linux": "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh",
-    "termux": "$PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh",
+    "termux": "$HOME/.zsh-autosuggestions/zsh-autosuggestions.zsh",
 }
 
 
@@ -83,12 +83,13 @@ def main():
     readme.append("")
     if target == "termux":
         readme.append("```sh")
-        readme.append("pkg install zsh git gh fzf fd eza delta procs direnv tmux zsh-autosuggestions")
+        readme.append("pkg install zsh git gh fzf fd eza procs direnv tmux tea")
+        readme.append("git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh-autosuggestions")
         readme.append("```")
         readme.append("")
+        readme.append("- `diff`/`diffs` alias 用 delta はTermux pkgに無い: `pkg install rust && cargo install git-delta`。")
         readme.append("- `rm` alias は trash-cli 前提(`pip install trash-cli`)。`remove` で本来のrm。")
         readme.append("- `sys` alias (systemd-manager-tui) はTermuxでは動作しない。")
-        readme.append("- `te` alias (tea) は任意(`pkg install tea` があれば導入)。")
     else:
         readme.append("パッケージ名はディストリビューションに依存する(Debian/Ubuntu例):")
         readme.append("")
