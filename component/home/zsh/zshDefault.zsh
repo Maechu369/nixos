@@ -31,7 +31,7 @@ git() {
       fi
       ;;
     'stash')
-      if [[ "$2" == 'list' ]]; then
+      if [[ "$2" == 'list' ]] && command -v fzf >/dev/null 2>&1; then
         local stash
         DELTA_FEATURES=+side-by-side
         stash=$(command git stash list | awk -F'[: ]' '{print "$1"}' | fzf --prompt='git stash > ' --preview='command git stash list | grep {}; command git stash show -p {}')
@@ -47,7 +47,7 @@ git() {
       fi
       ;;
     'branch' )
-      if [[ "$#" == 1 ]]; then
+      if [[ "$#" == 1 ]] && command -v fzf >/dev/null 2>&1; then
         local branch
         branch=$(command git branch | fzf --prompt='branch > ' --preview='git log --graph --oneline --decorate $(echo {} | cut -c3-)')
         [[ "$branch" == '' ]] && return 1
@@ -57,6 +57,10 @@ git() {
       fi
       ;;
     'history' )
+      if ! command -v fzf >/dev/null 2>&1; then
+        echo "git history: fzf not found" >&2
+        return 1
+      fi
       local commit
       commit=$(command git log --graph --oneline --decorate | fzf --prompt='commit > ' --preview='echo {} | grep -o -E \[0-9a-f\]+ | head -n 1 | if read -r line; then; git log -n 1 -p --stat "$line"; else; echo Select commit; fi' | grep -o -E \[0-9a-f\]+ | head -n 1)
       [[ "$commit" == '' ]] && return 1
@@ -67,8 +71,13 @@ git() {
       ;;
   esac
 }
-
+# zsh内蔵のfd(find)aliasを関数で上書きする
+unalias fd 2>/dev/null
 fd() {
+  if ! whence -p fd >/dev/null 2>&1 || ! command -v fzf >/dev/null 2>&1; then
+    echo "fd: fd/fzf not found" >&2
+    return 1
+  fi
   local dir
   dir=$(command fd --type d --strip-cwd-prefix | fzf --prompt='cd > ' --preview='eza --color=always --git --icons -1F {}')
   [[ "$dir" == '' ]] && return 1
@@ -76,6 +85,10 @@ fd() {
 }
 
 fkill() {
+  if ! command -v procs >/dev/null 2>&1 || ! command -v fzf >/dev/null 2>&1; then
+    echo "fkill: procs/fzf not found" >&2
+    return 1
+  fi
   procs --tree | fzf --prompt='kill > ' --bind='enter:become(kill $(echo {} | grep -oE "[0-9]+" | head -n 1))'
 }
 
