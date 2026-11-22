@@ -7,7 +7,7 @@ if [[ -t 0 ]]; then
 fi
 
 export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+command -v gpgconf >/dev/null 2>&1 && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 
 PATH=$HOME/bin:$PATH
 export PATH
