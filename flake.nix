@@ -111,12 +111,18 @@
             packages = config.pre-commit.settings.enabledPackages;
           };
 
-          packages = import ./component/home/nixvim/export.nix {
-            inherit pkgs;
-            username = "hiroki";
-            lib = pkgs.lib;
-            inherit (inputs) home-manager nixvim;
-          };
+          packages =
+            (import ./component/home/nixvim/export.nix {
+              inherit pkgs;
+              username = "hiroki";
+              lib = pkgs.lib;
+              inherit (inputs) home-manager nixvim;
+            })
+            // (import ./component/home/zsh/export.nix {
+              inherit pkgs;
+              username = "hiroki";
+              inherit (inputs) home-manager;
+            });
         };
     };
 }
