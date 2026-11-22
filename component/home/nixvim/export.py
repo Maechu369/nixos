@@ -96,9 +96,19 @@ def lazy_specs(entries):
         specs.append("  { " + ", ".join(parts) + " },")
     return specs, unresolved
 
+TERMUX_LSP = {
+    "lua_ls": "pkg install lua-language-server",
+    "nil_ls": "pkg install nil",
+    "pyright": "pkg install nodejs-lts && npm install -g pyright",
+    "ruff": "pkg install ruff",
+    "gopls": "pkg install golang && go install golang.org/x/tools/gopls@latest",
+}
+
+
 
 def main():
     json_path, out_dir = sys.argv[1], sys.argv[2]
+    target = sys.argv[3] if len(sys.argv) > 3 else "linux"
     with open(json_path) as f:
         data = json.load(f)
     with open(data["initLua"]) as f:
@@ -127,7 +137,10 @@ def main():
         f.write("\n".join(plugins_lua) + "\n")
 
     readme = []
-    readme.append("# nixvim export (non-NixOS)")
+    if target == "termux":
+        readme.append("# nixvim export (Termux)")
+    else:
+        readme.append("# nixvim export (non-NixOS)")
     readme.append("")
     readme.append("Install with:")
     readme.append("")
@@ -136,15 +149,28 @@ def main():
     readme.append("```")
     readme.append("")
     readme.append("初回起動時にlazy.nvimがプラグインをGitHubから取得する(ネット必須)。")
-    readme.append("tree-sitterパーサはターゲット上でビルドされる(`:TSUpdate`済み、cc/tree-sitter-cliが必要)。")
+    if target == "termux":
+        readme.append("tree-sitterパーサは端末上でビルドされる(`:TSUpdate`済み、`pkg install clang tree-sitter`が必要)。")
+    else:
+        readme.append("tree-sitterパーサはターゲット上でビルドされる(`:TSUpdate`済み、cc/tree-sitter-cliが必要)。")
     readme.append("")
+    if target == "termux":
+        readme.append("gitはlazyのcloneに必須(Termuxでは`pkg install git`)。")
+        readme.append("")
     readme.append("## 手動導入が必要なLSPサーバー(バイナリをPATH上に用意)")
     readme.append("")
-    readme.append("| server | nixpkgs package | 起動コマンド |")
-    readme.append("|---|---|---|")
-    for s in data["lspServers"]:
-        cmd = " ".join(s["cmd"]) if s["cmd"] else s["package"]
-        readme.append(f"| {s['name']} | {s['package']} | `{cmd}` |")
+    if target == "termux":
+        readme.append("| server | 導入コマンド | 起動コマンド |")
+        readme.append("|---|---|---|")
+        for s in data["lspServers"]:
+            cmd = " ".join(s["cmd"]) if s["cmd"] else s["package"]
+            readme.append(f"| {s['name']} | {TERMUX_LSP.get(s['name'], 'pkg install ' + s['package'])} | `{cmd}` |")
+    else:
+        readme.append("| server | nixpkgs package | 起動コマンド |")
+        readme.append("|---|---|---|")
+        for s in data["lspServers"]:
+            cmd = " ".join(s["cmd"]) if s["cmd"] else s["package"]
+            readme.append(f"| {s['name']} | {s['package']} | `{cmd}` |")
     readme.append("")
     if data["luaPackages"]:
         readme.append("## luarocks依存(手動: `luarocks install ...`)")
@@ -158,7 +184,10 @@ def main():
         for p in unresolved:
             readme.append(f"- {p['pname']} {p['version'] or ''}")
         readme.append("")
-    readme.append(" clipboardのwl-copyプロバイダはwl-clipboardのインストールが前提。")
+    if target == "termux":
+        readme.append("クリップボードはTermux:API経由(`pkg install termux-api`とTermux:APIアプリが必要)。")
+    else:
+        readme.append(" clipboardのwl-copyプロバイダはwl-clipboardのインストールが前提。")
     readme.append("")
 
     with open(f"{out_dir}/README.md", "w") as f:

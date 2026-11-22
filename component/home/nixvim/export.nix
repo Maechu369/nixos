@@ -122,15 +122,20 @@ let
       initLua = "${hmConfig.home.file."${hmConfig.xdg.configHome}/nvim/init.lua".source}";
     }
   );
-in
-{
-  nixvim-export =
-    pkgs.runCommand "nixvim-export"
+  mkExport =
+    target:
+    pkgs.runCommand "nixvim-export-${target}"
       {
         nativeBuildInputs = [ pkgs.python3 ];
       }
       ''
         mkdir -p "$out/lua"
-        python3 ${./export.py} ${data} "$out"
+        python3 ${./export.py} ${data} "$out" ${target}
       '';
+
+in
+{
+  # 出力はtargetごとにREADMEの導入手順だけが異なる(init.lua/plugins.luaは純Luaで共通)
+  nixvim-export = mkExport "linux";
+  nixvim-export-termux = mkExport "termux";
 }
