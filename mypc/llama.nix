@@ -131,7 +131,30 @@ in
           '';
           aliases = [ "gemma4:12b" ];
         };
-        "qwen3.8-flash-next:125b-a3b" = {
+        "swift1.5-flash-next:125b-a6b" = {
+          cmd = ''
+            ${docker} run
+              --rm
+              --name strata
+              --device=nvidia.com/gpu=all
+              -p 127.0.0.1:18081:8080
+              --ulimit memlock=-1:-1
+              --shm-size 2g
+              --stop-timeout 120
+              -v /strata-data:/data
+              -e FAMILY=swift
+              -e MODEL=IQ3_XXS
+              -e KV=int8
+              -e CONTEXT=128k
+              -e API_KEY=${strata-key}
+              ghcr.io/niko1221/strata:0.2.17-cuda13
+          '';
+          proxy = "http://127.0.0.1:18080";
+          cmdStop = "${docker} stop --timeout 120 strata";
+          unloadTimeout = 150;
+          aliases = [ "swift1.5" ];
+        };
+        "qwen3.8-flash-next:125b-a6b" = {
           cmd = ''
             ${docker} run
               --rm
