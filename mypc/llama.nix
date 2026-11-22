@@ -10,6 +10,7 @@ let
   docker = lib.getExe' pkgs.docker "docker";
   domain = "llama.home.arpa";
   port = 8081;
+  strata-key = "passwordpassword";
 in
 {
   hardware.nvidia-container-toolkit = {
@@ -130,7 +131,7 @@ in
           '';
           aliases = [ "gemma4:12b" ];
         };
-        "strata" = {
+        "qwen3.8-flash-next:125b-a3b" = {
           cmd = ''
             ${docker} run
               --rm
@@ -143,7 +144,9 @@ in
               -v /strata-data:/data
               -e FAMILY=qwen
               -e MODEL=IQ3_XXS
-              -e API_KEY=passwordpassword
+              -e KV=int8
+              -e CONTEXT=128k
+              -e API_KEY=${strata-key}
               ghcr.io/niko1221/strata:0.2.17-cuda13
           '';
           proxy = "http://127.0.0.1:18080";
@@ -151,7 +154,7 @@ in
           # free the GPU, instead of letting docker run swallow SIGTERM.
           cmdStop = "${docker} stop --timeout 120 strata";
           unloadTimeout = 60;
-          aliases = [ "strata" ];
+          aliases = [ "qwen3.8" ];
         };
       };
     };
@@ -194,7 +197,7 @@ in
       proxyPass = "http://127.0.0.1:18081";
       proxyWebsockets = true;
       extraConfig = ''
-        proxy_set_header Authorization "Bearer passwordpassword";
+        proxy_set_header Authorization "Bearer ${strata-key}";
         proxy_buffering off;
         proxy_read_timeout 3600s;
         proxy_send_timeout 3600s;
