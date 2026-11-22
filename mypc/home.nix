@@ -15,7 +15,6 @@
     xremap.homeManagerModules.default
     ../component/home
     ../component/home/desktop
-    ./opencode
     ./omp.nix
     ./nixvim.nix
   ];
