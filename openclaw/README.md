@@ -1,12 +1,8 @@
 # openclaw
 
-MicroVM上で動作するOpenclawホスト。
+MicroVM (microvm.nix) 上で動作するOpenclawホスト. mypc 上では `mypc/default.nix` の `microvm.vms.openclaw.flake = self` で起動し、`mypc/containers/openclaw.nix` が `openclaw.home.arpa` をリバースプロキシする.
 
-## ファイル
-
-| ファイル | 説明 |
-|----------|------|
-| `config.nix` | OpenclawホストのNixOS設定（MicroVM構成） |
-| `default.nix` | flake出力（microvm.nix + home-manager） |
-| `openclaw.nix` | Openclawパッケージのビルド定義 |
-| `home.nix` | ルートユーザーのHome Manager設定 |
+- `default.nix` — flake出力 (`microvm.nixosModules.microvm` + home-manager)
+- `config.nix` — MicroVM構成のNixOS設定
+- `home.nix` — rootユーザーのHome Manager設定
+- `openclaw.nix` — `pkgs.openclaw` のビルド調整 (overrideAttrs)

@@ -1,11 +1,6 @@
 # NixOS iso image
 
-## ファイル
-
-| ファイル | 説明 |
-|----------|------|
-| `configuration.nix` | ISOイメージのNixOS設定 |
-| `default.nix` | flake出力 |
+`installation-cd-base.nix` ベースの最小ISO（デスクトップ環境なし）。設定は `iso/configuration.nix`、flake出力は `iso/default.nix`。
 
 ## 書き込み
 
@@ -23,7 +18,3 @@ sudo dd if=nixos--x86_64-linux.iso of=/dev/sda bs=4k status=progress
   4. `nmcli device wifi connect <SSID> --ask` インターネットが通ったらsshもできるように
 3. `nixos-install`
 4. `nixos-rebuild switch`
-
-## Notice
-
-25.11からplasmaは5から6にすること
