@@ -17,6 +17,7 @@ in
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
         allow ${ip.mypc}/32;
+        allow ${ip.tailscale-mypc}/32;
         deny all;
       '';
     };
