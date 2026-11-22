@@ -152,8 +152,11 @@ in
           proxy = "http://127.0.0.1:18080";
           # llama-swap runs this (docker stop) to gracefully unload and
           # free the GPU, instead of letting docker run swallow SIGTERM.
+          # unloadTimeout must exceed the docker stop timeout: llama-swap
+          # force-kills the docker run client once it expires, which can
+          # leave the strata container running and holding its VRAM.
           cmdStop = "${docker} stop --timeout 120 strata";
-          unloadTimeout = 60;
+          unloadTimeout = 150;
           aliases = [ "qwen3.8" ];
         };
       };
