@@ -59,6 +59,21 @@ pre-commit (nixfmt + git-secrets) が有効になる。
 direnv allow
 ```
 
+### nixvim設定のplain Neovimへのエクスポート
+
+```bash
+nix build .#packages.x86_64-linux.nixvim-export        # 通常のLinux用
+nix build .#packages.x86_64-linux.nixvim-export-termux # Termux用
+```
+
+`result/init.lua` と `result/lua/` を対象マシンの `~/.config/nvim/` にコピーする:
+
+```bash
+cp -r result/init.lua result/lua ~/.config/nvim/
+```
+
+導入手順・LSP/クリップボードの前提はパッケージ同梱の `README.md` (linux / Termux で内容が異なる) 参照。
+
 ## シークレット管理
 
 [sops-nix](https://github.com/Mic92/sops-nix) を使用。
