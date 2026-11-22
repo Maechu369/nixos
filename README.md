@@ -74,6 +74,22 @@ cp -r result/init.lua result/lua ~/.config/nvim/
 
 導入手順・LSP/クリップボードの前提はパッケージ同梱の `README.md` (linux / Termux で内容が異なる) 参照。
 
+### zsh設定のplain zshへのエクスポート
+
+```bash
+nix build .#packages.x86_64-linux.zsh-export        # 通常のLinux用
+nix build .#packages.x86_64-linux.zsh-export-termux # Termux用
+```
+
+`result/zsh/` を `~/.config/` に、`result/zshenv` を `~/.zshenv` にコピーする:
+
+```bash
+cp -r result/zsh ~/.config/
+cp result/zshenv ~/.zshenv
+```
+
+前提パッケージ(zsh-autosuggestions/eza等)は同梱 `README.md` 参照。
+
 ## シークレット管理
 
 [sops-nix](https://github.com/Mic92/sops-nix) を使用。

@@ -98,10 +98,10 @@ def lazy_specs(entries):
 
 TERMUX_LSP = {
     "lua_ls": "pkg install lua-language-server",
-    "nil_ls": "pkg install nil",
+    "nil_ls": "pkg install rust && cargo install nil",
     "pyright": "pkg install nodejs-lts && npm install -g pyright",
     "ruff": "pkg install ruff",
-    "gopls": "pkg install golang && go install golang.org/x/tools/gopls@latest",
+    "gopls": "pkg install gopls",
 }
 
 
