@@ -24,10 +24,8 @@ command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 git() {
   case "$1" in
     'diffs' )
-      if [[ $(command -v delta) ]]; then
-        DELTA_FEATURES=+side-by-side
-        command git diff "${@:2}"
-        DELTA_FEATURES=+
+      if command -v delta >/dev/null 2>&1; then
+        command git --no-pager diff "${@:2}" | delta --side-by-side
       else
         command git "$@"
       fi
@@ -35,15 +33,16 @@ git() {
     'stash')
       if [[ "$2" == 'list' ]] && command -v fzf >/dev/null 2>&1; then
         local stash
-        DELTA_FEATURES=+side-by-side
         stash=$(command git stash list | awk -F'[: ]' '{print "$1"}' | fzf --prompt='git stash > ' --preview='command git stash list | grep {}; command git stash show -p {}')
         if [[ "$stash" == '' ]]; then
-          DELTA_FEATURES=+
           return 1
         fi
-        git stash show -p "$stash" >&2
+        if command -v delta >/dev/null 2>&1; then
+          command git --no-pager stash show -p "$stash" | delta --side-by-side >&2
+        else
+          command git --no-pager stash show -p "$stash" >&2
+        fi
         echo "$stash"
-        DELTA_FEATURES=+
       else
         command git "$@"
       fi
@@ -109,7 +108,7 @@ command -v eza >/dev/null 2>&1 && {
 }
 command -v delta >/dev/null 2>&1 && {
   alias diff=delta
-  alias diffs='DELTA_FEATURES=+side-by-side delta'
+  alias diffs='delta --side-by-side'
 }
 command -v trash >/dev/null 2>&1 && alias rm=trash
 command -v vim >/dev/null 2>&1 && alias v=vim
