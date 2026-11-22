@@ -11,7 +11,7 @@ in
         setupWizard = false;
       };
       theme.dark = "titanium";
-      modelRoles.default = "llama-swap/swift1.5-flash-next:125b-a3b";
+      modelRoles.default = "llama-swap/swift1.5-flash-next:125b-a6b";
     };
   };
   home.file.".omp/agent/models.yml" = {

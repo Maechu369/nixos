@@ -131,7 +131,7 @@ in
           '';
           aliases = [ "gemma4:12b" ];
         };
-        "swift1.5-flash-next:125b-a3b" = {
+        "swift1.5-flash-next:125b-a6b" = {
           cmd = ''
             ${docker} run
               --rm
@@ -154,7 +154,7 @@ in
           unloadTimeout = 150;
           aliases = [ "swift1.5" ];
         };
-        "qwen3.8-flash-next:125b-a3b" = {
+        "qwen3.8-flash-next:125b-a6b" = {
           cmd = ''
             ${docker} run
               --rm
