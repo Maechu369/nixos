@@ -1,4 +1,4 @@
-{ ip, ... }:
+{ ip, inputs, ... }:
 let
   hostAddress = "192.168.64.1";
   localAddress = "192.168.64.4";
@@ -13,6 +13,7 @@ in
     inherit localAddress;
     config = ./searxng.nix;
   };
+  imports = [ ./sops-module.nix ];
   services.nginx.virtualHosts."${domain}" = {
     forceSSL = true;
     useACMEHost = "searxng.home.arpa";

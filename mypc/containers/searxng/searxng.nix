@@ -1,16 +1,38 @@
-{ lib, config, ... }:
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+let
+  sopsAgeKeyFile = "/var/lib/sops-nix/keys.txt";
+in
+{
+  environment.systemPackages = with pkgs; [ age ];
+
+  sops = {
+    age.keyFile = sopsAgeKeyFile;
+    age.generateKey = true;
+    defaultSopsFile = ../../../secrets/searxng.env;
+    defaultSopsFormat = "dotenv";
+
+    secrets."searxng-env" = {
+      format = "dotenv";
+      mode = "0400";
+      owner = "searx";
+      group = "searx";
+    };
+  };
+
   services.searx = {
     enable = true;
+    environmentFile = config.sops.secrets."searxng-env".path;
     settings = {
       server = {
         port = 8080;
         bind_address = "0.0.0.0";
         limiter = false;
-        # FIXME 本当は良くないが、ローカル経由でのみ接続できるようNginXを設定
-        # もし修正するのであれば、searvices.searx.environmentFileにymlファイルを丸ごと暗号化して入れる
-        # 修正する際は、キーを再生成すること
-        secret_key = "<nG);+2hk{BBl=_q`NG-LNsO'";
+        secret_key = "$SEARXNG_SECRET";
       };
       search = {
         formats = [
@@ -22,6 +44,7 @@
     };
     openFirewall = true;
   };
+
   networking = {
     firewall = {
       enable = true;
@@ -32,5 +55,6 @@
     ];
     useHostResolvConf = lib.mkForce false;
   };
+
   system.stateVersion = "26.11";
 }
