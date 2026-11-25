@@ -11,7 +11,7 @@
     ];
   };
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/2786a2a72088ecf32aea5b3ec52099e6a7cff78f";
+    nixpkgs.url = "github:nixos/nixpkgs/58d0d3e9d527ca7263be6a45d1f86eacdc700dab";
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
       inputs.nixpkgs.follows = "nixpkgs";
