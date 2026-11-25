@@ -24,6 +24,7 @@ in
       inherit
         username
         ip
+        inputs
         nixos-hardware
         xremap
         ;
