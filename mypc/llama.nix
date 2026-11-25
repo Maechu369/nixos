@@ -11,6 +11,7 @@ let
   domain = "llama.home.arpa";
   port = 8081;
   strata-key = "passwordpassword";
+  strata-image = "ghcr.io/niko1221/strata:0.2.21-cuda13";
 in
 {
   hardware.nvidia-container-toolkit = {
@@ -147,7 +148,7 @@ in
               -e KV=int8
               -e CONTEXT=128k
               -e API_KEY=${strata-key}
-              ghcr.io/niko1221/strata:0.2.17-cuda13
+              ${strata-image}
           '';
           proxy = "http://127.0.0.1:18080";
           cmdStop = "${docker} stop --timeout 120 strata";
@@ -170,7 +171,7 @@ in
               -e KV=int8
               -e CONTEXT=128k
               -e API_KEY=${strata-key}
-              ghcr.io/niko1221/strata:0.2.17-cuda13
+              ${strata-image}
           '';
           proxy = "http://127.0.0.1:18080";
           # llama-swap runs this (docker stop) to gracefully unload and
