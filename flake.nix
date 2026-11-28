@@ -96,8 +96,9 @@
                 enable = true;
                 name = "git-secrets";
                 description = "Prevent committing secrets with git-secrets";
-                entry = "${pkgs.git-secrets}/bin/git-secrets scan";
+                entry = "${pkgs.git-secrets}/bin/git-secrets --scan";
                 pass_filenames = false;
+                package = pkgs.git-secrets;
               };
             };
           };
@@ -105,7 +106,8 @@
             shellHook = ''
               ${config.pre-commit.shellHook}
               ${pkgs.git-secrets}/bin/git-secrets --register-aws
-              ${pkgs.git-secrets}/bin/git-secrets --add-provider -- cat ${./secrets-patterns.txt}
+              # 作業ツリーの相対パスで登録する。storeパスだと編集した secrets-patterns.txt が次回 dev shell まで反映されない
+              ${pkgs.git-secrets}/bin/git-secrets --add-provider -- cat secrets-patterns.txt
               echo "regenerate .pre-commit-config.yaml"
             '';
             packages = config.pre-commit.settings.enabledPackages;

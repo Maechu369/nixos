@@ -1,1 +1,3 @@
 secrets-patterns.txt
+mypc/llama.nix:.*strata-key.*
+mypc/omp.nix:.*api = "openai-completions"
