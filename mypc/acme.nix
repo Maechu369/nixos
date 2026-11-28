@@ -4,7 +4,7 @@
     enable = true;
     address = "0.0.0.0";
     port = 9000;
-    openFirewall = true;
+    openFirewall = false;
     intermediatePasswordFile = "/var/lib/step-ca/config/password.txt";
     settings = {
       root = "/var/lib/step-ca/certs/root_ca.crt";
@@ -16,10 +16,21 @@
         dataSource = "/var/lib/step-ca/db";
       };
       authority = {
+        policy = {
+          x509 = {
+            allow = {
+              dns = [
+                "*.home.arpa"
+              ];
+            };
+            allowWildcardNames = false;
+          };
+        };
         provisioners = [
           {
             type = "ACME";
             name = "acme";
+            challenges = [ "http-01" ];
           }
         ];
       };
@@ -31,6 +42,11 @@
       };
     };
   };
+
+  networking.firewall.extraInputRules = ''
+    ip saddr 192.168.2.0/24 tcp dport 9000 accept
+    iifname "tailscale0" tcp dport 9000 accept
+  '';
   security.acme = {
     acceptTerms = true;
     defaults.email = "maechu369@home.arpa";
