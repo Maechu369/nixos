@@ -12,6 +12,9 @@ in
     "nix-command"
     "flakes"
   ];
+  # openclaw 自体が insecure package のため、microVM に隔離して許容する。
+  # 隔離の対象はワークロード (openclaw) 側で、VM は mypc 配下の信頼として扱う。
+  # mypc が侵入された場合は VM も失う前提とし、VM 側の root SSH を緩めに置いている。
   nixpkgs.config.permittedInsecurePackages = [
     "openclaw-2026.10.5"
   ];
@@ -88,6 +91,7 @@ in
     enable = true;
     settings = {
       PasswordAuthentication = false;
+      # 上記の入れ子信頼の方針で root ログインを許可する。鍵のみ (PasswordAuthentication = false)。
       PermitRootLogin = "yes";
     };
     hostKeys = [
