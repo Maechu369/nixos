@@ -2,7 +2,6 @@
   pkgs,
   lib,
   ip,
-  username,
   ...
 }:
 let
@@ -200,7 +199,7 @@ in
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        allow 100.64.0.0/10;
+        allow ${ip.tailscale-mypc}/32;
         allow ${ip.mypc}/32;
         allow 192.168.65.2/32;
         allow ${ip.letsnote}/32;
@@ -220,6 +219,7 @@ in
     ];
   };
   services.nginx.virtualHosts."127.0.0.1:18080" = {
+    # strataは、llama-swapからの全ての通信を許可する。通信制御はllama-swap側の責任とする
     locations."/" = {
       proxyPass = "http://127.0.0.1:18081";
       proxyWebsockets = true;
